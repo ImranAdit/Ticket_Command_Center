@@ -1,3 +1,21 @@
+Dont make much of changes to the code. It is extracted from claude. Just give me the code to be split separately for
+
+frontend/
+   ├── index.html
+   ├── styles.css
+   ├── app.js
+
+Here is the code
+
+This is my current index.html 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Adit ◈ Ticket Command Center</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
 /* ── RESET ── */
 *{box-sizing:border-box;margin:0;padding:0}
 
@@ -23,65 +41,1030 @@
 }
 
 /* ── BASE ── */
-html,body{
-  height:100%;
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Inter',system-ui,sans-serif;
-  font-size:13px;
-  line-height:1.5
-}
-
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:13px;line-height:1.5}
 #app{display:flex;flex-direction:column;height:100vh;overflow:hidden}
 
-/* LOGIN */
+/* ════════════════════════════════
+   LOGIN
+════════════════════════════════ */
 #login-screen{display:flex;align-items:center;justify-content:center;flex:1;background:var(--bg);position:relative;overflow:hidden}
 #login-screen::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 0%,rgba(0,100,180,0.12) 0%,transparent 70%)}
-
 .login-box{background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:40px 48px;width:420px;position:relative}
 .login-box::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:60%;height:1px;background:linear-gradient(90deg,transparent,var(--neon),transparent)}
-
-.login-logo{font-size:22px;font-weight:700;text-align:center;margin-bottom:4px}
+.login-logo{font-size:22px;font-weight:700;color:var(--text);letter-spacing:2px;text-align:center;margin-bottom:4px}
 .login-logo span{color:var(--neon)}
 .login-sub{font-size:11px;color:var(--muted);text-align:center;letter-spacing:3px;text-transform:uppercase;margin-bottom:32px}
-
-.login-label{font-size:11px;color:var(--muted);margin-bottom:6px}
-.login-input{width:100%;background:var(--surface);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;color:var(--text);outline:none}
+.login-label{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.login-input{width:100%;background:var(--surface);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;color:var(--text);font-size:13px;outline:none;transition:border-color .2s}
 .login-input:focus{border-color:var(--neon)}
+.login-btn{width:100%;margin-top:20px;padding:11px;background:var(--neon);border:none;border-radius:8px;color:#000;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:opacity .2s}
+.login-btn:hover{opacity:.85}
+.login-error{color:var(--crimson);font-size:12px;margin-top:10px;text-align:center;min-height:18px}
+.login-hint{font-size:11px;color:var(--faint);text-align:center;margin-top:16px}
 
-.login-btn{width:100%;margin-top:20px;padding:11px;background:var(--neon);border:none;border-radius:8px;color:#000;font-weight:700;cursor:pointer}
-.login-error{color:var(--crimson);font-size:12px;margin-top:10px;text-align:center}
+/* ════════════════════════════════
+   MAIN APP
+════════════════════════════════ */
+#main-app{display:none;flex-direction:column;flex:1;overflow:hidden}
 
-/* TOPBAR */
-.topbar{display:flex;align-items:center;gap:16px;padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--border)}
-.topbar-brand{font-weight:700}
+/* ── TOPBAR ── */
+.topbar{display:flex;align-items:center;gap:16px;padding:10px 20px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;flex-wrap:wrap}
+.topbar-brand{font-size:14px;font-weight:700;color:var(--text);letter-spacing:2px;flex-shrink:0}
 .topbar-brand span{color:var(--neon)}
-
-.dept-tabs{display:flex;gap:4px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:3px}
-.dept-tab{padding:6px 16px;border-radius:7px;border:none;background:transparent;color:var(--muted);cursor:pointer}
+.dept-tabs{display:flex;gap:4px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:3px;flex-wrap:wrap}
+.dept-tab{padding:6px 16px;border-radius:7px;border:none;background:transparent;color:var(--muted);cursor:pointer;font-size:12px;font-weight:500;letter-spacing:.5px;transition:all .15s}
 .dept-tab.active{background:var(--neon);color:#000;font-weight:700}
+.dept-tab:not(.active):hover{color:var(--text);background:var(--card)}
+.topbar-right{display:flex;align-items:center;gap:12px;margin-left:auto;flex-shrink:0;flex-wrap:wrap}
+.review-toggle{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);cursor:pointer;user-select:none}
+.toggle-track{width:36px;height:20px;background:var(--border2);border-radius:10px;position:relative;cursor:pointer;transition:background .2s;flex-shrink:0}
+.toggle-track.on{background:var(--purple)}
+.toggle-thumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:var(--text);border-radius:50%;transition:left .2s}
+.toggle-track.on .toggle-thumb{left:18px}
+.user-badge{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:4px 12px}
+.logout-btn{font-size:11px;color:var(--muted);background:none;border:1px solid var(--border);border-radius:6px;padding:5px 12px;cursor:pointer;transition:color .2s,border-color .2s}
+.logout-btn:hover{color:var(--crimson);border-color:var(--crimson)}
 
-/* TABLE */
-.table-scroll{flex:1;overflow:auto}
-table{width:100%;border-collapse:collapse}
+/* ── METRIC TILES ── */
+.metrics-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:14px 20px;flex-shrink:0}
+@media(max-width:640px){.metrics-row{grid-template-columns:1fr}}
+.metric-tile{background:var(--card);border-radius:12px;padding:16px 20px;position:relative;overflow:hidden}
+.metric-tile::after{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.metric-tile.t-neon{border:1px solid var(--neon-dim)}
+.metric-tile.t-neon::after{background:linear-gradient(90deg,transparent,var(--neon),transparent)}
+.metric-tile.t-amber{border:1px solid var(--amber-dim)}
+.metric-tile.t-amber::after{background:linear-gradient(90deg,transparent,var(--amber),transparent)}
+.metric-tile.t-crimson{border:1px solid var(--crimson-dim)}
+.metric-tile.t-crimson::after{background:linear-gradient(90deg,transparent,var(--crimson),transparent)}
+.metric-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.metric-num{font-size:32px;font-weight:700;line-height:1}
+.metric-tile.t-neon    .metric-num{color:var(--neon)}
+.metric-tile.t-amber   .metric-num{color:var(--amber)}
+.metric-tile.t-crimson .metric-num{color:var(--crimson)}
+.metric-sub{font-size:11px;color:var(--muted);margin-top:4px}
 
-thead th{
-  background:var(--surface);
-  padding:8px 12px;
-  font-size:10px;
-  color:var(--muted);
-  border-bottom:1px solid var(--border)
+/* ── CONTENT LAYOUT ── */
+.content-area{display:flex;flex:1;overflow:hidden}
+
+/* ── GRID PANEL ── */
+.grid-panel{flex:1;display:flex;flex-direction:column;overflow:hidden;border-right:1px solid var(--border)}
+.grid-header{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--surface);flex-wrap:wrap}
+.grid-title{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.filter-tabs{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.filter-tab{padding:4px 10px;border-radius:5px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:10px;cursor:pointer;letter-spacing:.5px;transition:all .15s}
+.filter-tab.active{border-color:var(--neon);color:var(--neon);background:var(--neon-glow)}
+.filter-tab:not(.active):hover{color:var(--text)}
+
+/* ── UPLOAD ZONE ── */
+#upload-container{padding:16px}
+.upload-zone{border:1px dashed var(--border2);border-radius:10px;padding:28px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;background:var(--surface)}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--neon);background:var(--neon-glow)}
+.upload-icon{font-size:28px;margin-bottom:10px;color:var(--muted)}
+.upload-text{font-size:13px;color:var(--muted)}
+.upload-text b{color:var(--neon)}
+.upload-hint{font-size:11px;color:var(--faint);margin-top:6px}
+#file-input{display:none}
+
+/* ── TABLE ── */
+.table-scroll{flex:1;overflow-y:auto;overflow-x:auto}
+.table-scroll::-webkit-scrollbar{width:5px;height:5px}
+.table-scroll::-webkit-scrollbar-track{background:var(--bg)}
+.table-scroll::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+table{width:100%;border-collapse:collapse;min-width:780px}
+thead th{position:sticky;top:0;z-index:2;background:var(--surface);padding:8px 12px;text-align:left;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
+tbody tr:hover{background:rgba(255,255,255,0.025)}
+tbody tr.reviewed{opacity:.28}
+tbody tr.alert-flash{border-left:2px solid var(--green)}
+tbody tr.alert-24   {border-left:2px solid var(--neon)}
+tbody tr.alert-48   {border-left:2px solid var(--amber)}
+tbody tr.alert-72   {border-left:2px solid var(--crimson)}
+tbody tr.alert-dev  {border-left:2px solid var(--purple)}
+td{padding:8px 12px;font-size:12px;white-space:nowrap;color:var(--text)}
+.tid-link{color:var(--neon);text-decoration:none;font-weight:600}
+.tid-link:hover{text-decoration:underline}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;letter-spacing:.5px}
+.badge-open   {background:rgba(0,180,255,0.1);color:var(--neon)}
+.badge-pending{background:rgba(168,85,247,0.1);color:var(--purple)}
+.badge-waiting{background:rgba(245,158,11,0.1);color:var(--amber)}
+.badge-closed {background:rgba(107,122,153,0.1);color:var(--muted)}
+.idle-timer{font-weight:700;font-family:monospace;font-size:11px}
+.idle-ok   {color:var(--green)}
+.idle-warn {color:var(--amber)}
+.idle-crit {color:var(--crimson)}
+.idle-flash{color:var(--neon)}
+.row-review-btn{background:none;border:1px solid var(--border);color:var(--faint);cursor:pointer;font-size:10px;padding:3px 8px;border-radius:4px;transition:all .15s}
+.row-review-btn:hover{color:var(--purple);border-color:var(--purple);background:rgba(168,85,247,0.08)}
+.row-review-btn.done{color:var(--purple);border-color:var(--purple)}
+
+/* ── LEGEND ── */
+.legend-row{display:flex;flex-wrap:wrap;gap:12px;padding:10px 16px;border-top:1px solid var(--border);background:var(--bg);flex-shrink:0}
+.leg{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted)}
+.leg-bar{width:10px;height:16px;border-radius:1px;flex-shrink:0}
+
+/* ── EMPTY STATE ── */
+.empty-state{padding:48px;text-align:center;color:var(--muted)}
+.empty-icon{font-size:36px;margin-bottom:12px;opacity:.3}
+.empty-text{font-size:13px}
+
+/* ════════════════════════════════
+   SIDEBAR
+════════════════════════════════ */
+.sidebar{width:280px;flex-shrink:0;display:flex;flex-direction:column;overflow:hidden}
+@media(max-width:900px){.sidebar{display:none}}
+.sidebar-header{padding:10px 14px;border-bottom:1px solid var(--border);background:var(--surface)}
+.sidebar-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.sidebar-sub{font-size:10px;color:var(--faint);margin-top:2px}
+.sidebar-scroll{flex:1;overflow-y:auto;padding:0}
+.sidebar-scroll::-webkit-scrollbar{width:3px}
+.sidebar-scroll::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+.agent-row{display:flex;align-items:center;gap:8px;padding:7px 10px;border-bottom:1px solid var(--border);transition:background .1s}
+.agent-row:last-child{border-bottom:none}
+.agent-row:hover{background:var(--card)}
+.agent-rank{font-size:10px;color:var(--faint);width:16px;text-align:center;flex-shrink:0}
+.agent-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0}
+.agent-name{font-size:11px;color:var(--text);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.agent-count{font-size:12px;font-weight:700;flex-shrink:0}
+.count-low {color:var(--green)}
+.count-mid {color:var(--amber)}
+.count-high{color:var(--crimson)}
+
+/* ════════════════════════════════
+   ZOHO DESK PANEL
+════════════════════════════════ */
+.zoho-panel{border-top:1px solid var(--border);flex-shrink:0;overflow-y:auto;max-height:62vh}
+.zoho-panel::-webkit-scrollbar{width:3px}
+.zoho-panel::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+.zoho-panel-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--surface);border-bottom:1px solid var(--border);cursor:pointer;user-select:none;position:sticky;top:0;z-index:1}
+.zoho-panel-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:7px}
+.zoho-dot{width:6px;height:6px;border-radius:50%;background:var(--faint);flex-shrink:0;transition:background .3s}
+.zoho-dot.live{background:var(--green)}
+.zoho-chevron{font-size:9px;color:var(--faint);transition:transform .2s}
+.zoho-chevron.open{transform:rotate(180deg)}
+.zoho-body{padding:14px;display:none;flex-direction:column;gap:12px}
+.zoho-body.open{display:flex}
+
+/* form fields */
+.zfield-label{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+.zfield-input{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:7px 10px;color:var(--text);font-size:11px;font-family:monospace;outline:none;transition:border-color .2s}
+.zfield-input:focus{border-color:var(--neon)}
+.zfield-hint{font-size:10px;color:var(--faint);margin-top:4px;line-height:1.5}
+
+/* primary fetch button */
+.zoho-fetch-btn{width:100%;padding:9px;background:transparent;border:1px solid var(--neon-dim);border-radius:6px;color:var(--neon);font-size:11px;font-weight:700;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;transition:all .15s}
+.zoho-fetch-btn:hover{background:var(--neon-glow)}
+.zoho-fetch-btn:disabled{opacity:.35;cursor:not-allowed}
+
+/* summary card */
+.zoho-summary-card{background:var(--bg);border:1px solid var(--border2);border-radius:8px;overflow:hidden}
+.zsc-header{padding:9px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.zsc-title{font-size:11px;font-weight:600;color:var(--text)}
+.zsc-ts{font-size:9px;color:var(--faint);font-family:monospace}
+.zsc-body{padding:0}
+.zsc-row{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;border-bottom:1px solid var(--border)}
+.zsc-row:last-child{border-bottom:none}
+.zsc-key{font-size:11px;color:var(--muted)}
+.zsc-val{font-size:12px;font-weight:700;font-family:monospace}
+.zsc-val.c-blue  {color:var(--neon)}
+.zsc-val.c-amber {color:var(--amber)}
+.zsc-val.c-red   {color:var(--crimson)}
+.zsc-val.c-green {color:var(--green)}
+.zsc-val.c-purple{color:var(--purple)}
+.zsc-skeleton{height:11px;background:var(--border);border-radius:3px;display:inline-block;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:.8}}
+.zsc-divider{padding:5px 12px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);border-bottom:1px solid var(--border);background:var(--surface)}
+.zsc-bar-row{display:flex;align-items:center;gap:7px;padding:6px 12px;border-bottom:1px solid var(--border)}
+.zsc-bar-row:last-child{border-bottom:none}
+.zsc-bar-label{font-size:10px;color:var(--muted);width:70px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.zsc-bar-track{flex:1;height:3px;background:var(--border2);border-radius:2px;overflow:hidden}
+.zsc-bar-fill{height:100%;border-radius:2px;transition:width .4s ease}
+.zsc-bar-count{font-size:10px;font-family:monospace;color:var(--muted);width:22px;text-align:right;flex-shrink:0}
+
+/* error */
+.zoho-error{font-size:10px;color:var(--crimson);background:rgba(239,68,68,0.06);border:1px solid var(--crimson-dim);border-radius:5px;padding:7px 9px;line-height:1.5}
+
+/* secondary action — attachment upload */
+.attach-section{border-top:1px solid var(--border);padding-top:12px;display:flex;flex-direction:column;gap:6px}
+.attach-btn{width:100%;padding:8px;background:transparent;border:1px solid var(--border2);border-radius:6px;color:var(--muted);font-size:11px;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:7px}
+.attach-btn:hover{border-color:var(--border);color:var(--text);background:var(--card)}
+#attach-file-input{display:none}
+.attach-list{display:flex;flex-direction:column;gap:4px}
+.attach-item{display:flex;align-items:center;gap:6px;padding:5px 8px;background:var(--surface);border:1px solid var(--border);border-radius:5px}
+.attach-name{font-size:10px;color:var(--text);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:monospace}
+.attach-size{font-size:9px;color:var(--faint);flex-shrink:0}
+.attach-remove{background:none;border:none;color:var(--faint);cursor:pointer;font-size:11px;padding:0 2px;transition:color .15s;flex-shrink:0}
+.attach-remove:hover{color:var(--crimson)}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ═══════════════════════ LOGIN ═══════════════════════ -->
+  <div id="login-screen">
+    <div class="login-box">
+      <div class="login-logo">ADIT <span>◈</span></div>
+      <div class="login-sub">Ticket Command Center</div>
+      <div class="login-label">Email Address</div>
+      <input class="login-input" id="login-email" type="email"
+             placeholder="you@adit.com" autocomplete="email" />
+      <div class="login-label" style="margin-top:16px">Password</div>
+      <input class="login-input" id="login-pass" type="password"
+             placeholder="••••••••" autocomplete="current-password" />
+      <button class="login-btn" id="login-btn">Access Command Center</button>
+      <div class="login-error" id="login-error"></div>
+      <div class="login-hint">Access restricted to @adit.com accounts</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════ MAIN APP ═══════════════════════ -->
+  <div id="main-app">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="topbar-brand">ADIT <span>◈</span> TCC</div>
+      <div class="dept-tabs" id="dept-tabs">
+        <button class="dept-tab active" data-dept="VoIP">VoIP</button>
+        <button class="dept-tab" data-dept="T1 Tech">T1 Tech</button>
+        <button class="dept-tab" data-dept="T2 Core Tech">T2 Core</button>
+        <button class="dept-tab" data-dept="Adit Pay">Adit Pay</button>
+        <button class="dept-tab" data-dept="all">All Depts</button>
+      </div>
+      <div class="topbar-right">
+        <div class="review-toggle" id="review-toggle" title="Dim audited tickets">
+          <div class="toggle-track" id="toggle-track"><div class="toggle-thumb"></div></div>
+          <span>Review Mode</span>
+        </div>
+        <div class="user-badge" id="user-badge"></div>
+        <button class="logout-btn" id="logout-btn">Sign Out</button>
+      </div>
+    </div>
+
+    <!-- HERO METRIC TILES -->
+    <div class="metrics-row">
+      <div class="metric-tile t-neon">
+        <div class="metric-label">Critical Today (4h Flash)</div>
+        <div class="metric-num" id="m-flash">0</div>
+        <div class="metric-sub">Created today, no action within 4 biz hrs</div>
+      </div>
+      <div class="metric-tile t-amber">
+        <div class="metric-label">Stagnant (&gt;24h Idle)</div>
+        <div class="metric-num" id="m-stagnant">0</div>
+        <div class="metric-sub">Unactioned beyond 24 business hours</div>
+      </div>
+      <div class="metric-tile t-crimson">
+        <div class="metric-label">Overdue Dev (&gt;3d Pending)</div>
+        <div class="metric-num" id="m-dev">0</div>
+        <div class="metric-sub">Pending Development &gt; 3 business days</div>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content-area">
+
+      <!-- ── GRID PANEL ── -->
+      <div class="grid-panel">
+        <div class="grid-header">
+          <div class="grid-title">Action Grid</div>
+          <div class="filter-tabs" id="filter-tabs">
+            <button class="filter-tab active" data-filter="all">All</button>
+            <button class="filter-tab" data-filter="24h">24h+</button>
+            <button class="filter-tab" data-filter="48h">48h+</button>
+            <button class="filter-tab" data-filter="72h">72h+</button>
+            <button class="filter-tab" data-filter="dev">Dev Queue</button>
+            <button class="filter-tab" data-filter="flash">Flash</button>
+          </div>
+        </div>
+
+        <!-- UPLOAD ZONE -->
+        <div id="upload-container">
+          <div class="upload-zone" id="upload-zone">
+            <div class="upload-icon">⬆</div>
+            <div class="upload-text"><b>Drag &amp; drop</b> your Excel / CSV ticket export here</div>
+            <div class="upload-hint">Supports .xlsx, .xls, .csv — maps VoIP Ticket Summary headers automatically</div>
+            <input type="file" id="file-input" accept=".xlsx,.xls,.csv" />
+          </div>
+          <div style="text-align:center;padding:14px 0 4px">
+            <span style="font-size:11px;color:var(--faint)">No file yet?&nbsp;&nbsp;</span>
+            <button id="demo-btn" style="background:none;border:none;font-size:11px;color:var(--neon);cursor:pointer;text-decoration:underline;padding:0">Load sample data &rarr;</button>
+          </div>
+        </div>
+
+        <!-- ACTION GRID TABLE -->
+        <div class="table-scroll" id="table-wrap" style="display:none">
+          <table>
+            <thead>
+              <tr>
+                <th>Ticket ID</th>
+                <th>Agent</th>
+                <th>Subject</th>
+                <th>Status</th>
+                <th>Ticket Age</th>
+                <th>Modified</th>
+                <th>Live Idle Timer</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="ticket-tbody"></tbody>
+          </table>
+        </div>
+
+        <!-- LEGEND -->
+        <div class="legend-row" id="legend-row" style="display:none">
+          <div class="leg"><div class="leg-bar" style="background:var(--green)"></div>Flash — today, 4h+ no action</div>
+          <div class="leg"><div class="leg-bar" style="background:var(--neon)"></div>24h+ stagnant</div>
+          <div class="leg"><div class="leg-bar" style="background:var(--amber)"></div>48h+ idle</div>
+          <div class="leg"><div class="leg-bar" style="background:var(--crimson)"></div>72h+ / 3d+ overdue</div>
+          <div class="leg"><div class="leg-bar" style="background:var(--purple)"></div>Pending Dev &gt;3 days</div>
+        </div>
+      </div>
+
+      <!-- ── SIDEBAR ── -->
+      <div class="sidebar">
+
+        <!-- Agent Leaderboard -->
+        <div class="sidebar-header">
+          <div class="sidebar-title">Agent Leaderboard</div>
+          <div class="sidebar-sub">ranked by unactioned tickets</div>
+        </div>
+        <div class="sidebar-scroll" id="leaderboard">
+          <div style="padding:24px 12px;text-align:center;color:var(--faint);font-size:11px">Upload data to see rankings</div>
+        </div>
+
+        <!-- Zoho Desk Panel -->
+        <div class="zoho-panel">
+          <div class="zoho-panel-hdr" id="zoho-panel-hdr">
+            <div class="zoho-panel-title">
+              <div class="zoho-dot" id="zoho-dot"></div>
+              Zoho Desk
+            </div>
+            <span class="zoho-chevron" id="zoho-chevron">&#9660;</span>
+          </div>
+
+          <div class="zoho-body" id="zoho-body">
+
+            <div>
+              <div class="zfield-label">OAuth Access Token</div>
+              <input class="zfield-input" id="z-token" type="password"
+                     placeholder="Zoho-oauthtoken 1000.xxxx…"
+                     spellcheck="false" autocomplete="off" />
+              <div class="zfield-hint">Session only — never stored or transmitted outside this tab.</div>
+            </div>
+
+            <div>
+              <div class="zfield-label">Org ID</div>
+              <input class="zfield-input" id="z-org-id" type="text"
+                     placeholder="e.g. 123456789"
+                     spellcheck="false" maxlength="24" />
+              <div class="zfield-hint">Zoho Desk → Setup → Developer Space → Org ID.</div>
+            </div>
+
+            <div>
+              <div class="zfield-label">Data Center</div>
+              <select class="zfield-input" id="z-dc" style="cursor:pointer">
+                <option value="com">Global &nbsp;&nbsp;(desk.zoho.com)</option>
+                <option value="eu">Europe &nbsp;&nbsp;(desk.zoho.eu)</option>
+                <option value="in">India &nbsp;&nbsp;&nbsp;(desk.zoho.in)</option>
+                <option value="com.au">Australia (desk.zoho.com.au)</option>
+                <option value="jp">Japan &nbsp;&nbsp;&nbsp;(desk.zoho.jp)</option>
+              </select>
+            </div>
+
+            <!-- Primary CTA -->
+            <button class="zoho-fetch-btn" id="zoho-fetch-btn">&#8635;&nbsp; Fetch Summary</button>
+
+            <!-- Summary Card (hidden until successful fetch) -->
+            <div class="zoho-summary-card" id="zoho-summary-card" style="display:none">
+              <div class="zsc-header">
+                <span class="zsc-title">Ticket Summary</span>
+                <span class="zsc-ts" id="zoho-ts">—</span>
+              </div>
+              <div class="zsc-body" id="zoho-summary-body"></div>
+            </div>
+
+            <!-- Error (hidden by default) -->
+            <div class="zoho-error" id="zoho-error" style="display:none"></div>
+
+            <!-- Secondary Action: Upload Attachment -->
+            <div class="attach-section">
+              <div class="zfield-label">Attachments</div>
+              <button class="attach-btn" id="attach-btn">&#128206;&nbsp; Upload</button>
+              <input type="file" id="attach-file-input" multiple accept="*/*" />
+              <div class="attach-list" id="attach-list"></div>
+            </div>
+
+          </div>
+        </div>
+
+      </div><!-- /sidebar -->
+    </div><!-- /content-area -->
+  </div><!-- /main-app -->
+</div><!-- /app -->
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   ADIT TICKET COMMAND CENTER  —  v2.0.0
+   ─────────────────────────────────────────────────────────────
+   Security: No API keys or secrets are embedded in this file.
+   The Zoho OAuth token is entered at runtime, held only in JS
+   memory, and discarded on logout. It is never written to
+   localStorage, sessionStorage, cookies, or sent anywhere
+   except directly to desk.zoho.{dc} (Zoho's own servers).
+   Zoho Desk supports CORS browser requests with a valid token.
+══════════════════════════════════════════════════════════════ */
+
+const $ = id => document.getElementById(id);
+
+/* ── CONSTANTS ── */
+const BIZ_START = 7;   /* 07:00 CST */
+const BIZ_END   = 19;  /* 19:00 CST */
+const BIZ_HRS   = BIZ_END - BIZ_START;
+
+/* ── RUNTIME STATE ── */
+let currentUser   = '';
+let tickets       = [];
+let reviewed      = new Set();
+let reviewMode    = false;
+let currentDept   = 'VoIP';
+let currentFilter = 'all';
+let timerInterval = null;
+
+/* ══════════════════════
+   BUSINESS HOUR HELPERS
+══════════════════════ */
+function bizHoursBetween(start, end) {
+  if (!start || !end || end <= start) return 0;
+  let total  = 0;
+  let cursor = new Date(start);
+  while (cursor < end) {
+    const day = cursor.getDay();
+    if (day !== 0 && day !== 6) {
+      const ds = new Date(cursor); ds.setHours(BIZ_START, 0, 0, 0);
+      const de = new Date(cursor); de.setHours(BIZ_END,   0, 0, 0);
+      const s  = Math.max(cursor.getTime(), ds.getTime());
+      const e  = Math.min(end.getTime(),    de.getTime());
+      if (e > s) total += (e - s) / 3600000;
+    }
+    cursor = new Date(cursor);
+    cursor.setDate(cursor.getDate() + 1);
+    cursor.setHours(BIZ_START, 0, 0, 0);
+  }
+  return total;
 }
 
-td{padding:8px 12px;font-size:12px}
+function fmtDuration(hours) {
+  if (hours < 1)  return Math.round(hours * 60) + 'm';
+  if (hours < 24) return hours.toFixed(1) + 'h';
+  return (hours / BIZ_HRS).toFixed(1) + 'd';
+}
 
-.tid-link{color:var(--neon);text-decoration:none}
-.badge{padding:2px 8px;border-radius:4px;font-size:10px}
-.badge-open{color:var(--neon)}
-.badge-pending{color:var(--purple)}
-.badge-waiting{color:var(--amber)}
-.badge-closed{color:var(--muted)}
+function fmtAgo(dt) {
+  if (!dt) return '—';
+  const diff = (Date.now() - dt.getTime()) / 60000;
+  if (diff < 60)   return Math.round(diff) + 'm ago';
+  if (diff < 1440) return Math.round(diff / 60) + 'h ago';
+  return Math.round(diff / 1440) + 'd ago';
+}
 
-.idle-ok{color:var(--green)}
-.idle-warn{color:var(--amber)}
-.idle-crit{color:var(--crimson)}
+function getAge(created, now) {
+  if (!created) return '—';
+  return fmtDuration((now - created) / 3600000);
+}
+
+/* ══════════════════════
+   AUTH
+══════════════════════ */
+$('login-btn').onclick   = doLogin;
+$('login-email').onkeydown = e => { if (e.key === 'Enter') $('login-pass').focus(); };
+$('login-pass').onkeydown  = e => { if (e.key === 'Enter') doLogin(); };
+
+function doLogin() {
+  const email = $('login-email').value.trim().toLowerCase();
+  const pass  = $('login-pass').value;
+  if (!email.endsWith('@adit.com')) {
+    $('login-error').textContent = 'Access denied — must use an @adit.com email address.';
+    return;
+  }
+  if (!pass) { $('login-error').textContent = 'Password is required.'; return; }
+  currentUser = email;
+  $('login-screen').style.display = 'none';
+  $('main-app').style.display     = 'flex';
+  $('user-badge').textContent     = email;
+  $('zoho-body').classList.add('open');
+  $('zoho-chevron').classList.add('open');
+  renderLeaderboard();
+}
+
+$('logout-btn').onclick = () => {
+  currentUser = ''; tickets = []; reviewed = new Set(); reviewMode = false;
+  if (timerInterval) clearInterval(timerInterval);
+  $('main-app').style.display       = 'none';
+  $('login-screen').style.display   = 'flex';
+  $('login-email').value            = '';
+  $('login-pass').value             = '';
+  $('login-error').textContent      = '';
+  $('upload-container').style.display = 'block';
+  $('table-wrap').style.display     = 'none';
+  $('legend-row').style.display     = 'none';
+  $('toggle-track').classList.remove('on');
+  $('zoho-dot').classList.remove('live');
+  $('zoho-summary-card').style.display = 'none';
+  $('zoho-error').style.display     = 'none';
+  $('attach-list').innerHTML        = '';
+  $('z-token').value                = '';
+};
+
+/* ══════════════════════
+   NAV TABS
+══════════════════════ */
+document.querySelectorAll('.dept-tab').forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll('.dept-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentDept = btn.dataset.dept;
+    renderTable();
+  };
+});
+
+document.querySelectorAll('.filter-tab').forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    renderTable();
+  };
+});
+
+/* ══════════════════════
+   REVIEW MODE
+══════════════════════ */
+$('review-toggle').onclick = () => {
+  reviewMode = !reviewMode;
+  $('toggle-track').classList.toggle('on', reviewMode);
+  renderTable();
+};
+
+/* ══════════════════════
+   FILE UPLOAD  (xlsx / csv)
+══════════════════════ */
+const zone = $('upload-zone');
+zone.onclick     = () => $('file-input').click();
+zone.ondragover  = e => { e.preventDefault(); zone.classList.add('drag'); };
+zone.ondragleave = () => zone.classList.remove('drag');
+zone.ondrop      = e => { e.preventDefault(); zone.classList.remove('drag'); processFile(e.dataTransfer.files[0]); };
+$('file-input').onchange = e => processFile(e.target.files[0]);
+
+const HEADER_MAP = {
+  'ticket id':'id','ticket #':'id','id':'id','#':'id',
+  'ticket owner':'agent','agent':'agent','owner':'agent','assigned to':'agent',
+  'subject':'subject','title':'subject',
+  'status (ticket)':'status','status':'status',
+  'team':'team','department':'team','dept':'team',
+  'created time (ticket)':'created','created time':'created','created':'created',
+  'date created':'created','open date':'created',
+  'modified time, agent responded time (ticket)':'modified',
+  'modified time':'modified','last modified':'modified','modified':'modified',
+  'last reply':'modified','agent responded time':'modified','last action':'modified',
+};
+
+function normalizeHeader(h) {
+  return (h || '').toString().toLowerCase().replace(/\s+/g, ' ').trim();
+}
+
+function parseDate(v) {
+  if (!v) return null;
+  if (v instanceof Date) return isNaN(v) ? null : v;
+  if (typeof v === 'number') {
+    const d = new Date((v - 25569) * 86400000);
+    return isNaN(d) ? null : d;
+  }
+  const d = new Date(v);
+  return isNaN(d) ? null : d;
+}
+
+function processFile(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    let rows = [];
+    if (file.name.toLowerCase().endsWith('.csv')) {
+      const text = new TextDecoder().decode(e.target.result);
+      rows = text.trim().split('\n').map(line => {
+        const r = []; let cur = '', inQ = false;
+        for (const ch of line) {
+          if (ch === '"')             { inQ = !inQ; }
+          else if (ch === ',' && !inQ){ r.push(cur.trim()); cur = ''; }
+          else                        { cur += ch; }
+        }
+        r.push(cur.trim());
+        return r;
+      });
+    } else {
+      const wb = XLSX.read(e.target.result, { type: 'array', cellDates: true });
+      const ws = wb.Sheets[wb.SheetNames[0]];
+      rows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
+    }
+    if (rows.length < 2) { alert('No data rows found in file.'); return; }
+    const headers = rows[0].map(normalizeHeader);
+    const colMap  = {};
+    headers.forEach((h, i) => { if (HEADER_MAP[h]) colMap[HEADER_MAP[h]] = i; });
+    tickets = rows.slice(1)
+      .filter(r => r.some(c => String(c).trim() !== ''))
+      .map((r, idx) => ({
+        _id:      idx,
+        id:       colMap.id       !== undefined ? String(r[colMap.id]       || '').trim() : String(idx + 1),
+        agent:    colMap.agent    !== undefined ? String(r[colMap.agent]    || '').trim() : 'Unknown',
+        subject:  colMap.subject  !== undefined ? String(r[colMap.subject]  || '').trim() : '—',
+        status:   colMap.status   !== undefined ? String(r[colMap.status]   || '').trim() : 'Open',
+        team:     colMap.team     !== undefined ? String(r[colMap.team]     || '').trim() : '',
+        created:  parseDate(colMap.created  !== undefined ? r[colMap.created]  : null),
+        modified: parseDate(colMap.modified !== undefined ? r[colMap.modified] : null),
+      }));
+    $('upload-container').style.display = 'none';
+    $('table-wrap').style.display       = '';
+    $('legend-row').style.display       = '';
+    renderTable();
+    startTimers();
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+/* ══════════════════════
+   SAMPLE / DEMO DATA
+══════════════════════ */
+$('demo-btn').onclick = e => { e.stopPropagation(); loadSample(); };
+
+function loadSample() {
+  const now = new Date();
+  const biz = h => { const t = new Date(now); t.setTime(t.getTime() - h * 3600000); return t; };
+  tickets = [
+    { _id:0,  id:'10421', agent:'Sarah Chen',  subject:'SIP trunk failing on outbound calls',       status:'Open',                team:'VoIP',         created:biz(6),   modified:biz(26)  },
+    { _id:1,  id:'10389', agent:'Marcus Webb', subject:'Voicemail not transcribing correctly',      status:'Open',                team:'VoIP',         created:biz(50),  modified:biz(52)  },
+    { _id:2,  id:'10301', agent:'Anika Patel', subject:'Call routing rule broken after update',     status:'Pending Development', team:'VoIP',         created:biz(80),  modified:biz(82)  },
+    { _id:3,  id:'10455', agent:'Sarah Chen',  subject:'Caller ID showing wrong number',            status:'Open',                team:'VoIP',         created:biz(1),   modified:biz(5)   },
+    { _id:4,  id:'10312', agent:'Jordan Lee',  subject:'Conference bridge dropping after 30 min',   status:'Waiting on Customer', team:'T1 Tech',      created:biz(100), modified:biz(105) },
+    { _id:5,  id:'10478', agent:'Marcus Webb', subject:'Cannot login to phone portal',              status:'Open',                team:'T1 Tech',      created:biz(2),   modified:biz(3)   },
+    { _id:6,  id:'10290', agent:'Priya Singh', subject:'Fax to email stopped working entirely',     status:'Pending Development', team:'T2 Core Tech', created:biz(90),  modified:biz(95)  },
+    { _id:7,  id:'10501', agent:'Jordan Lee',  subject:'SMS integration not sending outbound',      status:'Open',                team:'Adit Pay',     created:biz(0.5), modified:biz(4.5) },
+    { _id:8,  id:'10334', agent:'Anika Patel', subject:'Auto-attendant menu looping on option 3',  status:'Open',                team:'VoIP',         created:biz(72),  modified:biz(74)  },
+    { _id:9,  id:'10445', agent:'Priya Singh', subject:'Billing discrepancy on last invoice',       status:'Open',                team:'Adit Pay',     created:biz(48),  modified:biz(50)  },
+    { _id:10, id:'10511', agent:'Marcus Webb', subject:'Softphone audio cutting out on calls',      status:'Open',                team:'T2 Core Tech', created:biz(36),  modified:biz(38)  },
+    { _id:11, id:'10522', agent:'Jordan Lee',  subject:'Payment gateway timeout errors',            status:'Pending Development', team:'Adit Pay',     created:biz(85),  modified:biz(87)  },
+  ];
+  $('upload-container').style.display = 'none';
+  $('table-wrap').style.display       = '';
+  $('legend-row').style.display       = '';
+  renderTable();
+  startTimers();
+}
+
+/* ══════════════════════
+   TICKET CLASSIFICATION
+══════════════════════ */
+function classify(t, now) {
+  const created      = t.created  || now;
+  const lastAction   = t.modified || created;
+  const bizHoursIdle = bizHoursBetween(lastAction, now);
+  const bizHrsCreate = bizHoursBetween(created, now);
+  const bizDaysIdle  = bizHoursIdle / BIZ_HRS;
+  const sl           = (t.status || '').toLowerCase();
+  const isPendingDev = sl.includes('pending dev') || sl.includes('development');
+  const isToday      = created.toDateString() === now.toDateString();
+
+  let alertClass = '';
+  if      (isPendingDev && bizDaysIdle > 3)                     alertClass = 'alert-dev';
+  else if (isToday && bizHrsCreate >= 4 && bizHoursIdle >= 4)  alertClass = 'alert-flash';
+  else if (bizDaysIdle  >= 3)                                    alertClass = 'alert-72';
+  else if (bizHoursIdle >= 48)                                   alertClass = 'alert-48';
+  else if (bizHoursIdle >= 24)                                   alertClass = 'alert-24';
+
+  return { bizHoursIdle, bizDaysIdle, isPendingDev, isToday, bizHrsCreate, alertClass };
+}
+
+function idleClass(h) {
+  if (h < 24) return 'idle-ok';
+  if (h < 48) return 'idle-flash';
+  if (h < 72) return 'idle-warn';
+  return 'idle-crit';
+}
+
+function statusBadge(s) {
+  const sl = s.toLowerCase();
+  if (sl.includes('open'))                             return `<span class="badge badge-open">${s}</span>`;
+  if (sl.includes('pending') || sl.includes('dev'))   return `<span class="badge badge-pending">${s}</span>`;
+  if (sl.includes('wait')    || sl.includes('hold'))  return `<span class="badge badge-waiting">${s}</span>`;
+  return `<span class="badge badge-closed">${s}</span>`;
+}
+
+/* ══════════════════════
+   RENDER TABLE
+══════════════════════ */
+function renderTable() {
+  const now = new Date();
+
+  let filtered = tickets.filter(t => {
+    if (currentDept === 'all') return true;
+    const team = (t.team || '').toLowerCase();
+    if (!team) return true;
+    const d = currentDept.toLowerCase();
+    if (d === 'voip')         return team.includes('voip');
+    if (d === 't1 tech')      return team.includes('t1');
+    if (d === 't2 core tech') return team.includes('t2');
+    if (d === 'adit pay')     return team.includes('pay');
+    return true;
+  });
+
+  const classified = filtered.map(t => ({ t, c: classify(t, now) }));
+  let   view       = classified;
+
+  if      (currentFilter === '24h')   view = classified.filter(x => x.c.bizHoursIdle >= 24);
+  else if (currentFilter === '48h')   view = classified.filter(x => x.c.bizHoursIdle >= 48);
+  else if (currentFilter === '72h')   view = classified.filter(x => x.c.bizDaysIdle  >= 3);
+  else if (currentFilter === 'dev')   view = classified.filter(x => x.c.isPendingDev);
+  else if (currentFilter === 'flash') view = classified.filter(x => x.c.isToday);
+
+  view.sort((a, b) => b.c.bizHoursIdle - a.c.bizHoursIdle);
+
+  /* hero metrics always count across all tickets */
+  let flash = 0, stagnant = 0, devOver = 0;
+  tickets.forEach(t => {
+    const c = classify(t, now);
+    if (c.isToday && c.bizHrsCreate >= 4 && c.bizHoursIdle >= 4) flash++;
+    if (c.bizHoursIdle >= 24) stagnant++;
+    if (c.isPendingDev && c.bizDaysIdle > 3) devOver++;
+  });
+  $('m-flash').textContent    = flash;
+  $('m-stagnant').textContent = stagnant;
+  $('m-dev').textContent      = devOver;
+
+  const tbody = $('ticket-tbody');
+  if (view.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8">
+      <div class="empty-state">
+        <div class="empty-icon">◎</div>
+        <div class="empty-text">No tickets match this view</div>
+      </div></td></tr>`;
+    renderLeaderboard();
+    return;
+  }
+
+  tbody.innerHTML = view.map(({ t, c }) => {
+    const isRev  = reviewed.has(t._id);
+    const rowCls = [c.alertClass, (isRev && reviewMode) ? 'reviewed' : ''].filter(Boolean).join(' ');
+    const url    = `https://help.adit.com/agent/aditadvertising/support/tickets/details/${encodeURIComponent(t.id)}`;
+    return `<tr class="${rowCls}">
+      <td><a class="tid-link" href="${url}" target="_blank" rel="noopener">#${t.id}</a></td>
+      <td>${t.agent || '—'}</td>
+      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;color:var(--muted)">${t.subject || '—'}</td>
+      <td>${statusBadge(t.status)}</td>
+      <td style="color:var(--muted)">${getAge(t.created, now)}</td>
+      <td style="color:var(--muted)">${fmtAgo(t.modified)}</td>
+      <td><span class="idle-timer ${idleClass(c.bizHoursIdle)}">${fmtDuration(c.bizHoursIdle)} idle</span></td>
+      <td><button class="row-review-btn${isRev ? ' done' : ''}" onclick="toggleReview(${t._id})">${isRev ? '✓ Done' : 'Mark'}</button></td>
+    </tr>`;
+  }).join('');
+
+  renderLeaderboard();
+}
+
+window.toggleReview = id => {
+  reviewed.has(id) ? reviewed.delete(id) : reviewed.add(id);
+  renderTable();
+};
+
+/* ══════════════════════
+   AGENT LEADERBOARD
+══════════════════════ */
+const AVATAR_COLORS = [
+  ['rgba(239,68,68,0.15)',  '#ef4444'],
+  ['rgba(245,158,11,0.15)', '#f59e0b'],
+  ['rgba(0,180,255,0.15)',  '#00b4ff'],
+  ['rgba(168,85,247,0.15)', '#a855f7'],
+  ['rgba(34,197,94,0.15)',  '#22c55e'],
+  ['rgba(6,182,212,0.15)',  '#06b6d4'],
+  ['rgba(249,115,22,0.15)', '#f97316'],
+];
+
+function initials(name) {
+  if (!name) return '?';
+  const p = name.trim().split(/\s+/);
+  return (p[0][0] + (p[1] ? p[1][0] : '')).toUpperCase();
+}
+
+function renderLeaderboard() {
+  const now    = new Date();
+  const counts = {};
+  tickets.forEach(t => {
+    if (bizHoursBetween(t.modified || t.created || now, now) >= 24)
+      counts[t.agent] = (counts[t.agent] || 0) + 1;
+  });
+  const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+  const lb     = $('leaderboard');
+  if (!sorted.length) {
+    lb.innerHTML = `<div style="padding:24px 12px;text-align:center;color:var(--faint);font-size:11px">
+      ${tickets.length ? 'All agents on track' : 'Upload data to see rankings'}
+    </div>`;
+    return;
+  }
+  lb.innerHTML = sorted.map(([name, count], i) => {
+    const [bg, fg] = AVATAR_COLORS[i % AVATAR_COLORS.length];
+    const cls = count <= 2 ? 'count-low' : count <= 5 ? 'count-mid' : 'count-high';
+    return `<div class="agent-row">
+      <div class="agent-rank">${i + 1}</div>
+      <div class="agent-avatar" style="background:${bg};color:${fg}">${initials(name)}</div>
+      <div class="agent-name">${name}</div>
+      <div class="agent-count ${cls}">${count}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ══════════════════════
+   LIVE IDLE TIMERS
+══════════════════════ */
+function startTimers() {
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(renderTable, 30000);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ZOHO DESK  —  LIVE TICKET SUMMARY
+   ─────────────────────────────────────────────────────────────
+   Calls the Zoho Desk REST API v1 directly from the browser.
+   Requires a valid OAuth 2.0 access token (PKCE or Server-side
+   grant). Token is memory-only; never persisted.
+
+   Endpoints used:
+     GET /api/v1/tickets/count      → aggregate status counts
+     GET /api/v1/tickets?limit=100  → recent ticket list
+══════════════════════════════════════════════════════════════ */
+
+/* panel collapse / expand */
+$('zoho-panel-hdr').onclick = () => {
+  const open = $('zoho-body').classList.toggle('open');
+  $('zoho-chevron').classList.toggle('open', open);
+};
+
+$('zoho-fetch-btn').onclick = fetchZohoSummary;
+
+async function fetchZohoSummary() {
+  const rawToken = $('z-token').value.trim();
+  const orgId    = $('z-org-id').value.trim();
+  const dc       = $('z-dc').value;
+  const btn      = $('zoho-fetch-btn');
+  const errEl    = $('zoho-error');
+  const cardEl   = $('zoho-summary-card');
+
+  errEl.style.display = 'none';
+  errEl.textContent   = '';
+
+  if (!rawToken) { showZohoError('OAuth Access Token is required.'); return; }
+  if (!orgId)    { showZohoError('Org ID is required.'); return; }
+
+  const token   = rawToken.startsWith('Zoho-oauthtoken') ? rawToken : `Zoho-oauthtoken ${rawToken}`;
+  const headers = { 'Authorization': token, 'orgId': orgId };
+  const base    = `https://desk.zoho.${dc}/api/v1`;
+
+  btn.disabled    = true;
+  btn.textContent = 'Fetching…';
+  renderZohoSkeleton();
+  cardEl.style.display = '';
+
+  try {
+    /* 1 — aggregate counts */
+    const cRes = await fetch(`${base}/tickets/count`, { headers });
+    if (!cRes.ok) {
+      const err = await cRes.json().catch(() => ({}));
+      throw new Error(err.message || err.errorCode || `HTTP ${cRes.status}`);
+    }
+    const countData = await cRes.json();
+
+    /* 2 — recent ticket list (for status bar chart) */
+    const lRes = await fetch(`${base}/tickets?limit=100&sortBy=createdTime&sortOrder=desc`, { headers });
+    if (!lRes.ok) {
+      const err = await lRes.json().catch(() => ({}));
+      throw new Error(err.message || err.errorCode || `HTTP ${lRes.status}`);
+    }
+    const rawTickets = (await lRes.json()).data || [];
+
+    renderZohoSummary(countData, rawTickets);
+    $('zoho-dot').classList.add('live');
+  } catch (err) {
+    cardEl.style.display = 'none';
+    $('zoho-dot').classList.remove('live');
+    showZohoError(err.message || 'Request failed. Check your token, Org ID, and data center.');
+  } finally {
+    btn.disabled    = false;
+    btn.textContent = '↻  Fetch Summary';
+  }
+}
+
+function showZohoError(msg) {
+  const el = $('zoho-error');
+  el.textContent   = msg;
+  el.style.display = '';
+}
+
+function renderZohoSkeleton() {
+  $('zoho-ts').textContent      = 'loading…';
+  $('zoho-summary-body').innerHTML = ['Total','Open','On Hold','Overdue','Escalated','Closed']
+    .map(k => `<div class="zsc-row">
+      <span class="zsc-key">${k}</span>
+      <span class="zsc-skeleton" style="width:36px">&nbsp;</span>
+    </div>`).join('');
+}
+
+function renderZohoSummary(countData, rawTickets) {
+  const STATUS_CLR = {
+    'open':'c-blue','in progress':'c-blue',
+    'pending':'c-amber','on hold':'c-amber',
+    'pending development':'c-purple',
+    'escalated':'c-red','overdue':'c-red',
+    'closed':'c-green','resolved':'c-green',
+  };
+  const BAR_HEX = {
+    'c-blue':'#00b4ff','c-amber':'#f59e0b','c-red':'#ef4444',
+    'c-green':'#22c55e','c-purple':'#a855f7',
+  };
+
+  /* tally list by status */
+  const byCounts = {};
+  rawTickets.forEach(t => {
+    const s = (t.status || 'Unknown').trim();
+    byCounts[s] = (byCounts[s] || 0) + 1;
+  });
+
+  /* prefer /count endpoint; fall back to list tally */
+  const total     = countData.all       ?? rawTickets.length;
+  const open      = countData.open       ?? rawTickets.filter(t => /open|in.progress/i.test(t.status || '')).length;
+  const onHold    = countData.onHold     ?? rawTickets.filter(t => /hold/i.test(t.status || '')).length;
+  const overdue   = countData.overDue    ?? rawTickets.filter(t => /overdue/i.test(t.status || '')).length;
+  const escalated = countData.escalated  ?? rawTickets.filter(t => /escalat/i.test(t.status || '')).length;
+  const closed    = countData.closed     ?? rawTickets.filter(t => /closed|resolved/i.test(t.status || '')).length;
+
+  const topStats = [
+    { label:'Total',     value:total,     cls:'c-blue'   },
+    { label:'Open',      value:open,      cls:'c-blue'   },
+    { label:'On Hold',   value:onHold,    cls:'c-amber'  },
+    { label:'Overdue',   value:overdue,   cls:'c-red'    },
+    { label:'Escalated', value:escalated, cls:'c-red'    },
+    { label:'Closed',    value:closed,    cls:'c-green'  },
+  ];
+
+  let barEntries = Object.entries(byCounts).sort((a, b) => b[1] - a[1]).slice(0, 6);
+  if (!barEntries.length) {
+    barEntries = Object.entries(countData)
+      .filter(([k, v]) => typeof v === 'number' && v > 0 && k !== 'all')
+      .sort((a, b) => b[1] - a[1]).slice(0, 6);
+  }
+  const maxCount = barEntries[0]?.[1] || 1;
+
+  const statsHtml = topStats.map(({ label, value, cls }) =>
+    `<div class="zsc-row"><span class="zsc-key">${label}</span><span class="zsc-val ${cls}">${value ?? '—'}</span></div>`
+  ).join('');
+
+  const barsHtml = barEntries.map(([status, count]) => {
+    const key = status.toLowerCase();
+    let clr   = 'c-blue';
+    for (const [pat, c] of Object.entries(STATUS_CLR)) { if (key.includes(pat)) { clr = c; break; } }
+    const pct = Math.round((count / maxCount) * 100);
+    return `<div class="zsc-bar-row">
+      <span class="zsc-bar-label" title="${status}">${status}</span>
+      <div class="zsc-bar-track"><div class="zsc-bar-fill" style="width:${pct}%;background:${BAR_HEX[clr]||'#00b4ff'}"></div></div>
+      <span class="zsc-bar-count">${count}</span>
+    </div>`;
+  }).join('');
+
+  $('zoho-summary-body').innerHTML =
+    statsHtml +
+    (barEntries.length ? `<div class="zsc-divider">By Status</div>${barsHtml}` : '');
+  $('zoho-ts').textContent = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+}
+
+/* ══════════════════════
+   ATTACHMENT UPLOAD
+══════════════════════ */
+$('attach-btn').onclick = () => $('attach-file-input').click();
+
+$('attach-file-input').onchange = function () {
+  const files = Array.from(this.files);
+  if (!files.length) return;
+  const list = $('attach-list');
+  files.forEach(file => {
+    const id   = 'att-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6);
+    const size = file.size < 1024       ? file.size + ' B'
+               : file.size < 1048576   ? (file.size / 1024).toFixed(1) + ' KB'
+               :                         (file.size / 1048576).toFixed(1) + ' MB';
+    const item = document.createElement('div');
+    item.className = 'attach-item';
+    item.id        = id;
+    item.innerHTML = `
+      <span class="attach-name" title="${file.name}">${file.name}</span>
+      <span class="attach-size">${size}</span>
+      <button class="attach-remove" title="Remove"
+        onclick="document.getElementById('${id}').remove()">&#10005;</button>`;
+    list.appendChild(item);
+  });
+  this.value = '';
+};
+</script>
+</body>
+</html>
