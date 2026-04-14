@@ -114,3 +114,117 @@
 <script src="app.js"></script>
 </body>
 </html>
+const $ = id => document.getElementById(id);
+
+/* ── STATE ── */
+let currentUser = '';
+let tickets = [];
+let reviewed = new Set();
+let reviewMode = false;
+let currentDept = 'VoIP';
+let currentFilter = 'all';
+let timerInterval = null;
+
+/* ── LOGIN ── */
+$('login-btn').onclick = () => {
+  const email = $('login-email').value.trim().toLowerCase();
+  const pass = $('login-pass').value;
+
+  if (!email.endsWith('@adit.com')) {
+    $('login-error').textContent = 'Use @adit.com email';
+    return;
+  }
+  if (!pass) {
+    $('login-error').textContent = 'Enter password';
+    return;
+  }
+
+  currentUser = email;
+  $('login-screen').style.display = 'none';
+  $('main-app').style.display = 'flex';
+  $('user-badge').textContent = email;
+};
+
+/* ── LOGOUT ── */
+$('logout-btn').onclick = () => {
+  currentUser = '';
+  tickets = [];
+  reviewed.clear();
+
+  $('main-app').style.display = 'none';
+  $('login-screen').style.display = 'flex';
+};
+
+/* ── REVIEW MODE ── */
+$('review-toggle').onclick = () => {
+  reviewMode = !reviewMode;
+  $('toggle-track').classList.toggle('on', reviewMode);
+};
+
+/* ── FILE UPLOAD ── */
+$('upload-zone').onclick = () => $('file-input').click();
+
+$('file-input').onchange = e => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = e => {
+    const data = new Uint8Array(e.target.result);
+    const workbook = XLSX.read(data, { type: 'array' });
+
+    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    const json = XLSX.utils.sheet_to_json(sheet);
+
+    tickets = json.map((row, i) => ({
+      id: row['Ticket ID'] || i,
+      agent: row['Agent'] || 'Unknown',
+      subject: row['Subject'] || '',
+      status: row['Status'] || 'Open'
+    }));
+
+    renderTable();
+  };
+
+  reader.readAsArrayBuffer(file);
+};
+
+/* ── RENDER TABLE ── */
+function renderTable() {
+  const tbody = $('ticket-tbody');
+
+  if (!tickets.length) {
+    tbody.innerHTML = `<tr><td colspan="5">No data</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = tickets.map(t => `
+    <tr>
+      <td>#${t.id}</td>
+      <td>${t.agent}</td>
+      <td>${t.subject}</td>
+      <td>${t.status}</td>
+      <td>
+        <button onclick="toggleReview('${t.id}')">
+          ${reviewed.has(t.id) ? 'Done' : 'Mark'}
+        </button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+/* ── REVIEW TOGGLE ── */
+window.toggleReview = id => {
+  reviewed.has(id) ? reviewed.delete(id) : reviewed.add(id);
+  renderTable();
+};
+
+/* ── SAMPLE DATA ── */
+$('demo-btn').onclick = () => {
+  tickets = [
+    { id: '101', agent: 'Imran', subject: 'Call issue', status: 'Open' },
+    { id: '102', agent: 'Sarah', subject: 'Login error', status: 'Pending' }
+  ];
+  renderTable();
+};
