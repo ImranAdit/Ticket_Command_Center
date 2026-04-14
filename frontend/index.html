@@ -3,14 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
 <title>Adit ◈ Ticket Command Center</title>
 
-<!-- External CSS -->
-<link rel="stylesheet" href="styles.css" />
-
-<!-- XLSX Library -->
+<!-- External Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<!-- Styles -->
+<link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
@@ -21,13 +20,12 @@
     <div class="login-box">
       <div class="login-logo">ADIT <span>◈</span></div>
       <div class="login-sub">Ticket Command Center</div>
-
       <div class="login-label">Email Address</div>
-      <input class="login-input" id="login-email" type="email" placeholder="you@adit.com" />
-
+      <input class="login-input" id="login-email" type="email"
+             placeholder="you@adit.com" autocomplete="email" />
       <div class="login-label" style="margin-top:16px">Password</div>
-      <input class="login-input" id="login-pass" type="password" placeholder="••••••••" />
-
+      <input class="login-input" id="login-pass" type="password"
+             placeholder="••••••••" autocomplete="current-password" />
       <button class="login-btn" id="login-btn">Access Command Center</button>
       <div class="login-error" id="login-error"></div>
       <div class="login-hint">Access restricted to @adit.com accounts</div>
@@ -37,10 +35,8 @@
   <!-- MAIN APP -->
   <div id="main-app">
 
-    <!-- TOPBAR -->
     <div class="topbar">
       <div class="topbar-brand">ADIT <span>◈</span> TCC</div>
-
       <div class="dept-tabs" id="dept-tabs">
         <button class="dept-tab active" data-dept="VoIP">VoIP</button>
         <button class="dept-tab" data-dept="T1 Tech">T1 Tech</button>
@@ -48,21 +44,16 @@
         <button class="dept-tab" data-dept="Adit Pay">Adit Pay</button>
         <button class="dept-tab" data-dept="all">All Depts</button>
       </div>
-
       <div class="topbar-right">
         <div class="review-toggle" id="review-toggle">
-          <div class="toggle-track" id="toggle-track">
-            <div class="toggle-thumb"></div>
-          </div>
+          <div class="toggle-track" id="toggle-track"><div class="toggle-thumb"></div></div>
           <span>Review Mode</span>
         </div>
-
         <div class="user-badge" id="user-badge"></div>
         <button class="logout-btn" id="logout-btn">Sign Out</button>
       </div>
     </div>
 
-    <!-- METRICS -->
     <div class="metrics-row">
       <div class="metric-tile t-neon">
         <div class="metric-label">Critical Today (4h Flash)</div>
@@ -78,33 +69,17 @@
       </div>
     </div>
 
-    <!-- CONTENT -->
     <div class="content-area">
 
       <div class="grid-panel">
-        <div class="grid-header">
-          <div class="grid-title">Action Grid</div>
-
-          <div class="filter-tabs" id="filter-tabs">
-            <button class="filter-tab active" data-filter="all">All</button>
-            <button class="filter-tab" data-filter="24h">24h+</button>
-            <button class="filter-tab" data-filter="48h">48h+</button>
-            <button class="filter-tab" data-filter="72h">72h+</button>
-            <button class="filter-tab" data-filter="dev">Dev Queue</button>
-            <button class="filter-tab" data-filter="flash">Flash</button>
-          </div>
-        </div>
-
-        <!-- Upload -->
         <div id="upload-container">
           <div class="upload-zone" id="upload-zone">
             <div class="upload-icon">⬆</div>
-            <div class="upload-text"><b>Drag & drop</b> Excel / CSV here</div>
-            <input type="file" id="file-input" accept=".xlsx,.xls,.csv" />
+            <div class="upload-text"><b>Drag & drop</b> your Excel / CSV here</div>
+            <input type="file" id="file-input" />
           </div>
         </div>
 
-        <!-- Table -->
         <div class="table-scroll" id="table-wrap" style="display:none">
           <table>
             <thead>
@@ -113,7 +88,10 @@
                 <th>Agent</th>
                 <th>Subject</th>
                 <th>Status</th>
+                <th>Age</th>
+                <th>Modified</th>
                 <th>Idle</th>
+                <th></th>
               </tr>
             </thead>
             <tbody id="ticket-tbody"></tbody>
@@ -121,11 +99,18 @@
         </div>
       </div>
 
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title">Agent Leaderboard</div>
+        </div>
+        <div class="sidebar-scroll" id="leaderboard"></div>
+      </div>
+
     </div>
   </div>
 </div>
 
-<!-- External JS -->
+<!-- App Logic -->
 <script src="app.js"></script>
 </body>
 </html>
