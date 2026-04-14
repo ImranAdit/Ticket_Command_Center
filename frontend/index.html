@@ -1,169 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Adit ◈ Ticket Command Center</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adit ◈ Ticket Command Center</title>
 
-<!-- External Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <!-- XLSX Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
-<!-- Styles -->
-<link rel="stylesheet" href="styles.css" />
+  <!-- STYLE -->
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0a0b0f;
+      color: #e2e8f0;
+    }
+
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-box {
+      background: #161a22;
+      padding: 30px;
+      border-radius: 10px;
+      width: 300px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background: #111318;
+      border: 1px solid #2a3347;
+      color: white;
+      border-radius: 5px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      background: #00b4ff;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    #main-app {
+      display: none;
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    td, th {
+      padding: 10px;
+      border-bottom: 1px solid #1e2433;
+    }
+
+    .upload-zone {
+      border: 2px dashed #2a3347;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 
 <body>
-<div id="app">
 
-  <!-- LOGIN -->
-  <div id="login-screen">
-    <div class="login-box">
-      <div class="login-logo">ADIT <span>◈</span></div>
-      <div class="login-sub">Ticket Command Center</div>
-      <div class="login-label">Email Address</div>
-      <input class="login-input" id="login-email" type="email"
-             placeholder="you@adit.com" autocomplete="email" />
-      <div class="login-label" style="margin-top:16px">Password</div>
-      <input class="login-input" id="login-pass" type="password"
-             placeholder="••••••••" autocomplete="current-password" />
-      <button class="login-btn" id="login-btn">Access Command Center</button>
-      <div class="login-error" id="login-error"></div>
-      <div class="login-hint">Access restricted to @adit.com accounts</div>
-    </div>
-  </div>
-
-  <!-- MAIN APP -->
-  <div id="main-app">
-
-    <div class="topbar">
-      <div class="topbar-brand">ADIT <span>◈</span> TCC</div>
-      <div class="dept-tabs" id="dept-tabs">
-        <button class="dept-tab active" data-dept="VoIP">VoIP</button>
-        <button class="dept-tab" data-dept="T1 Tech">T1 Tech</button>
-        <button class="dept-tab" data-dept="T2 Core Tech">T2 Core</button>
-        <button class="dept-tab" data-dept="Adit Pay">Adit Pay</button>
-        <button class="dept-tab" data-dept="all">All Depts</button>
-      </div>
-      <div class="topbar-right">
-        <div class="review-toggle" id="review-toggle">
-          <div class="toggle-track" id="toggle-track"><div class="toggle-thumb"></div></div>
-          <span>Review Mode</span>
-        </div>
-        <div class="user-badge" id="user-badge"></div>
-        <button class="logout-btn" id="logout-btn">Sign Out</button>
-      </div>
-    </div>
-
-    <div class="metrics-row">
-      <div class="metric-tile t-neon">
-        <div class="metric-label">Critical Today (4h Flash)</div>
-        <div class="metric-num" id="m-flash">0</div>
-      </div>
-      <div class="metric-tile t-amber">
-        <div class="metric-label">Stagnant (&gt;24h Idle)</div>
-        <div class="metric-num" id="m-stagnant">0</div>
-      </div>
-      <div class="metric-tile t-crimson">
-        <div class="metric-label">Overdue Dev (&gt;3d Pending)</div>
-        <div class="metric-num" id="m-dev">0</div>
-      </div>
-    </div>
-
-    <div class="content-area">
-
-      <div class="grid-panel">
-        <div id="upload-container">
-          <div class="upload-zone" id="upload-zone">
-            <div class="upload-icon">⬆</div>
-            <div class="upload-text"><b>Drag & drop</b> your Excel / CSV here</div>
-            <input type="file" id="file-input" />
-          </div>
-        </div>
-
-        <div class="table-scroll" id="table-wrap" style="display:none">
-          <table>
-            <thead>
-              <tr>
-                <th>Ticket ID</th>
-                <th>Agent</th>
-                <th>Subject</th>
-                <th>Status</th>
-                <th>Age</th>
-                <th>Modified</th>
-                <th>Idle</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="ticket-tbody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="sidebar">
-        <div class="sidebar-header">
-          <div class="sidebar-title">Agent Leaderboard</div>
-        </div>
-        <div class="sidebar-scroll" id="leaderboard"></div>
-      </div>
-
-    </div>
+<!-- LOGIN -->
+<div id="login-screen" class="center">
+  <div class="login-box">
+    <h2>Login</h2>
+    <input id="login-email" placeholder="you@adit.com" />
+    <input id="login-pass" type="password" placeholder="password" />
+    <button onclick="login()">Login</button>
+    <p id="login-error" style="color:red;"></p>
   </div>
 </div>
 
-<!-- App Logic -->
-<script src="app.js"></script>
-</body>
-</html>
+<!-- MAIN -->
+<div id="main-app">
+  <h2>Ticket Command Center</h2>
+
+  <div class="upload-zone" onclick="document.getElementById('file-input').click()">
+    Click to upload Excel
+  </div>
+
+  <input type="file" id="file-input" style="display:none" />
+
+  <button onclick="loadSample()">Load Sample Data</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Agent</th>
+        <th>Subject</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
+</div>
+
+<!-- SCRIPT -->
+<script>
 const $ = id => document.getElementById(id);
-
-/* ── STATE ── */
-let currentUser = '';
 let tickets = [];
-let reviewed = new Set();
-let reviewMode = false;
-let currentDept = 'VoIP';
-let currentFilter = 'all';
-let timerInterval = null;
 
-/* ── LOGIN ── */
-$('login-btn').onclick = () => {
-  const email = $('login-email').value.trim().toLowerCase();
+/* LOGIN */
+function login() {
+  const email = $('login-email').value;
   const pass = $('login-pass').value;
 
   if (!email.endsWith('@adit.com')) {
     $('login-error').textContent = 'Use @adit.com email';
     return;
   }
+
   if (!pass) {
     $('login-error').textContent = 'Enter password';
     return;
   }
 
-  currentUser = email;
   $('login-screen').style.display = 'none';
-  $('main-app').style.display = 'flex';
-  $('user-badge').textContent = email;
-};
+  $('main-app').style.display = 'block';
+}
 
-/* ── LOGOUT ── */
-$('logout-btn').onclick = () => {
-  currentUser = '';
-  tickets = [];
-  reviewed.clear();
-
-  $('main-app').style.display = 'none';
-  $('login-screen').style.display = 'flex';
-};
-
-/* ── REVIEW MODE ── */
-$('review-toggle').onclick = () => {
-  reviewMode = !reviewMode;
-  $('toggle-track').classList.toggle('on', reviewMode);
-};
-
-/* ── FILE UPLOAD ── */
-$('upload-zone').onclick = () => $('file-input').click();
-
+/* FILE UPLOAD */
 $('file-input').onchange = e => {
   const file = e.target.files[0];
   if (!file) return;
@@ -172,9 +150,8 @@ $('file-input').onchange = e => {
 
   reader.onload = e => {
     const data = new Uint8Array(e.target.result);
-    const workbook = XLSX.read(data, { type: 'array' });
-
-    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    const wb = XLSX.read(data, { type: 'array' });
+    const sheet = wb.Sheets[wb.SheetNames[0]];
     const json = XLSX.utils.sheet_to_json(sheet);
 
     tickets = json.map((row, i) => ({
@@ -190,41 +167,34 @@ $('file-input').onchange = e => {
   reader.readAsArrayBuffer(file);
 };
 
-/* ── RENDER TABLE ── */
+/* RENDER */
 function renderTable() {
-  const tbody = $('ticket-tbody');
+  const tbody = $('table-body');
 
   if (!tickets.length) {
-    tbody.innerHTML = `<tr><td colspan="5">No data</td></tr>`;
+    tbody.innerHTML = '<tr><td colspan="4">No data</td></tr>';
     return;
   }
 
   tbody.innerHTML = tickets.map(t => `
     <tr>
-      <td>#${t.id}</td>
+      <td>${t.id}</td>
       <td>${t.agent}</td>
       <td>${t.subject}</td>
       <td>${t.status}</td>
-      <td>
-        <button onclick="toggleReview('${t.id}')">
-          ${reviewed.has(t.id) ? 'Done' : 'Mark'}
-        </button>
-      </td>
     </tr>
   `).join('');
 }
 
-/* ── REVIEW TOGGLE ── */
-window.toggleReview = id => {
-  reviewed.has(id) ? reviewed.delete(id) : reviewed.add(id);
-  renderTable();
-};
-
-/* ── SAMPLE DATA ── */
-$('demo-btn').onclick = () => {
+/* SAMPLE DATA */
+function loadSample() {
   tickets = [
     { id: '101', agent: 'Imran', subject: 'Call issue', status: 'Open' },
     { id: '102', agent: 'Sarah', subject: 'Login error', status: 'Pending' }
   ];
   renderTable();
-};
+}
+</script>
+
+</body>
+</html>
