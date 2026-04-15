@@ -1,0 +1,2622 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+   
+    
+    
+    
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>All-in-One AI-Powered Practice Management Software | Adit</title>
+
+    
+    <link rel="canonical" href="https://adit.com" />
+
+    
+    
+
+    <link rel="icon" href="https://adit.com/img/fav-icon.png" sizes="32x32" />
+
+    <link rel="icon" href="https://adit.com/img/fav-icon.png" sizes="192x192" />
+
+    <link rel="apple-touch-icon-precomposed" href="https://adit.com/img/fav-icon.png" />
+
+    <meta name="msapplication-TileImage" content="https://adit.com/img/fav-icon.png" />
+
+    <meta name="title" content="All-in-One AI-Powered Practice Management Software | Adit">
+
+    <meta name="description" content="Adit is the all-in-one AI-powered healthcare software platform built to help practices deliver better care and operate smarter. Unify communication, automate workflows, and streamline admin with powerful tools including AI Call Intelligence and an AI Front Desk, designed for dental, optometry, chiropractic, and orthodontic practices.">
+
+    <meta name="keywords" content="Practice Management Software, Practice Management Programs, Software Practice Management, Healthcare Software, Practice Management Software Systems, Practice Management System, Medical Practice Management Software, Medical Software, Office Management Software, Healthcare Software Solutions, Clinic Management Software, Patient Management System">
+
+    <meta name="csrf-token" content="KpViapuY5Gq9r24IrrY7CP7asjED7Cg2C1baetp3">
+
+    <meta property="og:site_name" content="Adit Dental Software | Dental Practice Management Software">
+
+    <meta property="og:title" content="All-in-One AI-Powered Practice Management Software | Adit">
+
+    <meta property="og:description" content="Adit is the all-in-one AI-powered healthcare software platform built to help practices deliver better care and operate smarter. Unify communication, automate workflows, and streamline admin with powerful tools including AI Call Intelligence and an AI Front Desk, designed for dental, optometry, chiropractic, and orthodontic practices.">
+
+    <meta property="og:type" content="website">
+
+    <meta property="og:url" content="https://adit.com">
+
+    <meta property="og:image" content="https://adit.com/storage/files/social-og-thumbnail-adit-1200x630_1-1200x630.jpg?token=4533e3a6b83452f30c4f752cd8e88e06">
+
+    <meta property="og:image:secure_url" content="https://adit.com/storage/files/social-og-thumbnail-adit-1200x630_1-1200x630.jpg?token=4533e3a6b83452f30c4f752cd8e88e06" />
+
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="twitter:title" content="All-in-One AI-Powered Practice Management Software | Adit" />
+
+    <meta name="twitter:description" content="Adit is the all-in-one AI-powered healthcare software platform built to help practices deliver better care and operate smarter. Unify communication, automate workflows, and streamline admin with powerful tools including AI Call Intelligence and an AI Front Desk, designed for dental, optometry, chiropractic, and orthodontic practices." />
+
+    <meta name="twitter:image" content="https://adit.com/storage/files/social-og-thumbnail-adit-1200x630_1-1200x630.jpg?token=4533e3a6b83452f30c4f752cd8e88e06" />
+
+
+    <link rel="preload" as="font" href="https://adit.com/css/fonts/ubuntu-l-webfont.woff2" crossorigin>
+
+    <link rel="preload" as="font" href="https://adit.com/css/fonts/ubuntu-b-webfont.woff2" crossorigin>
+
+    <link rel="preload" as="font" href="https://adit.com/css/fonts/ubuntu-r-webfont.woff2" crossorigin>
+
+    <link rel="preload" as="font" href="https://adit.com/css/fonts/fontawesome-webfont.woff?v=4.7.0" crossorigin>
+
+    <link rel="preload" as="font" href="https://adit.com/css/fonts/ubuntu-m-webfont.woff" crossorigin>
+
+    <link rel="preload" as="font" href="https://adit.com/css/fonts/Ubuntu-Medium.woff" crossorigin>
+
+
+    
+
+    
+    <meta property="fb:app_id" content="610137116825269">
+
+    
+
+        <link href="https://adit.com/css/home-v3.min.css?v=0.4.9" integrity="" crossorigin="anonymous" rel="stylesheet" />
+    
+        
+    <script src="https://adit.com/js/jquery-3-7-1.min.js" integrity="" crossorigin="anonymous" data-pagespeed-no-defer="data-pagespeed-no-defer"></script>    <script nonce="qW9GfKVV2qmJE6HVMA4nqpNG6zGjvRZv">
+      var $=jQuery;var i;
+    </script>
+
+
+
+
+
+
+
+
+
+   <script type="application/ld+json" class="adit-schema-graph">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://adit.com/#organization",
+      "name": "Adit",
+      "url": "https://adit.com/",
+      "sameAs": [
+        "https://www.facebook.com/aditadv",
+        "https://www.instagram.com/get_adit/",
+        "https://www.linkedin.com/company/grow-with-adit",
+        "https://www.youtube.com/@aditsoftware",
+        "https://x.com/aditadv"
+      ],
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://adit.com/#logo",
+        "inLanguage": "en-US",
+        "url": "https://adit.com/storage/settings/logo.png",
+        "contentUrl": "https://adit.com/storage/settings/logo.png",
+        "width": 194,
+        "height": 97,
+        "caption": "Adit"
+      },
+      "image": { "@id": "https://adit.com/#logo" },
+      "founder": {
+        "@type": "Person",
+        "name": "Ali Jhaver",
+        "url": "https://adit.com/author/ali",
+        "sameAs": "https://adit.com/author/ali"
+      },
+      "foundingDate": "2011-01-01",
+      "numberOfEmployees": 450,
+      "slogan": "One Software To Manage Your Entire Practice",
+      "description": "Adit is the only practice management platform that integrates Calls, Texts, Emails, Patient Forms, Online Scheduling, Analytics, Reviews, Payments, and more, all in one place. Manage everything within Adit’s centralized platform to streamline communication, simplify workflows, and automate front-desk operations.  Adit helps practices attract and retain more patients by improving efficiency and enhancing the overall patient experience. Please visit www.adit.com",
+      "legalName": "Adit Advertising Inc."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://adit.com/#website",
+      "url": "https://adit.com/",
+      "name": "Adit",
+      "description": "All-in-One AI-Powered Practice Management Software | Adit",
+      "publisher": { "@id": "https://adit.com/#organization" },
+      "potentialAction": [
+        {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://adit.com/?s={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      ],
+      "inLanguage": "en-US",
+      "copyrightHolder": { "@id": "https://adit.com/#organization" }
+    },
+    {
+      "@type": "ImageObject",
+      "@id": "https://adit.com/#primaryimage",
+      "inLanguage": "en-US",
+      "url": "https://adit.com/storage/files/social-og-thumbnail-adit-1200x630_1-1200x630.jpg",
+      "contentUrl": "https://adit.com/storage/files/social-og-thumbnail-adit-1200x630_1-1200x630.jpg",
+      "width": 1200,
+      "height": 630
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://adit.com/#webpage",
+      "url": "https://adit.com/",
+      "name": "All-in-One AI-Powered Practice Management Software | Adit",
+      "isPartOf": { "@id": "https://adit.com/#website" },
+      "about": { "@id": "https://adit.com/#organization" },
+      "datePublished": "2011-09-14T08:13:22+00:00",
+      "dateModified": "2021-12-23T11:32:04+00:00",
+      "description": "Adit is the all-in-one AI-powered healthcare software platform built to help practices deliver better care and operate smarter. Unify communication, automate workflows, and streamline admin with powerful tools including AI Call Intelligence and an AI Front Desk, designed for dental, optometry, chiropractic, and orthodontic practices.",
+      "breadcrumb": { "@id": "https://adit.com/#breadcrumb" },
+      "inLanguage": "en-US",
+      "potentialAction": [
+        {
+          "@type": "ReadAction",
+          "target": ["https://adit.com/"]
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://adit.com/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home"
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+    
+
+
+<script>
+window.addEventListener("load", function() {
+    setTimeout(function() {
+        var ps = document.createElement("script");
+        ps.src = "https://cdn.pagesense.io/js/854894618/4ca6992f43a54a4684884f3e7939bba0.js";
+        ps.async = true;
+        document.body.appendChild(ps);
+    }, 1500); //1.5
+});
+</script>
+
+<!-- Start of Pagesense Embed Code -->
+<!-- <script src="https://cdn.pagesense.io/js/854894618/4ca6992f43a54a4684884f3e7939bba0.js"></script> -->
+<!-- End of Pagesense Embed Code -->
+<!-- Google Tag Manager -->
+<!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KLM77V2');</script> -->
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager -->
+<script>
+window.addEventListener("load", function() {
+    setTimeout(function() {
+        (function(w,d,s,l,i){
+            w[l]=w[l]||[];
+            w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+            var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),
+            dl=l!='dataLayer'?'&l='+l:'';
+            j.async=true;
+            j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+            f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-KLM77V2');
+    }, 1500);
+});
+</script>
+<!-- End Google Tag Manager -->
+
+</head>
+
+
+
+<body  class="body-en home-v3 poppinsFont " id="top">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KLM77V2"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+
+
+
+<div class="loader" ></div>
+
+   
+    <div id="wrapper" class="">
+
+   
+        
+        
+        
+        
+
+        <header id="header" class="site-header main-header header2 bgwhite_header headpromo-noribbon1">
+                    <div class="headpromo-ribbon freeinsurverifi_demopopup cursor-pointer display_hide">
+            <div class="headpromoribbon-inner">
+              <div class="headpromoribbon-img">
+                <img src="https://adit.com/storage/files/promo-ribbon-25-dollar-giftcard.svg" alt="$25 Amazon Gift Card" width="54" height="34" />
+              </div>
+              <div class="headpromoribbon-text">Get a <b>$25 Gift Card</b> + Insurance Verifications Free for Life!</div>
+              <div class="headpromoribbon-btn">
+                <a href="javascript:void(0);">Schedule a Demo</a>
+              </div>
+            </div>
+          </div>
+          <div class="headpromo-ribbon freeinsurverifi_demopopup BFpromo-strip cursor-pointer display_hide">
+            <div class="BFtopstrip-inner">
+              <div class="BFtopstrip-left">
+                <div class="BFtopstrip-logo">
+                  <img src="https://adit.com/storage/files/black-friday-v2.svg" alt="Black Friday" width="46" height="44" />
+                </div>
+                <strong class="BFtopstrip-title">Free phones & VoIP for life <span class="color_blinkNo">when you sign up with Adit!</span></strong>
+              </div>
+              <div class="BFtopstrip-right">
+                <div class="BFtopstriptime-block">
+                  <span class="BFtopstrip-timend">offer <br/>ends in</span>
+                  <span class="BFtopstrip-count">13</span>
+                  <span class="BFtopstripcount-day">Days</span>
+                </div>
+                <div class="BFtopstrip-btn">
+                  <a href="javascript:void(0);">Schedule a Demo</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="headpromo-ribbon freeinsurverifi_demopopup CMpromo-strip cursor-pointer display_hide">
+            <div class="BFtopstrip-inner">
+              <div class="BFtopstrip-left">
+                <div class="BFtopstrip-logo">
+                  <span class="CMstrip-blinkLogo"></span>
+                </div>
+                <strong class="BFtopstrip-title">Free phones & VoIP for life <span class="color_blinkNo">when you sign up with Adit!</span></strong>
+              </div>
+              <div class="BFtopstrip-right">
+                <div class="BFtopstrip-btn">
+                  <a href="javascript:void(0);">Activate offer</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="headpromo-ribbon freeinsurverifi_demopopup newyearpromo-strip cursor-pointer display_hide">
+            <div class="BFtopstrip-inner">
+              <div class="BFtopstrip-left">
+                <div class="BFtopstrip-logo">
+                  <img src="https://adit.com/storage/files/new-year-promo-logo.svg" alt="New Year" width="112" height="45" />
+                </div>
+                <strong class="BFtopstrip-title"><b>Free phones</b> & <b>VoIP</b> for life when you sign up with Adit!</strong>
+              </div>
+              <div class="BFtopstrip-right">
+                <div class="BFtopstriptime-block">
+                  <span class="BFtopstrip-timend">offer <br/>ends</span>
+                  <span class="BFtopstrip-count">13</span>
+                  <span class="BFtopstripcount-day">Days</span>
+                </div>
+                <div class="BFtopstrip-btn">
+                  <a href="javascript:void(0);">Activate offer</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="headpromo-ribbon freeinsurverifi_demopopup aifdpromo-strip cursor-pointer">
+            <div class="BFtopstrip-inner">
+              <div class="BFtopstrip-left">
+                <strong class="BFtopstrip-title">Get <img src="https://adit.com/images/home-v3/adit-ai-colored-icon.webp" alt="Adit AI" width="30" height="27" /> Front Desk free for life when you sign up!</strong>
+              </div>
+              <div class="BFtopstrip-right">
+                <!-- <div class="BFtopstriptime-block">
+                  <span class="BFtopstrip-timend">offer <br/>ends</span>
+                  <span class="BFtopstrip-count">13</span>
+                  <span class="BFtopstripcount-day">Days</span>
+                </div> -->
+                <div class="BFtopstrip-btn">
+                  <a href="javascript:void(0);">Schedule a Demo</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+                    <div class="header-inner">
+            <div class="wrap-inner">
+              <div class="headermain cf">
+                <div id="logo"> <a href="/" rel="home">
+                                          <img alt="Adit" src="https://adit.com/storage/settings/logo.png" width="194" height="97" /></a>
+                                     
+                </div>
+                <div class="header-right">
+                  <nav id="mainNav" class="mainNavigation">
+                    <a class="menu-icon" href="#" title="Menu"><i class="fa fa-bars"></i><span></span></a>
+                    <div class="menuPart cf">
+                      <div class="menu-header-menu-container">
+                        <ul id="nav" class="menu">
+                          <li class="menu-item dropdown-menu dropdown-megamenu">
+                            <a class="parentwithoutlink" href="javascript:void(0);">Product</a>
+                            <div class="megamenu-block">
+                              <div class="megamenu-content dropdown-submenu childwithoutlink">
+                                <div class="megamenu-inner megamenuinner-3cols">
+                                  <div class="megamenu-col centralize-megamenucol">
+                                    <a class="megamenu-title" href="/patient-communication-software">Centralize Communications</a>
+                                    <ul class="mega-submenu">
+                                      <li class="">
+                                        <a class="megamenu-link" href="/dental-voip-phone-system"><i class="icon_menu icon-adit-voice-icon">&#xe803;</i><span>Adit Voice</span></a>
+                                      </li>
+                                      <li class="">
+                                        <a class="megamenu-link" href="/hipaa-compliant-texting-dentists">
+                                        <i class="icon_menu icon-texting">&#xe813;</i>
+                                        <span>Texting</span>
+                                        </a>
+                                      </li>
+                                      <li class="">
+                                        <a class="megamenu-link" href="/email-marketing-dentists">
+                                        <i class="icon_menu icon-email-campaign-icon">&#xe806;</i>
+                                        <span>Email</span>
+                                        </a>
+                                      </li>
+                                      <li class="">
+                                        <a class="megamenu-link" href="/instant-dental-office-messaging">
+                                        <i class="icon_menu icon-internal-chat">&#xe816;</i>
+                                        <span>Internal Chat</span>
+                                        </a>
+                                      </li>
+                                      <li class="">
+                                        <a class="megamenu-link" href="/efax">
+                                        <i class="icon_menu icon-efax">&#xe80a;</i>
+                                        <span>eFax</span>
+                                        </a>
+                                      </li>
+                                      <li class="">
+                                        <a class="megamenu-link" href="/dental-practice-management-mobile-app">
+                                        <i class="icon_menu icon-mobile_icon fonts_icomoon">&#xe900;</i>
+                                        <span>Mobile App</span>
+                                        </a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <div class="megamenu-col streamline-megamenucol">
+                                    <a class="megamenu-title  " href="/healthcare-practice-operations-system">Streamline Operations</a>
+                                    <ul class="mega-submenu">
+                                      <li class="">
+                                        <a class="megamenu-link" href="/online-dental-patient-forms">
+                                        <i class="icon_menu icon-patient-forms-icon">&#xe80f;</i>
+                                        <span>Digital Forms</span>
+                                        </a>
+                                      </li>
+                                      <li class="">
+                                        <a class="megamenu-link" href="/dental-appointment-scheduling-software">
+                                        <i class="icon_menu icon-online-scheduling-icon">&#xe80c;</i>
+                                        <span>Online Scheduling</span>
+                                        </a>
+                                      </li>
+                                      <li class="">
+                                        <a class="megamenu-link" href="/dental-appointment-reminder-software">
+                                        <i class="icon_menu icon-appt-reminder">&#xe802;</i>
+                                        <span>Reminders</span>
+                                        </a>
+                                      </li>
+                                      <li class="">
+                                        <a class="megamenu-link" href="/insurance-verification">
+                                        <i class="icon_menu fonts-icomoon-menu icon-verifications-icon">&#xe901;</i>
+                                        <span>Insurance Verifications</span>
+                                        </a>
+                                      </li>
+                                      <li class="">
+                                        <a class="megamenu-link" href="/dental-reputation-management-software">
+                                        <i class="icon_menu icon-pozative-icon">&#xe810;</i>
+                                        <span>Pozative Reviews</span>
+                                        </a>
+                                      </li>
+                                      <li class="">
+                                        <a class="megamenu-link" href="/tasks">
+                                        <i class="adit_fonticon task-menufont-icon"></i>
+                                        <span>Tasks</span>
+                                        </a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <div class="megamenu-col production-megamenucol">
+                                    <a class="megamenu-title  " href="/boost-production">Boost Production</a>
+                                    <ul class="mega-submenu">
+                                      <li class="">
+                                        <a class="megamenu-link" href="/dental-practice-analytics-software">
+                                        <i class="icon_menu icon-practice-analytics-icon">&#xe812;</i>
+                                        <span>Practice Analytics</span>
+                                        </a>
+                                      </li>
+                                      <li class="">
+                                        <a class="megamenu-link" href="/treatment-plans">
+                                        <i class="icon_menu fonts_icomoon icon-treatment-plans">&#xe901;</i>
+                                        <span>Treatment Plans</span>
+                                        </a>
+                                      </li>
+                                      <li class="">
+                                        <a class="megamenu-link" href="/carecredit">
+                                        <i class="icon_menu fonts-icomoon-menu icon-carecredit-icon">&#xe900;</i>
+                                        <span>CareCredit</span>
+                                        </a>
+                                      </li>
+                                      <li class="">
+                                        <a class="megamenu-link" href="/dental-recall-system">
+                                        <i class="icon_menu icon-patient-recall">&#xe80d;</i>
+                                        <span>Patient Recall</span>
+                                        </a>
+                                      </li>
+                                      <li class="">
+                                        <a class="megamenu-link" href="/billing-software">
+                                        <i class="icon_menu icon-adit-pay-icon">&#xe800;</i>
+                                        <span>Adit Pay</span>
+                                        </a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <!-- <div class="megamenu-col acquire-megamenucol">
+                                    <a class="megamenu-title  " href="/acquire-more-patients">Acquire More Patients</a>
+                                    <ul class="mega-submenu">
+                                      <li id="dental-marketing-website-menu" class="dental-mark-menu ">
+                                        <a class="megamenu-link" href="/dental-marketing-company#website-design">
+                                        <i class="icon_menu icon-web-design">&#xe814;</i>
+                                        <span>Website Design</span>
+                                        </a>
+                                      </li>
+                                      <li id="dental-marketing-seo-menu" class="dental-mark-menu ">
+                                        <a class="megamenu-link" href="/dental-marketing-company#seo">
+                                        <i class="icon_menu icon-seo-icon">&#xe811;</i>
+                                        <span>SEO</span>
+                                        </a>
+                                      </li>
+                                      <li id="dental-marketing-email-menu" class="dental-mark-menu ">
+                                        <a class="megamenu-link" href="/dental-marketing-company#email-marketing">
+                                        <i class="icon_menu icon-email-campaign-icon">&#xe806;</i>
+                                        <span>Email Marketing</span>
+                                        </a>
+                                      </li>
+                                      <li id="dental-marketing-google-menu" class="dental-mark-menu ">
+                                        <a class="megamenu-link" href="/dental-marketing-company#google-ads">
+                                        <i class="icon_menu icon-google-ads-icon">&#xe807;</i>
+                                        <span>Google Ads</span>
+                                        </a>
+                                      </li>
+                                      <li id="dental-marketing-meta-menu" class="dental-mark-menu ">
+                                        <a class="megamenu-link" href="/dental-marketing-company#meta-ads">
+                                        <i class="icon_menu icon-facebook-ads-icon">&#xe809;</i>
+                                        <span>Meta Ads</span>
+                                        </a>
+                                      </li>
+                                    </ul>
+                                  </div> -->
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="menu-item dropdown-menu parent-menuitem aditaiheadropdown-menu">
+                            <a class="parentwithoutlink" href="javascript:void(0);">Adit AI</a>
+                            <div class="dropdownmenu-block headsub-menu">
+                              <div class="dropdownmenu-box dropdown-submenu childwithoutlink">
+                                <div class="dropdownmenu-boxinner">
+                                  <ul>
+                                    <li class="menu-item">
+                                      <a class="aditaimenu-link" href="/call-intelligence">
+                                        <strong>AI Call Intelligence</strong>
+                                        <p>Adit AI listens to your calls and recovers missed bookings, automates follow-ups, flags unhappy patients, and scores staff performance so you capture every opportunity and deliver better patient experiences.</p>
+                                      </a>
+                                    </li>
+                                    <li class="menu-item">
+                                      <a class="aditaimenu-link" href="/ai-front-desk">
+                                        <strong>AI Front Desk</strong>
+                                        <p>Adit’s AI Agent handles all after-hours and missed calls, speaks with your patients, understands their needs, and delivers patient care consistent with your standards.</p>
+                                      </a>
+                                    </li>
+                                    <li class="menu-item pointer-none">
+                                      <a class="aditaimenu-link" href="javascript:void(0);">
+                                        <strong>AI Recare<span class="comingsoonTag">Coming Soon</span></strong>
+                                        <p>Adit AI fills your schedule by outbound reach via voice and text with your patients with intent to schedule them and deliver a superior patient experience.</p>
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="menu-item dropdown-menu parent-menuitem">
+                            <a class="parentwithoutlink" href="javascript:void(0);">Industry</a>
+                            <div class="dropdownmenu-block headsub-menu">
+                              <div class="dropdownmenu-box dropdown-submenu childwithoutlink">
+                                <div class="dropdownmenu-boxinner">
+                                  <ul>
+                                    <li class="menu-item">
+                                      <a class="iconmenu-link" href="https://adit.com/dental"><i class="adit_fonticon dental-menufont-icon"></i><span>Dental</span></a>
+                                    </li>
+                                    <li class="menu-item">
+                                      <a class="iconmenu-link" href="https://adit.com/optometry"><i class="adit_fonticon optometry-menufont-icon"></i><span>Optometry</span></a>
+                                    </li>
+                                    <li class="menu-item">
+                                      <a class="iconmenu-link" href="https://adit.com/chiropractic"><i class="adit_fonticon chiropractic-menufont-icon"></i><span>Chiropractic</span></a>
+                                    </li>
+                                    <li class="menu-item">
+                                      <a class="iconmenu-link" href="https://adit.com/orthodontics"><i class="adit_fonticon orthodontics-menufont-icon"></i><span>Orthodontics</span></a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <!-- <li class="dropdown-menu parent-menuitem">
+                            <a href="#">Enterprise</a>
+                            <div class="dropdownmenu-block headsub-menu">
+                              <div class="dropdownmenu-box dropdown-submenu">
+                                <div class="dropdownmenu-boxinner">
+                                  <ul>
+                                    <li class="menu-item">
+                                      <a href="https://adit.com/dso">DSO</a>
+                                    </li>
+                                    <li class="menu-item pointer-none">
+                                      <a href="#">OSO <span class="comingsoonTag">Coming Soon</span></a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </li> -->
+                          <li class="menu-item ">
+                            <a href="https://adit.com/enterprise">Enterprise</a>
+                          </li>
+                          <li class="menu-item ">
+                            <a href="https://adit.com/pricing">Pricing</a>
+                          </li>
+                          <li class="menu-item dropdown-menu">
+                            <a class="parentwithoutlink" href="javascript:void(0);">Resources</a>
+                            <div class="dropdownmenu-block">
+                              <div class="dropdownmenu-box dropdown-submenu childwithoutlink">
+                                <div class="dropdownmenu-boxinner">
+                                  <ul>
+                                    <li class="menu-item">
+                                      <a href="https://adit.com/welcome-to-the-new-adit">The New Adit</a>
+                                    </li>
+                                    <li class="menu-item">
+                                      <a href="https://adit.com/case-studies">Case Studies</a>
+                                    </li>
+                                    <!-- <li class="menu-item ">
+                                      <a href="https://adit.com/roi-calculator">ROI Calculator <span class="headmenu-newtag">New</span></a>
+                                    </li> -->
+                                    <li class="menu-item ">
+                                      <a href="https://adit.com/testimonials">Testimonials</a>
+                                    </li>
+                                    <li class="menu-item">
+                                      <a href="https://adit.com/blog">Blog</a>
+                                    </li>
+                                    <li class="menu-item">
+                                      <a href="https://adit.com/ebooks">E-books</a>
+                                    </li>
+                                    <li class="menu-item">
+                                      <a href="https://adit.com/stories">Stories</a>
+                                    </li>
+                                    <li class="menu-item">
+                                      <a href="https://adit.com/video-reel">Video Reel</a>
+                                    </li>
+                                    <li class="menu-item">
+                                      <a href="https://adit.com/webinars">Webinars</a>
+                                    </li>
+                                    <li class="menu-item">
+                                      <a href="https://adit.com/podcast">Podcasts</a>
+                                    </li>
+                                    <li class="menu-item">
+                                      <a href="https://adit.com/press-release">Press Releases</a>
+                                    </li>
+                                    <li class="menu-item">
+                                      <a href="https://adit.com/free-dental-business-name-generator-tool">Practice Name Generator</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="menu-item dropdown-menu">
+                            <a class="parentwithoutlink" href="javascript:void(0)">About Us</a>
+                            <div class="dropdownmenu-block">
+                              <div class="dropdownmenu-box dropdown-submenu childwithoutlink">
+                                <div class="dropdownmenu-boxinner">
+                                  <ul>
+                                    <li class="menu-item ">
+                                      <a href="https://adit.com/about-us">Our Story</a>
+                                    </li>
+                                    <li class="menu-item ">
+                                      <a href="https://adit.com/dental-practice-management-tools">Adit Platform</a>
+                                    </li>
+                                    <li class="menu-item ">
+                                      <a href="https://adit.com/integrations">Integrations</a>
+                                    </li>
+                                    <li class="menu-item ">
+                                      <a href="https://adit.com/reviews">Reviews</a>
+                                    </li>
+                                    <li class="menu-item ">
+                                      <a href="https://adit.com/careers">Careers</a>
+                                    </li>
+                                    <li class="menu-item ">
+                                      <a href="https://adit.com/referral-program-dental-practices">Refer A Friend</a>
+                                    </li>
+                                    <li class="menu-item ">
+                                      <a href="https://adit.com/contact">Contact</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                          <!-- <li class="menu-item headhelp-menu ">
+                            <a href="https://adit.com/customer-support"><i class="ion-help-circled"></i>Help</a>
+                            </li> -->
+                        </ul>
+                      </div>
+                    </div>
+                  </nav>
+                  <div class="headtop-right">
+                    <div class="head-signbtn headsignbtn-only">
+                      <a href="https://app.adit.com" target="_blank" rel="noopener noreferrer">Sign In</a>
+                    </div>
+                    <div class="head-demobtn display_none">
+                      <a href="javascript:void(0);" class="head_demopopup">Schedule A Demo</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+        
+        
+
+
+        
+        
+        <main id="container">
+          
+          
+                    <!-- remove all -->
+          
+        
+
+
+                                <section class="hmbanner-section hmbanner-sectionv4">
+  <div class="dots_pattern bluedots_pattern dots_pattern_topleft"></div>
+  <div class="bg_glow blue_glow glow_left"></div>
+  <video id="aifd_bgvideo" class="hmbannerbg-video" poster="https://adit.com/images/home-v3/ai-frontdesk-video-bgwave-v3.webp" autoplay="" muted="" loop="" playsinline="" controlslist="nodownload nofullscreen noremoteplayback" disablepictureinpicture="">
+    <source src="" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="wrap-inner">
+    <div id="frontdesk_screen1" class="hmbanner-block">
+      <div class="hmbanner-content">
+        <h1><span class="hmbannerai-mobile">The all-in-one</span> <img src="https://adit.com/images/home-v3/adit-ai-colored-icon.webp" alt="Adit AI" width="45" height="41" /> powered platform <br/> <span class="hmbanner-gradientext">for <span class="striking-txt">better patient care</span></span></h1>
+        <p>Phones. Texting. Reminders. Forms. Scheduling. Payments. Reviews. Analytics. Verifications - All amplified by the most advanced AI agent.</p>
+      </div>
+      <div class="hmbannerbtn-group">
+        <div class="hmbanner-videolinkBtn">
+          <a id="frontdesk_actionBtn1" href="javascript:void(0);">See Our AI Front Desk Agent in Action <i class="ion-ios-play"></i></a>
+        </div>
+        <div class="hmbanner-btn">
+          <a class="button2 head_demopopup" href="javascript:void(0);">Book a Demo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Start: Screen2 -->
+  <div id="frontdesk_screen2" class="chatgroup-block hmbanner-block">
+    <div class="wrap-inner">
+      <div class="chatgroup-info">
+        <div class="chatgroup-btns">
+          <button id="newPatient_chatBtn" class="audiochat-btn" type="button"><span>Created New Patient</span></button>
+          <button id="apptBooked_chatBtn" class="audiochat-btn" type="button"><span>Appointment Booked</span></button>
+          <button id="apptModified_chatBtn" class="audiochat-btn" type="button"><span>Appointment Modified</span></button>
+          <button id="callEnd_chatBtn" class="audiochat-btn" type="button"><span>Concluded Call & Updated EHR with Summary</span></button>
+        </div>
+        <div class="chatgroup-items">
+          <div id="prev2_chat" class="chatgroup-item chatprev_2"></div>
+          <div id="prev1_chat" class="chatgroup-item chatprev_1"></div>
+          <div id="current_chat" class="chatgroup-item active"></div>
+        </div>
+      </div>
+      <audio id="frontdeskAudio" controls>
+        <source src="https://adit.com/storage/files/ai-front-desk.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <div id="chatbefore_text">For the full experience, please turn on your headphones or speakers before beginning.</div>
+      <div id="chatStart_text">**Patient calls during lunch hour when staff is away.</div>
+      <div class="chatskip-btn">
+        <button id="chat_skipBtn" class="chatscreen_btn" type="button"><span><img src="https://adit.com/storage/files/skip-icon.svg" alt="Skip" width="34" height="34" /></span>Skip Demo</button>
+      </div>
+    </div>
+  </div>
+  <!-- End: Screen2 -->
+  <div class="chatreplay-btn">
+    <button id="chat_replayBtn" class="chatscreen_btn" type="button"><span><img src="https://adit.com/storage/files/refresh-icon.svg" alt="Replay" width="34" height="34" /></span>Replay Demo</button>
+  </div>
+</section>
+                        <section class="hminsight2-section">
+  <div class="wrap-inner">
+    <div class="hminsight2-row">
+      <div class="item">
+        <div class="hminsight2-box">
+          <strong><span class="counter">5</span>K<small>+</small></strong>
+          <p>Practices choose Adit</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="hminsight2-box">
+          <strong><span class="counter">2.4</span>M<small>+</small></strong>
+          <p>Calls handled every month</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="hminsight2-box">
+          <strong><span class="counter">30</span>K<small>+</small></strong>
+          <p>Active users on Adit</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="hminsight2-box">
+          <strong><span class="counter">200</span>K<small>+</small></strong>
+          <p>Confirmed appointments every month</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+                        <section class="hmrating-strip">
+  <div class="dots_pattern orangedots_pattern dots_pattern_topright"></div>
+  <div class="wrap-inner">
+    <div class="chiroratingstrip-block">
+      <span class="chiroratingstrip-line chiroratingstrip-line-left"></span>
+      <div class="chiroratinglogo-row">
+        <div class="chiroratingstrip-logobox2">
+          <img src="https://adit.com/storage/files/software-capterra-awards.svg" alt="Software, Capterra - Awards" width="156" height="60" />
+        </div>
+        <div class="chiroratingstrip-logobox">
+          <div class="chiroratingstrip-logoitem">
+            <a href="https://www.softwareadvice.com/dental/adit-profile/reviews/"  target="_blank">
+            <img src="https://adit.com/images/home-v3/software-advice-rating-4-7.webp" alt="Software Advice" width="156" height="60" />
+            </a>
+          </div>
+          <div class="chiroratingstrip-logoitem">
+           <a href="https://www.g2.com/products/adit/reviews"  target="_blank">
+            <img src="https://adit.com/images/home-v3/g2-rating-4-8.webp" alt="G2" width="156" height="60" />
+            </a>
+          </div>
+          <div class="chiroratingstrip-logoitem">
+           <a href="https://www.capterra.com/p/208534/Adit/reviews/"  target="_blank">
+            <img src="https://adit.com/images/home-v3/capterra-rating-4-7.webp" alt="Capterra" width="156" height="60" />
+            </a>
+          </div>
+        </div>
+      </div>
+      <span class="chiroratingstrip-line chiroratingstrip-line-right"></span>
+    </div>
+  </div>
+</section>
+                        <section class="hmaiservice-section section_padding80">
+  <div class="dots_pattern bluedots_pattern dots_pattern_topleft"></div>
+  <div class="dots_pattern orangedots_pattern dots_pattern_btmright"></div>
+  <div class="wrap-inner">
+    <div class="sectiontop-title">
+      <h2>Level up with the most advanced AI agent in healthcare</h2>
+    </div>
+    <div class="hmaifeature-row">
+      <div class="hmaifeature-item">
+        <div class="hmaifeature-box">
+          <div class="hmaifeaturebox-inner">
+            <div style="display: flex;">
+              <a class="hmaifeaturebox-btn" href="https://adit.com/ai-front-desk"><img src="https://adit.com/images/home-v3/adit-ai-colored-icon.webp" alt="Adit AI" width="45" height="41" /> Front desk</a>
+            </div>
+            <div class="hmaifeaturebox-text">
+              <strong>Human-like conversations. Superhuman availability.</strong>
+              <p>Adit’s AI Agent handles all after-hours and missed calls, speaks with your patients, understands their needs, and delivers patient care consistent with your standards.</p>
+              <a class="button2" href="https://adit.com/ai-front-desk">Explore More</a>
+              <div class="hmaifeaturebox-img">
+                <img src="https://adit.com/images/home-v3/home-front-desk-img.webp" alt="Human-like conversations. Superhuman availability." width="629" height="334" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hmaifeature-item">
+        <div class="hmaifeature-box">
+          <div class="hmaifeaturebox-inner">
+            <div style="display: flex;"> 
+              <a class="hmaifeaturebox-btn" href="https://adit.com/call-intelligence"><img src="https://adit.com/images/home-v3/adit-ai-colored-icon.webp" alt="Adit AI" width="45" height="41" /> Call intelligence</a>
+            </div>
+            <div class="hmaifeaturebox-text">
+              <strong>Supercharge your front desk with call intelligence.</strong>
+              <p>Adit AI listens to your calls and recovers missed bookings, automates follow-ups, flags unhappy patients, and scores staff performance so you capture every opportunity and deliver better patient experiences.</p>
+              <a class="button2" href="https://adit.com/call-intelligence">Explore More</a>
+              <div class="hmaifeaturebox-img">
+                <img src="https://adit.com/images/home-v3/home-call-intelligence-img.webp" alt="Supercharge your front desk with call intelligence." width="629" height="334" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+                        <section class="hmjoshvideo-section section_padding80">
+  <div class="bg_glow blue_glow glow_left"></div>
+  <div class="bg_glow orange_glow glow_right"></div>
+  <div class="wrap-inner">
+    <div class="sectiontop-title">
+      <h2>Run your practice with one system</h2>
+      <p>Adit is not just another tool, it's an ecosystem designed to connect, automate, and support real-world practice demands. Merging phones, texting, reminders, forms, scheduling, payments, reviews, analytics, verifications and more.</p>
+    </div>
+    <div class="hmjoshvideo-block">
+      <div class="video-block">
+        <iframe src="https://player.vimeo.com/video/1125876135?badge=0&autoplay=0&muted=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media;" title="Adit Platform Walkthrough_Josh Gosnell" loading="lazy"></iframe>
+      </div>
+    </div>
+    <div class="hmbanner-btn">
+      <a class="button2 head_demopopup" href="javascript:void(0);">Schedule a demo</a>
+    </div>
+  </div>
+</section>
+                        <section class="hmsuite-section hmsuite-section2">
+  <div class="dots_pattern bluedots_pattern dots_pattern_topleft"></div>
+  <div class="dots_pattern orangedots_pattern dots_pattern_btmright"></div>
+  <div class="bg_glow blue_glow glow_left"></div>
+  <div class="wrap-inner">
+    <div class="sectiontop-title">
+      <h2>A complete suite to power your practice</h2>
+      <p>Whether you’re growing or just looking for something better, Adit’s all-in-one platform helps your practice work smarter. From scheduling and communication to payments and analytics, our tools reduce chaos and keep your team focused on care.</p>
+    </div>
+    <div class="hmsuitetab-block">
+      <ul class="hmsuitetab-links">
+        <li><button class="active" data-tab="#centralize_tab">Centralize Communications</button></li>
+        <li><button class="streamline_tablink" data-tab="#streamline_tab">Streamline Operations</button></li>
+        <li><button class="boost_tablink" data-tab="#boost_tab">Boost Production</button></li>
+        <li><button class="aditai_tablink" data-tab="#ai_tab">Adit AI</button></li>
+      </ul>
+      <div class="hmsuitetab-content">
+        <div id="centralize_tab" class="hmsuitetab-detail active">
+          <div class="hmsuitetab-info">
+            <div class="hmsuitetab-row">
+              <div class="hmsuitetab-textcol">
+                <div class="hmsuitetab-text">
+                  <strong>Centralize Communications</strong>
+                  <p>Bring all your patient communication, calls, texts, forms, and reminders, into one place so nothing slips through the cracks and your front desk runs with zero headaches.</p>
+                  <ul class="hmsuitetabtext-links">
+                    <li><a href="https://adit.com/dental-voip-phone-system">Adit Voice</a></li>
+                    <li><a href="https://adit.com/hipaa-compliant-texting-dentists">Texting</a></li>
+                    <li><a href="https://adit.com/email-marketing-dentists">Email</a></li>
+                    <li><a href="https://adit.com/instant-dental-office-messaging">Internal Chat</a></li>
+                    <li><a href="https://adit.com/efax">eFax</a></li>
+                    <li><a href="https://adit.com/dental-practice-management-mobile-app">Mobile App</a></li>
+                  </ul>
+                  <a class="button2" href="https://adit.com/patient-communication-software">Read More</a>
+                </div>
+              </div>
+              <div class="hmsuitetab-imgcol">
+                <div class="hmsuitetab-img">
+                  <img src="https://adit.com/images/home-v3/centralize-communication-hometabimg.webp" alt="Centralize Communication" width="718" height="417" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="streamline_tab" class="hmsuitetab-detail">
+          <div class="hmsuitetab-info">
+            <div class="hmsuitetab-row">
+              <div class="hmsuitetab-textcol">
+                <div class="hmsuitetab-text">
+                  <strong>Streamline Operations</strong>
+                  <p>Simplify everyday tasks like scheduling and billing with tools that work together, so your team can save precious hours.</p>
+                  <ul class="hmsuitetabtext-links">
+                    <li><a href="https://adit.com/online-dental-patient-forms">Digital Forms</a></li>
+                    <li><a href="https://adit.com/dental-appointment-scheduling-software">Online Scheduling</a></li>
+                    <li><a href="https://adit.com/dental-appointment-reminder-software">Reminders</a></li>
+                    <li><a href="https://adit.com/insurance-verification">Insurance Verifications</a></li>
+                    <li><a href="https://adit.com/dental-reputation-management-software">Pozative Reviews</a></li>
+                    <li><a href="https://adit.com/tasks">Tasks</a></li>
+                  </ul>
+                  <a class="button2" href="https://adit.com/healthcare-practice-operations-system">Read More</a>
+                </div>
+              </div>
+              <div class="hmsuitetab-imgcol">
+                <div class="hmsuitetab-img">
+                  <img src="https://adit.com/images/home-v3/streamline-operations-hometabimg-v2.webp" alt="Streamline Operations" width="718" height="417" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="boost_tab" class="hmsuitetab-detail">
+          <div class="hmsuitetab-info">
+            <div class="hmsuitetab-row">
+              <div class="hmsuitetab-textcol">
+                <div class="hmsuitetab-text">
+                  <strong>Boost Production</strong>
+                  <p>Fill more chairs, reduce no-shows, and convert inquiries into appointments with smart automation designed to grow your practice without the extra effort.</p>
+                  <ul class="hmsuitetabtext-links">
+                    <li><a href="https://adit.com/dental-practice-analytics-software">Practice Analytics</a></li>
+                    <li><a href="https://adit.com/treatment-plans">Treatment Plans</a></li>
+                    <li><a href="https://adit.com/carecredit">CareCredit</a></li>
+                    <li><a href="https://adit.com/dental-recall-system">Patient Recall</a></li>
+                    <li><a href="https://adit.com/billing-software">Adit Pay</a></li>
+                  </ul>
+                  <a class="button2" href="https://adit.com/boost-production">Read More</a>
+                </div>
+              </div>
+              <div class="hmsuitetab-imgcol">
+                <div class="hmsuitetab-img">
+                  <img src="https://adit.com/images/home-v3/boost-production-hometabimg-v2.webp" alt="Boost Production" width="718" height="417" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="ai_tab" class="hmsuitetab-detail">
+          <div class="hmsuitetab-info">
+            <div class="hmsuitetab-row">
+              <div class="hmsuitetab-textcol">
+                <div class="hmsuitetab-text">
+                  <strong>Adit AI</strong>
+                  <p>Adit AI brings intelligence to your practice. From call handling to re-care and insurance verifications, it automates the busy work so your team can deliver care, not chase paperwork.</p>
+                  <ul class="hmsuitetabtext-links">
+                    <li><a href="https://adit.com/call-intelligence">AI Call Intelligence</a></li>
+                    <li><a href="https://adit.com/ai-front-desk">AI Front Desk</a></li>
+                    <li><a class="pointer-none" href="#">AI Recare <span class="comingsoonTag">Coming Soon</span></a></li>
+                  </ul>
+                  <a class="button2" href="https://adit.com/call-intelligence">Read More</a>
+                </div>
+              </div>
+              <div class="hmsuitetab-imgcol">
+                <div class="hmsuitetab-img">
+                  <img src="https://adit.com/images/home-v3/adit-ai-hometabimg.webp" alt="Adit AI" width="718" height="417" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+                        <section class="hmswitch-section background_white">
+  <div class="wrap-inner">
+    <div class="sectiontop-title">
+      <h2>Practices switch to Adit because we deliver results!</h2>
+    </div>
+    <div class="hmswitch-block">
+      <div class="hmswitch-list hmswitch-slider owl-carousel">
+        <div class="item hmswitch-item5">
+          <div class="hmswitch-box">
+            <div class="hmswitchbox-inner">
+              <div class="hmswitchbox-logo">
+                <img src="https://adit.com/images/home-v3/arnold-dentistry-logo-switch.webp" alt="Arnold Dentistry" width="166" height="63" />
+              </div>
+              <p>Arnold Dentistry reduced administrative workload by <b>75%</b> using <b>Adit VoIP</b></p>
+            </div>
+            <div class="hmswitchbox-btn">
+              <a href="https://adit.com/arnold-dentistry">Read More<i class="ion-arrow-right-c"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="item hmswitch-item3">
+          <div class="hmswitch-box">
+            <div class="hmswitchbox-inner">
+              <div class="hmswitchbox-logo">
+                <img src="https://adit.com/images/home-v3/ava-dental-logo-switch.webp" alt="AVA Dental" width="258" height="60" />
+              </div>
+              <p>AVA Dental added <b>$66K</b> in production in just 3 months by boosting patient bookings <b>25%</b> using <b>Digital Forms</b></p>
+            </div>
+            <div class="hmswitchbox-btn">
+              <a href="https://adit.com/ava-dental">Read More<i class="ion-arrow-right-c"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="item hmswitch-item4">
+          <div class="hmswitch-box">
+            <div class="hmswitchbox-inner">
+              <div class="hmswitchbox-logo">
+                <img src="https://adit.com/images/home-v3/dentists-at-lincoln-green-logo-switch.webp" alt="Dentists at Lincoln Green" width="185" height="47" />
+              </div>
+              <p>Dentists at Lincoln Green cut <br/>no-shows by <b>80%</b> through <br/><b>Smart Recall</b></p>
+            </div>
+            <div class="hmswitchbox-btn">
+              <a href="https://adit.com/dentists-at-lincoln-green">Read More<i class="ion-arrow-right-c"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="item hmswitch-item2">
+          <div class="hmswitch-box">
+            <div class="hmswitchbox-inner">
+              <div class="hmswitchbox-logo">
+                <img src="https://adit.com/images/home-v3/sandi-e-silva-logo-switch.webp" alt="Sandi E. Silva" width="119" height="65" />
+              </div>
+              <p>Sandi E. Silva DDS, Inc. saved 16 hours/ week by automating <b>Insurance Verifications</b></p>
+            </div>
+            <div class="hmswitchbox-btn">
+              <a href="https://adit.com/sandi-e-silva-dds-inc">Read More<i class="ion-arrow-right-c"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="item hmswitch-item6">
+          <div class="hmswitch-box">
+            <div class="hmswitchbox-inner">
+              <div class="hmswitchbox-logo">
+                <img src="https://adit.com/images/home-v3/orthograce-switch-logo.webp" alt="OrthoGrace Dental" width="166" height="63" />
+              </div>
+              <p>OrthoGrace Dental increased treatment acceptance by <b>91%</b> with payment plans via <b>Adit Pay</b></p>
+            </div>
+            <div class="hmswitchbox-btn">
+              <a href="https://adit.com/orthograce-dental">Read More<i class="ion-arrow-right-c"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="item hmswitch-item1">
+          <div class="hmswitch-box">
+            <div class="hmswitchbox-inner">
+              <div class="hmswitchbox-logo">
+                <img src="https://adit.com/images/home-v3/dedicated-dentistry-logo-switch.webp" alt="Dedicated Dentistry" width="268" height="42" />
+              </div>
+              <p>Dedicated Dentistry grew to <b>$1.6M</b> in revenue by making data-driven decisions with <b>Practice Analytics</b></p>
+            </div>
+            <div class="hmswitchbox-btn">
+              <a href="https://adit.com/dedicated-dentistry">Read More<i class="ion-arrow-right-c"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+                        <section class="hmcasestudyOpt2-section hmcasestudyOpt3-section section_padding80">
+  <div class="dots_pattern bluedots_pattern dots_pattern_btmleft"></div>
+  <div class="bg_glow blue_glow glow_left"></div>
+  <div class="wrap-inner">
+    <div class="sectiontop-title">
+      <h2>Real practices, real results</h2>
+      <p>See how practices are transforming with Adit. From reducing no-shows to improving patient satisfaction, our doctors share the real-world impact of streamlined, connected communication.</p>
+    </div>
+    <div class="hmcasestudyOpt2-list hmcasestudyOpt2-slider owl-carousel">
+      <div class="item">
+        <div class="hmcasestudyOpt2-block">
+          <div class="hmcasestudyOpt2-row">
+            <div class="hmcasestudyOpt2-leftcol">
+              <div class="hmcasestudyOpt2-content">
+                <strong class="hmcasestudyOpt2-title">Goodbye Lighthouse360, Hello $1.6M: How Adit became <b>Dedicated Dentistry’s</b> growth engine</strong>
+                <div class="hmcsinsight-block">
+                  <div class="hmcsinsight-list">
+                    <div class="hmcsinsight-item">
+                      <div class="hmcsinsight-box">
+                        <strong><span class="counter2">25</span>%</strong>
+                        <p>Increase in <br/>confirmations</p>
+                      </div>
+                    </div>
+                    <div class="hmcsinsight-item">
+                      <div class="hmcsinsight-box">  
+                        <strong><span class="counter2">20</span>%</strong>
+                        <p>Growth in <br/>appointments</p>
+                      </div>
+                    </div>
+                    <div class="hmcsinsight-item">
+                      <div class="hmcsinsight-box">
+                        <strong>$<span class="counter2">1.6</span>M</strong>
+                        <p>Annual production <br/>(record-high)</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="hmcasestudyOpt2-rightcol">
+              <div class="hmcasestudyOpt2-img">
+                <img src="https://adit.com/images/home-v3/dedicated-dentistry-casestudy-slider-thumbnail.webp" alt="Dedicated Dentistry’s Case Study" width="522" height="338" />
+              </div>
+            </div>
+          </div>
+          <div class="hmcasestudyOpt2-btminfo">
+            <p>Behind the scenes, outdated tech was holding this practice back. Find out how switching from Lighthouse360 to Adit helped them streamline communication, improve workflows, and create a more seamless patient experience from check-in to payment.</p>
+            <a class="button2" href="https://adit.com/storage/files/dedicated-dentistry-case-study-adit.pdf" target="_blank">Download Case Study</a>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="hmcasestudyOpt2-block">
+          <div class="hmcasestudyOpt2-row">
+            <div class="hmcasestudyOpt2-leftcol">
+              <div class="hmcasestudyOpt2-content">
+                <strong class="hmcasestudyOpt2-title"><b>Lynnwood Dental Studio</b> generated $227K in production with online scheduling and cut no-shows by 40%</strong>
+                <div class="hmcsinsight-block">
+                  <div class="hmcsinsight-list">
+                    <div class="hmcsinsight-item">
+                      <div class="hmcsinsight-box">
+                        <strong><span class="counter2">150</span>%</strong>
+                        <p>New patients <br/>booked online</p>
+                      </div>
+                    </div>
+                    <div class="hmcsinsight-item">
+                      <div class="hmcsinsight-box">  
+                        <strong><span class="counter2">40</span>%</strong>
+                        <p>Drop in <br/>no-shows</p>
+                      </div>
+                    </div>
+                    <div class="hmcsinsight-item">
+                      <div class="hmcsinsight-box">
+                        <strong>$<span class="counter2">277</span>K</strong>
+                        <p>New <br/>patient boost</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="hmcasestudyOpt2-rightcol">
+              <div class="hmcasestudyOpt2-img">
+                <img src="https://adit.com/images/home-v3/lynnwood-dental-studio-casestudy-slider-thumbnail.webp" alt="Lynnwood Dental Studio Case Study" width="522" height="338" />
+              </div>
+            </div>
+          </div>
+          <div class="hmcasestudyOpt2-btminfo">
+            <p>When overpriced software and manual tasks slowed them down, Lynnwood Dental Studio switched to Adit. With online scheduling, automated reminders, and EagleSoft integration, they streamlined operations, grew new patients, and saved hours every week.</p>
+            <a class="button2" href="https://adit.com/storage/files/lynnwood-dental-studio-case-study-adit.pdf" target="_blank">Download Case Study</a>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="hmcasestudyOpt2-block">
+          <div class="hmcasestudyOpt2-row">
+            <div class="hmcasestudyOpt2-leftcol">
+              <div class="hmcasestudyOpt2-content">
+                <strong class="hmcasestudyOpt2-title"><b>Petaluma Dental Group</b> replaced 10 software vendors with Adit</strong>
+                <div class="hmcsinsight-block">
+                  <div class="hmcsinsight-list">
+                    <div class="hmcsinsight-item">
+                      <div class="hmcsinsight-box">
+                        <strong><span class="counter2">6</span><small>hours</small></strong>
+                        <p>Saved <br/>weekly</p>
+                      </div>
+                    </div>
+                    <div class="hmcsinsight-item">
+                      <div class="hmcsinsight-box">  
+                        <strong><span class="counter2">65</span>%</strong>
+                        <p>Increase in <br/>online reviews</p>
+                      </div>
+                    </div>
+                    <div class="hmcsinsight-item">
+                      <div class="hmcsinsight-box">
+                        <strong>$<span class="counter2">1,200</span>+</strong>
+                        <p>Saved monthly <br/>budget</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="hmcasestudyOpt2-rightcol">
+              <div class="hmcasestudyOpt2-img">
+                <img src="https://adit.com/images/home-v3/petaluma-dental-group-casestudy-slider-thumbnail.webp" alt="Petaluma Dental Group Case Study" width="522" height="338" />
+              </div>
+            </div>
+          </div>
+          <div class="hmcasestudyOpt2-btminfo">
+            <p>When juggling 10+ disconnected tools started draining time and money, Petaluma Dental Group switched to Adit. Now, operations, patient care, and staff workflows run seamlessly cutting costs, boosting efficiency, and creating a smoother, more connected patient experience.</p>
+            <a class="button2" href="https://adit.com/storage/files/petaluma-dental-group-case-study-adit.pdf" target="_blank">Download Case Study</a>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="hmcasestudyOpt2-block">
+          <div class="hmcasestudyOpt2-row">
+            <div class="hmcasestudyOpt2-leftcol">
+              <div class="hmcasestudyOpt2-content">
+                <strong class="hmcasestudyOpt2-title"><b>Socialite Vision</b> boosts revenue by 20% and grows new patients by 40% with Adit</strong>
+                <div class="hmcsinsight-block">
+                  <div class="hmcsinsight-list">
+                    <div class="hmcsinsight-item">
+                      <div class="hmcsinsight-box">
+                        <strong><span class="counter2">4</span><small>hours</small></strong>
+                        <p>Saved <br/>weekly</p>
+                      </div>
+                    </div>
+                    <div class="hmcsinsight-item">
+                      <div class="hmcsinsight-box">  
+                        <strong><span class="counter2">20</span>%</strong>
+                        <p>Revenue <br/>growth</p>
+                      </div>
+                    </div>
+                    <div class="hmcsinsight-item">
+                      <div class="hmcsinsight-box">
+                        <strong><span class="counter2">40</span>%</strong>
+                        <p>More <br/>new patients</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="hmcasestudyOpt2-rightcol">
+              <div class="hmcasestudyOpt2-img">
+                <img src="https://adit.com/images/home-v3/socialite-vision-casestudy-slider-thumbnail.webp" alt="Socialite Vision Case Study" width="522" height="338" />
+              </div>
+            </div>
+          </div>
+          <div class="hmcasestudyOpt2-btminfo">
+            <p>When clunky systems and missed calls started costing patients, Socialite Vision switched to Adit. Phones, texting, reminders, forms, payments, and analytics now integrate seamlessly delivering smoother workflows, happier patients, and steady revenue growth.</p>
+            <a class="button2" href="https://adit.com/storage/files/socialite-vision-case-study-adit.pdf" target="_blank">Download Case Study</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+                        <section class="hmcontentstrip-section pt_01">
+  <div class="wrap-inner">
+    <div class="hmcontentstrip-block">
+      <div class="hmcontentstrip-inner">
+        <div class="hmcontentstrip-left">
+          <strong>Ready to simplify and grow your practice?</strong>
+          <p>Adit gives you all the tools you need to streamline operations, reduce costs, and keep patients engaged, all in one easy-to-use, affordable platform. Spend less time on busy work and more time delivering great patient care.</p>
+        </div>
+        <div class="hmcontentstrip-btn">
+          <a class="button2 head_demopopup" href="javascript:void(0);">Book a Demo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+    
+
+        </main><!-- #container -->
+
+        
+        
+
+                
+        
+        <footer id="footer2" class="footer2">
+          <div class="footer-innerblock">
+            <div class="wrap-inner">
+              <div class="footmain-row">
+                <div class="footaditinfo-col">
+                  <div class="footer-logo">
+                    <a href="https://adit.com/"><img src="https://adit.com/storage/settings/logo.png" alt="Adit" width="80" height="40" /></a>
+                    <p>The All in One AI-Powered Platform</p>
+                  </div>
+                  <div class="footcontact-box">
+                    <div class="footcontact-info">
+                      <div class="footcontactinfo-row">
+                        <div class="footcontactinfo-item">
+                          <div class="footcontactinfo-dtls">
+                            <span class="footcontactinfo-icon"><i class="fa fa-envelope"></i></span>
+                            <span class="footcontactinfo-text">Email:</span>
+                            <a href="/cdn-cgi/l/email-protection#0d64636b624d6c696479236e6260"><span class="__cf_email__" data-cfemail="83eaede5ecc3e2e7eaf7ade0ecee">[email&#160;protected]</span></a>
+                          </div>
+                        </div>
+                        <div class="footcontactinfo-item footcontactinfo-hours-item">
+                          <div class="footcontactinfo-dtls">
+                            <span class="footcontactinfo-icon"><i class="fa fa-clock-o"></i></span>
+                            <span class="footcontactinfo-text">Support Hours:</span>
+                            <p>7 AM CST to 7 PM CST</p>
+                          </div>
+                        </div>
+                        <div class="footcontactinfo-item">
+                          <div class="footcontactinfo-dtls">
+                            <span class="footcontactinfo-icon"><i class="adit_fonticon callfont-icon"></i></span>
+                            <span class="footcontactinfo-text">Call:</span>
+                            <a href="tel:832-225-8865">(832) 225-8865</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="mobileappstore" class="appstore-block">
+                    <strong>Download our App on</strong>
+                    <div class="appstore-links">
+                      <a href="https://play.google.com/store/apps/details?id=com.adit.app" rel="noopener noreferrer" target="_blank"><img src="https://adit.com/storage/files/google-play-store-icon.svg" alt="Google play store" width="20" height="20" />Google Play</a>
+                      <a class="ftr-appstorebtn" href="https://apps.apple.com/us/app/adit/id1565902948" rel="noopener noreferrer" target="_blank"><i class="fa fa-apple"></i>App Store</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="footaditmenu-col">
+                  <div class="footmenu-block">
+                    <strong class="footcol-title">Adit</strong>
+                    <ul class="footmenu-list">
+                      <li><a href="https://adit.com/integrations">Integrations</a></li>
+                      <li><a href="https://adit.com/pricing">Pricing</a></li>
+                      <li><a href="https://adit.com/about-us">About Adit</a></li>
+                      <li><a href="https://adit.com/case-studies">Case Studies</a></li>
+                      <li><a href="https://adit.com/reviews">Reviews</a></li>
+                      <li><a href="https://adit.com/testimonials">Testimonials</a></li>
+                      <li><a href="https://adit.com/video-reel">Video Reel</a></li>
+                      <li><a href="https://adit.com/blog">Blog</a></li>
+                      <li><a href="https://adit.com/careers">Careers</a></li>
+                      <li><a href="https://adit.com/contact">Contact</a></li>
+                      <li><a href="https://adit.com/referral-program-dental-practices">Refer a Friend</a></li>
+                      <li><a href="https://adit.com/local-rank-checker">Rank Checker</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="footindustryepmenu-col">
+                  <div class="footindustryepmenu-row">
+                    <div class="footindustrymenu-col">
+                      <div class="footmenu-block">
+                        <strong class="footcol-title">Industry</strong>
+                        <ul class="footmenu-list">
+                          <li><a href="https://adit.com/dental">Dental</a></li>
+                          <li><a href="https://adit.com/optometry">Optometry</a></li>
+                          <li><a href="https://adit.com/chiropractic">Chiropractic</a></li>
+                          <li><a href="https://adit.com/orthodontics">Orthodontics</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="footenterprisemenu-col">
+                      <div class="footmenu-block">
+                        <strong class="footcol-title">Adit AI</strong>
+                        <ul class="footmenu-list">
+                          <li><a href="https://adit.com/call-intelligence">AI Call Intelligence</a></li>
+                          <li><a href="https://adit.com/ai-front-desk">AI Front desk</a></li>
+                        </ul>
+                        <!-- <strong class="footcol-title">Enterprise</strong>
+                        <ul class="footmenu-list">
+                          <li><a href="https://adit.com/enterprise">DSO</a></li>
+                          <li><a href="#">OSO</a></li>
+                        </ul> -->
+                        <div class="footmenu-enterprise-btm">
+                          <ul class="footmenu-list">
+                            <li><a href="https://adit.com/enterprise">Enterprise</a></li>
+                            <!-- <li><a href="https://adit.com/call-intelligence">Adit AI</a></li>
+                            <li><a href="https://adit.com/roi-calculator">ROI Calculator</a></li> -->
+                            <!-- <li><a href="https://adit.com/local-rank-checker">Rank Checker</a></li> -->
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="footproductmenu-col">
+                  <div class="footproductmenu-block">
+                    <strong class="footcol-title">Product</strong>
+                    <div class="footmenu-row">
+                      <div class="footmenu-col footcommsmenu-col">
+                        <div class="footmenu-block">
+                          <strong class="footproductmenu-title"><a href="https://adit.com/patient-communication-software">Centralize <br/>Communications</a></strong>
+                          <ul class="footmenu-list">
+                            <li>
+                              <a href="https://adit.com/dental-voip-phone-system">Adit Voice</a>
+                            </li>
+                            <li>
+                              <a href="https://adit.com/hipaa-compliant-texting-dentists">Patient Texting</a>
+                            </li>
+                            <li>
+                              <a href="https://adit.com/email-marketing-dentists">Email Campaigns</a>
+                            </li>
+                            <!-- <li>
+                              <a href="https://adit.com/email-marketing-dentists">Call Tracking</a>
+                            </li> -->
+                            <li>
+                              <a href="https://adit.com/instant-dental-office-messaging">Internal Chat</a>
+                            </li>
+                            <li>
+                              <a href="https://adit.com/efax">eFax</a>
+                            </li>
+                            <li>
+                              <a href="https://adit.com/dental-practice-management-mobile-app">Mobile App</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="footmenu-col footoperationmenu-col">
+                        <div class="footmenu-block">
+                          <strong class="footproductmenu-title"><a href="https://adit.com/healthcare-practice-operations-system">Streamline <br/>Operations</a></strong>
+                          <ul class="footmenu-list">
+                            <li>
+                              <a href="https://adit.com/online-dental-patient-forms">Digital Forms</a>
+                            </li>
+                            <li>
+                              <a href="https://adit.com/dental-appointment-scheduling-software">Online Scheduling</a>
+                            </li>
+                            <li>
+                              <a href="https://adit.com/dental-appointment-reminder-software">Reminders</a>
+                            </li>
+                            <li>
+                              <a href="https://adit.com/insurance-verification">Insurance Verifications</a>
+                            </li>
+                            <li>
+                              <a href="https://adit.com/dental-reputation-management-software">Pozative Reviews</a>
+                            </li>
+                            <li>
+                              <a href="https://adit.com/tasks">Tasks</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="footmenu-col footproductionmenu-col">
+                        <div class="footmenu-block">
+                          <strong class="footproductmenu-title"><a href="https://adit.com/boost-production">Boost <br/>Production</a></strong>
+                          <ul class="footmenu-list">
+                            <li>
+                              <a href="https://adit.com/dental-practice-analytics-software">Practice Analytics</a>
+                            </li>
+                            <!-- <li>
+                              <a href="https://adit.com/practice-health-score">Practice Health Score</a>
+                            </li> -->
+                            <li>
+                              <a href="https://adit.com/treatment-plans">Treatment Plans</a>
+                            </li>
+                            <li>
+                              <a href="https://adit.com/carecredit">CareCredit</a>
+                            </li>
+                            <li>
+                              <a href="https://adit.com/dental-recall-system">Patient Recall</a>
+                            </li>
+                            <li>
+                              <a href="https://adit.com/billing-software">Adit Pay</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="footmenu-col footgrowthmenu-col">
+                        <div class="footmenu-block">
+                          <strong class="footproductmenu-title"><a href="https://adit.com/acquire-more-patients">Acquire <br/>More Patients</a></strong>
+                          <ul class="footmenu-list">
+                            <li>
+                              <a href="https://adit.com/dental-marketing-company#website-design">Website Design</a>
+                            </li>
+                            <li>
+                              <a href="https://adit.com/dental-marketing-company#seo">SEO</a>
+                            </li>
+                            <li>
+                              <a href="https://adit.com/dental-marketing-company#email-marketing">Email Marketing</a>
+                            </li>
+                            <li>
+                              <a href="https://adit.com/dental-marketing-company#google-ads">Google Ads</a>
+                            </li>
+                            <li>
+                              <a href="https://adit.com/dental-marketing-company#meta-ads">Meta Ads</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footrcopyright">
+            <div class="wrap-inner">
+              <div class="footcopy-row">
+                <div class="footcopy-textcol">
+                  <p>&#169; 2026 Adit. All Rights Reserved.</p>
+                </div>
+                <div class="footcopy-menucol">
+                  <div class="footcopy-menus">
+                    <ul class="footcopymenu-list">
+                      <li>
+                        <a href="https://adit.com/terms">Terms of Use</a>
+                      </li>
+                      <li>
+                        <a href="https://adit.com/privacy-policy">Privacy Policy</a>
+                      </li>
+                      <!-- <li>
+                        <a href="#">Cookie Policy</a>
+                      </li> -->
+                      <li>
+                        <a href="https://adit.com/return-policy">Return Policy</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="footcopy-socialcol">
+                  <ul class="footrsocial">
+                    <li>
+                      <a href="https://www.facebook.com/aditadv" rel="noopener noreferrer" target="_blank" title="Facebook"><i class="fa fa-facebook"></i></a>
+                    </li>
+                    <li>
+                      <a href="https://x.com/aditadv" rel="noopener noreferrer" target="_blank" title="X"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path></svg></a>
+                    </li>
+                    <li>
+                      <a href="https://www.instagram.com/get_adit/" rel="noopener noreferrer" target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a>
+                    </li>
+                    <li>
+                      <a href="https://www.linkedin.com/company/grow-with-adit" rel="noopener noreferrer" target="_blank" title="Linkedin"><i class="fa fa-linkedin"></i></a>
+                    </li>
+                    <li>
+                      <a href="https://www.youtube.com/@aditsoftware" rel="noopener noreferrer" target="_blank" title="YouTube"><i class="fa fa-play"></i></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <section class="hmbannerbottmform hmfootbottmform display_none">
+
+               <div class="bannerformrequest">
+
+                  <div class="wrap-inner">
+
+                     <div class="wrapcolumn-row">
+
+                        <div class="hmgetcompstudyformwrap cf">
+
+                           <div class="hmgetcompstudytitle">
+
+                              <h2>Special Offers Available<span>*Limited time only. Ends 10/30</span></h2>
+
+                              <p>Submit your info below and a team member will send you information regarding our limited time special offers. </p>
+
+                           </div>
+
+                           <form id="form" method="post">
+
+                              <div class="hmgetcompstudyform">
+
+                                 <div class="formgroup cf">
+
+                                    <div class="banerformcolfild">
+
+                                       <div class="fieldcol fieldcol33"><input id="frnmfoot" type="text" placeholder="Full Name*" /></div>
+
+                                       <div class="fieldcol fieldcol33"><input id="phnnofoot" type="text" placeholder="Phone*" /></div>
+
+                                       <div class="fieldcol fieldcol33"><input id="emalfoot" type="email" placeholder="Email*" /></div>
+
+                                       <input type="hidden" name="traffic_source" id="foot_traffic_source" value="direct" class="wpcf7-form-control wpcf7-hidden" />
+
+                                       <input type="hidden" name="uqid" value="" class="wpcf7-form-control wpcf7-hidden uqidfield" id="foot-frm-uqid" />
+
+                                    </div>
+
+                                    <div class="banerformbtncolfild">
+
+                                       <div class="submit">
+
+                                          <a id="getreportfoot" class="button" href="javascript:void(0);">See Special Offers</a> <a class="scdemopop hmftr-demobtn" href="javascript:void(0)l">or Schedule a Demo Now</a>
+
+                                       </div>
+
+                                    </div>
+
+                                 </div>
+
+                              </div>
+
+                           </form>
+
+                           <div class="ftrnews-form">
+
+                              <form id="footrnewsform">
+
+                                 <div class="formgroup">
+
+                                    <div class="fieldcol"><input id="subscription_email" name="subscription_email" type="email" placeholder="Enter email here" /></div>
+
+                                    <button class="ftrnews-sbmtbtn" id="subnewsletter" type="button">Join Our Newsletter</button>
+
+                                 </div>
+
+                              </form>
+
+                           </div>
+
+                        </div>
+
+                     </div>
+
+                  </div>
+
+               </div>
+
+         </section>
+        </footer>
+
+        
+
+
+
+</div>
+
+
+
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js" defer></script><script src="https://adit.com/js/home-functions.js?v=6.3.2" integrity="" crossorigin="anonymous" ></script><script src="https://adit.com/js/home-general.min.js?v=1776276388" integrity="" crossorigin="anonymous" ></script>
+
+     <!-- Start Facebook paid direct condition -->
+
+
+
+     
+        <input type="hidden" id="check_for_fb_rsrc" value="" />
+
+        <input type="hidden" id="adit_utm_campaign" value="" />
+
+        <input type="hidden" id="adit_utm_medium" value="" />
+
+        <input type="hidden" id="adit_utm_term" value="" />
+
+        <input type="hidden" id="adit_utm_content" value="" />
+
+        <input type="hidden" id="adit_utm_promotion" value="" />
+
+        <input type="hidden" id="adit_utm_lead_source" value="Website" />
+        <input type="hidden" id="lidi" value="" />
+        <input type="hidden" id="didi" value="" />
+        <input type="hidden" id="eidi" value="" />
+        <input type="hidden" id="ridi" value="" />
+        <input type="hidden" id="kidi" value="" />
+        
+        <input type="hidden" id="gclidi" name="gclidi" value="" />
+
+
+        <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+
+        <input type="hidden" name="action" value="validate_captcha">
+
+
+
+        <!-- End Facebook paid direct condition -->
+        <script src="https://adit.com/js/adit_source.min.js?v=6.2.9" integrity="" crossorigin="anonymous" ></script>
+        <!-- <script src="https://www.google.com/recaptcha/api.js?render=6LcNlsQZAAAAAJOANVQNUAe5Y0V211PjXoZhzVQL"></script> -->
+
+       <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+          let recaptchaLoaded = false;
+
+          function loadRecaptcha() {
+
+            if (recaptchaLoaded) return;
+
+            const script = document.createElement("script");
+            script.src = "https://www.google.com/recaptcha/api.js?render=6LcNlsQZAAAAAJOANVQNUAe5Y0V211PjXoZhzVQL";
+            script.async = true;
+            script.defer = true;
+
+            document.body.appendChild(script);
+
+            recaptchaLoaded = true;
+
+            console.log("reCAPTCHA loaded after 5 sec");
+          }
+
+          // Page fully after 5second
+          window.addEventListener("load", function () {
+            setTimeout(loadRecaptcha, 5000);
+          });
+
+        });
+        </script>
+    <script src="https://adit.com/js/home-v3.min.js?v=1776276388"></script>
+        
+          
+            
+      <div id="offerstikypopup_old" class="stickypop-giftcard display_hide">
+      <div class="stickypopgiftcard-inner">
+        <a id="offerstikypopup_close_old" href="javascript:void(0);" class="offerstikypopup-clsbtn">X</a>
+        <div class="stickypopgiftcard-block">
+          <div class="stickypopgiftcard-img">
+            <img src="https://adit.com/storage/files/notification-gift-card-25-dollar-1-1-1.svg" alt="Get a $25 Gift Card when you take a demo" width="155" height="113" />
+          </div>
+          <div class="stickypopgiftcard-desc">
+            <p>Get a <b>$25 Gift Card</b> when you take a demo</p>
+                        <a class="stickypopgiftcard-btn head_demopopup" href="javascript:void(0);">Schedule a Demo</a>
+                      </div>
+        </div>
+      </div>
+    </div>
+    <div id="offerstikypopup" class="stickypop-giftcard BF-stickypop aifd-stickypop">
+      <div class="stickypopgiftcard-inner">
+        <a id="offerstikypopup_close" href="javascript:void(0);" class="offerstikypopup-clsbtn">X</a>
+        <div class="stickypopgiftcard-block">
+          <div class="stickypopgiftcard-img">
+            <img src="https://adit.com/storage/files/sticky-promo-popup-50-dollar-gift-card.svg" alt="Get a $50 Gift Card" width="150" height="97" />
+          </div>
+          <div class="stickypopgiftcard-desc">
+            <p><b>Get a $50 Gift Card</b><br/> when you take a demo</p>
+                        <a class="stickypopgiftcard-btn head_demopopup" href="javascript:void(0);">Activate offer</a>
+                      </div>
+        </div>
+      </div>
+    </div>
+            
+
+    
+    <!-- Start: Vimeo Video Popup -->
+    <div class="site-popup vimeolink-popup">
+      <div class="vimeolinkpop-block">
+        <div class="popup-inner">
+          <div class="popupmain-block">
+            <a href="javascript:void(0);" class="popup-closebtn"><i class="ion-android-close"></i></a>
+            <div class="vimeolinkpop-main">
+              <div class="video-block">
+                <div class="muteunmutebtn"><button id="muteToggleBtn" class="mute"><i class="fa fa-volume-off" aria-hidden="true"></i></button></div>
+                <iframe id="vimeopop_iframe" src="" frameborder="0" allow="autoplay; fullscreen" title="Vimeo Video Adit"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End: Vimeo Video Popup -->
+    
+    <div id="outcountry_modal" class="outcountry-popup">
+      <div class="outcountry-inner">
+        <div class="outcountry-main">
+          <a id="outcountrypop-clsbtn" href="javascript:void(0);" class="outcountry-clsbtn">X</a>
+          <div class="outcountry-content">
+            <h2>Looks like you're out of bounds!</h2>
+            <p>Hey there! Your current location falls outside Adit's area of operation. If this is unexpected, try disabling your VPN and refresh your page. For further assistance or to book a live demo, connect with us at <a href="tel:832-225-8865">832-225-8865</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Start: Gift Demo T&C Popup -->
+
+      <div class="giftdemo-tcpopup">
+
+        <div class="tcpopup-inner">
+
+          <div class="tcpopup-mainbox">
+
+            <a href="javascript:void(0);" class="tcpopup-closebtn">X</a>
+
+            <div class="tcpopup-content">
+
+              <h2>April 15 Amazon Demo Promo</h2>
+
+              <h2>Terms and Conditions</h2>
+
+              <span class="tcpopup-updtdate">Last Updated: April 15, 2026</span>
+
+              <div class="tcpopup-desc">
+
+                
+                <p>Offer ends April 18, 2026, and is limited to prospective customers who sign an annual agreement before April 30, 2026. Gift card will be emailed to the company owner or established representative within 4 weeks of signing the annual agreement. Offer may not be combined with any other offers and is limited to one (1) gift card per office. Offer is not available to current customers or to prospective customers or individuals that have participated in a Adit demo during the prior six (6) months. Recipient is responsible for all taxes and fees associated with receipt and/or use of the gift card as well as reporting the receipt of the gift card as required under applicable federal and state laws. Adit is not responsible for and will not replace the gift card if it is lost or damaged, is not used within any applicable timeframe, or is misused by the recipient. Adit is not responsible for any injury or damage to persons or property which may be caused, directly or indirectly, in whole or in part, from the recipient’s participation in the promotion or receipt or use of the gift card. Recipient agrees to indemnify, defend and hold harmless Adit from and against any and all claims, expenses, and liabilities (including reasonable attorney’s fees) arising out of or relating to a recipient’s participation in the promotion and/or recipient’s acceptance, use or misuse of the gift card. This offer is sponsored by Adit Communications, Inc. and is in no way sponsored, endorsed or administered by, or associated with Amazon.</p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- End: Gift Demo T&C Popup -->
+      <!-- Start: AI Callback Popup -->
+      <div id="aicallbackthank_popup" class="demoform-popup giftdemo-popup1 newdemoform-popup aicallbackthank-popup">
+        <div class="formpopup-inner">
+          <div class="demoform-mainbox demoform-step13">
+            <a href="javascript:void(0);" class="formpopup-closebtn">X</a>
+            <div class="popup-thnkmssg">
+              <div class="popupthnkmssg-inner">
+                <img src="https://adit.com/storage/files/demoform-thankyou-tickmark.svg" alt="Thank You!" width="146" height="146" />
+                <h2>Thank You!</h2>
+                <p>We appreciate your interest! Adit AI will be calling you in the next few minutes!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End: AI Callback Popup -->
+
+      <div id="giftdemopopup" class="demoform-popup giftdemo-popup1 newdemoform-popup">
+        <div class="formpopup-inner">
+          <div class="demoform-mainbox demoform-step11">
+            <a href="javascript:void(0);" class="formpopup-closebtn">X</a>
+            <div class="popgftcrd-head">
+              <h2>FREE $25 Gift Card</h2>
+              <p>Schedule A Demo Before <span class="offertxt">00/00</span></p>
+              <div class="giftdemo-tc-text"><a class="giftdemo-tc-poplink" href="javascript:void(0);">*Terms and Conditions</a></div>
+            </div>
+            <div class="popgftcrd-img">
+              <img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="/storage/files/amazon-giftcard-largeimg.png" alt="Amazon Gift Card" width="397" height="249" />
+            </div>
+            <div class="popupfrm-btmimgs">
+              <img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="/storage/files/capterra-rating.png" alt="Capterra" width="126" height="94" />
+              <img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="/storage/files/software-advice-rating.png" alt="Software Advice" width="126" height="94" />
+            </div>
+            <button class="popgftcrd-btn btn" id="popup-gift-pass-2" type="button">Schedule Demo</button>
+          </div>
+          <div class="demoform-mainbox demoform-step12 display_none">
+            <a href="javascript:void(0);" class="formpopup-closebtn">X</a>
+            <div class="demoform-content">
+              <div class="demoform-tophead">
+                <h2>Please Complete The Form Below</h2>
+              </div>
+              <form id="giftcardform">
+                <div class="formgroup cf">
+                  <div class="fieldcol">
+                    <label for="giftcard_practice_name1">Practice Name*</label>
+                    <input id="giftcard_practice_name1" name="giftcard_practice_name" type="text" placeholder="Practice Name" />
+                  </div>
+                  <div class="fieldcol">
+                    <label for="giftcard_full_name1">Your Name*</label>
+                    <input id="giftcard_full_name1" name="giftcard_full_name1" type="text" placeholder="Full Name" />
+                  </div>
+                  <div class="fieldcol">
+                    <label for="giftcard_your_role1">Your Role*</label>
+                    <input id="giftcard_your_role1" name="giftcard_your_role1" type="text" placeholder="Role" />
+                  </div>
+                  <div class="fieldcol">
+                    <label for="giftcard_email1">Work Email*</label>
+                    <input id="giftcard_email1" name="giftcard_email" type="email" placeholder="Email" />
+                  </div>
+                  <div class="fieldcol">
+                    <label for="giftcard_phone1">Phone # *</label>
+                    <input id="giftcard_phone1" class="input-mask-phone" name="giftcard_phone" type="text" placeholder="Phone" />
+                  </div>
+                  <div class="fieldcol">
+                    <label for="giftcard_curnt_pms1">Current PMS*</label>
+                    <select id="giftcard_curnt_pms1" name="giftcard_curnt_pms1">
+                      <option value="">Please Select</option>
+                      <option value="AbelDent">AbelDent</option>
+                      <option value="ChiroTouch">ChiroTouch</option>
+                      <option value="ClearDent">ClearDent</option>
+                      <option value="CrystalPM">CrystalPM</option>
+                      <option value="Curve">Curve</option>
+                      <option value="Denticon">Denticon</option>
+                      <option value="Dentrix">Dentrix</option>
+                      <option value="Dentrix Ascend">Dentrix Ascend</option>
+                      <option value="Eaglesoft">Eaglesoft</option>
+                      <option value="Easy Dental">Easy Dental</option>
+                      <option value="Eyefinity">Eyefinity</option>
+                      <option value="OfficeMate">OfficeMate</option>
+                      <option value="OpenDental">OpenDental</option>
+                      <option value="PracticeWorks">PracticeWorks</option>
+                      <option value="RevolutionEHR">RevolutionEHR</option>
+                      <option value="Tracker">Tracker</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="fieldcol display_none" id="other_ehr_div1">
+                   <input id="other_ehr1" name="other_ehr1" type="text" placeholder="PMS/EHR name" />
+                  </div>
+                  <div class="fieldcol">
+                    <label for="best_time_to_call1">Best time to call*</label>
+                    <select id="best_time_to_call1" name="best_time_to_call1">
+                      <option value="">Best time to call</option>
+                      <option value="Morning (8-12)">Morning (8-12)</option>
+                      <option value="Afternoon (12-4)">Afternoon (12-4)</option>
+                      <option value="Evening (4-7)">Evening (4-7)</option>
+                    </select>
+                  </div>
+                  <div class="fieldcol">
+                    <textarea name="additional_info1" id="additional_info1" placeholder="Additional info you'd like for us to know"></textarea>
+                  </div>
+                  <div class="formfield-col fieldcol check-fieldcol">
+                    <input type="checkbox" id="help_opt_me_txt_msg" name="help_opt_me_txt_msg" value="Yes" /> 
+                    <label for="help_opt_me_txt_msg">Opt me in for text messages!</label>
+                  </div>
+                </div>
+                <div class="giftcard-sbmtbtn">
+                <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+                  <button class="btn" id="giftcard_submit1" type="button">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="demoform-mainbox demoform-step13 display_none">
+            <a href="javascript:void(0);" class="formpopup-closebtn">X</a>
+            <div class="popup-thnkmssg">
+              <div class="popupthnkmssg-inner">
+                <img src="https://adit.com/storage/files/demoform-thankyou-tickmark.svg" alt="Thank You!" width="146" height="146" />
+                <h2>Thank You!</h2>
+                                <p>We appreciate your interest! A team member will connect with you soon to schedule your free demo.</p>
+                              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+                <!-- Header Request Demo Popup Form -->
+        <div id="giftdemopopup_head" class="requestform-popup freeinsurverifi-onlyform demoform-popup giftdemo-popup1">
+          <div class="requestformpop-inner">
+            <div class="requestformpop-main">
+              <a href="javascript:void(0);" class="requestformpop-clsbtn headpopup_close">X</a>
+              <div class="requestformpop-row">
+                <div class="requestformpop-leftcol">
+                  <div class="reqstformpop-content no-display">
+                    <div class="reqstformpop-texthead">
+                      <h2>Why Adit?</h2>
+                      <p><b>Cut your software bill by up to 60%</b> when you merge everything your dental office needs to run under one roof.</p>
+                    </div>
+                    <div class="reqstformpop-boxrow">
+                      <div class="item">
+                        <div class="reqstformpop-box">
+                          <div class="reqstformpop-boxicn">
+                            <img src="https://adit.com/storage/files/centralize-communications-icon_1.svg" loading="lazy" alt="Centralize Communications" width="46" height="46" />
+                          </div>
+                          <h3>Centralize Communications</h3>
+                          <ul>
+                            <li>Phones & TeleMed</li>
+                            <li>Emails & eFax</li>
+                            <li>Texting & Reminders</li>
+                            <li>Call Tracking and more!</li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="item">
+                        <div class="reqstformpop-box">
+                          <div class="reqstformpop-boxicn">
+                            <img src="https://adit.com/storage/files/streamline-operations-icon_1.svg" loading="lazy" alt="Streamline Operations" width="46" height="48" />
+                          </div>
+                          <h3>Streamline Operations</h3>
+                          <ul>
+                            <li>Patient Forms</li>
+                            <li>Online Scheduling</li>
+                            <li>Payments</li>
+                            <li>Reviews and more!</li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="item">
+                        <div class="reqstformpop-box">
+                          <div class="reqstformpop-boxicn">
+                            <img src="https://adit.com/storage/files/boost-production-icon-new.svg" loading="lazy" alt="Boost Production" width="59" height="47" />
+                          </div>
+                          <h3>Boost Production</h3>
+                          <ul>
+                            <li>Performance Dashboards</li>
+                            <li>Morning Huddle</li>
+                            <li>Claims & Collections</li>
+                            <li>Patient Profiles</li>
+                            <li>Follow Up Lists</li>
+                            <li>Year Over Year Metrics</li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="item">
+                        <div class="reqstformpop-box">
+                          <div class="reqstformpop-boxicn">
+                            <img src="https://adit.com/storage/files/acquire-more-patients-icon_1.svg" loading="lazy" alt="Acquire More Patients" width="55" height="48" />
+                          </div>
+                          <h3>Acquire More Patients</h3>
+                          <ul>
+                            <li>Digital Marketing</li>
+                            <li>Website Design</li>
+                            <li>SEO</li>
+                            <li>Google Ads</li>
+                            <li>Facebook Ads</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                
+                </div>
+                <div class="requestformpop-formcol">
+                  <div id="freeinsurverifi_form" class="reqstpopup-formbox">
+                                        <div class="freeinsurverifi-formhead reqstpopup-formhead BFpopform-tophead">
+                      <!--<h2>Get Insurance Verification - Free for Life</h2>-->
+                      <!-- <h2>Get Insurance Verification</h2> -->
+                      <!-- <div class="freeinsurverifi-img">
+                        <img src="https://adit.com/storage/files/adit-verification-amazon-strip.png" alt="Insurance Verification" width="200" height="64" />
+                      </div> -->
+                      <!-- <h2>Get a <b>$25 Gift Card</b> + <br/>Insurance Verifications Free for Life!</h2> -->
+                      <!-- <h2>Get $200 For Signing Up This Week!</h2> -->
+                      <!-- <div class="BFpopform-top CMpopform-top">
+                        <span class="BFpopform-img">
+                          <span class="cyber-blinkLogo"></span>
+                          <img src="https://adit.com/storage/files/black-friday-v3.svg" alt="Black Friday" width="54" height="52" />
+                        </span>
+                        <div class="BFpopform-text">
+                          <span><b>FREE Phones & VoIP for life</b> when you sign up with Adit!</span>
+                        </div>
+                      </div> -->
+                      <!-- <div class="BFpopform-top newyearpopform-top">
+                        <span class="BFpopform-img">
+                          <img src="https://adit.com/storage/files/new-year-promo-popup-logo.svg" alt="New Year Promo" width="106" height="43" />
+                        </span>
+                        <div class="BFpopform-text">
+                          <span><span style="font-weight:700;">Free phones</span> & <span style="font-weight:700;">VoIP</span> for life <br/>when you sign up with Adit!</span>
+                        </div>
+                      </div> -->
+                      <div class="BFpopform-top aifdpopform-top">
+                        <strong>Get <img src="https://adit.com/images/home-v3/adit-ai-colored-icon.webp" alt="Adit AI" width="30" height="27" /> Front Desk free for life when you sign up!</strong>
+                        <!-- <span class="aifdpopform-para">Get <img src="https://adit.com/images/home-v3/adit-ai-colored-icon.webp" alt="Adit AI" width="30" height="27" /> Front Desk free for life when you sign up!</span> -->
+                      </div>
+                      <p>Sign up by filling out the form</p>
+                    </div>
+                                        <div class="reqstpopup-formhead">
+                      <h2>Please complete the form below</h2>
+                    </div>
+                    <div class="reqstpopup-form">
+                      <form id="giftcardform__head">
+                        <div class="formgroup cf">
+                          <div class="fieldcol">
+                            <label for="giftcard_practice_name_head">Practice Name*</label>
+                            <input id="giftcard_practice_name_head" name="giftcard_practice_name_head" type="text" autocomplete="off" placeholder="Practice Name" />
+                          </div>
+                          <div class="fieldcol">
+                            <label for="giftcard_full_name_head">Your Name*</label>
+                            <input id="giftcard_full_name_head" name="giftcard_full_name_head" type="text" autocomplete="off" placeholder="Full Name" />
+                          </div>
+                          <div class="fieldcol">
+                            <label for="giftcard_your_role_head">Your Role*</label>
+                            <input id="giftcard_your_role_head" name="giftcard_your_role_head" type="text" autocomplete="off" placeholder="Role" />
+                          </div>
+                          <div class="fieldcol">
+                            <label for="giftcard_email_head">Work Email*</label>
+                            <input id="giftcard_email_head" name="giftcard_email_head" type="email" autocomplete="off" placeholder="Email" />
+                          </div>
+                          <div class="fieldcol">
+                            <label for="giftcard_phone_head">Phone # *</label>
+                            <input id="giftcard_phone_head" class="input-mask-phone" name="giftcard_phone_head" autocomplete="off" type="text" placeholder="Phone" />
+                          </div>
+                          <div class="fieldcol">
+                            <label for="giftcard_curnt_pms_head">Current PMS*</label>
+                            <select id="giftcard_curnt_pms_head" name="giftcard_curnt_pms_head">
+                              <option value="">Please Select</option>
+                              <option value="AbelDent">AbelDent</option>
+                              <option value="ChiroTouch">ChiroTouch</option>
+                              <option value="Carestream">Carestream</option>
+                              <option value="ClearDent">ClearDent</option>
+                              <option value="Cloud 9">Cloud 9</option>
+                              <option value="CrystalPM">CrystalPM</option>
+                              <option value="Curve">Curve</option>
+                              <option value="Denticon">Denticon</option>
+                              <option value="Dentrix">Dentrix</option>
+                              <option value="Dentrix Ascend">Dentrix Ascend</option>
+                              <option value="Dolphin">Dolphin</option>
+                              <option value="Eaglesoft">Eaglesoft</option>
+                              <option value="Easy Dental">Easy Dental</option>
+                              <option value="Eyefinity">Eyefinity</option>
+                              <option value="Jane">Jane</option>
+                              <option value="OfficeMate">OfficeMate</option>
+                              <option value="OpenDental">OpenDental</option>
+                              <option value="Orthotrac">Orthotrac</option>
+                              <option value="PracticeWorks">PracticeWorks</option>
+                              <option value="RevolutionEHR">RevolutionEHR</option>
+                              <option value="Tracker">Tracker</option>
+                              <option value="Other">Other</option>
+                            </select>
+                          </div>
+                          <div class="fieldcol display_none" id="other_ehr_div_head">
+                            <input id="other_ehr_head" name="other_ehr_head" type="text" autocomplete="off" placeholder="PMS/EHR name" />
+                          </div>
+                          <div class="fieldcol">
+                            <label for="best_time_to_call_head">Best time to call*</label>
+                            <select id="best_time_to_call_head" name="best_time_to_call_head">
+                              <option value="">Best time to call</option>
+                              <option value="Morning (8-12)">Morning (8-12)</option>
+                              <option value="Afternoon (12-4)">Afternoon (12-4)</option>
+                              <option value="Evening (4-7)">Evening (4-7)</option>
+                            </select>
+                          </div>
+                          <div class="fieldcol">
+                            <textarea name="additional_info_head" id="additional_info_head" autocomplete="off" placeholder="Additional info you'd like for us to know"></textarea>
+                          </div>
+                          <div class="formfield-col fieldcol check-fieldcol">
+                            <input type="checkbox" id="help_opt_me_txt_msg" name="help_opt_me_txt_msg" value="Yes"> 
+                              <label for="help_opt_me_txt_msg">Opt me in for text messages!</label>
+                          </div>
+                        </div>
+                        <div class="giftcard-sbmtbtn">
+                          <input type="hidden" id="g-recaptcha-response_head" name="g-recaptcha-response_head">
+                          <button class="btn" id="giftcard_submit_head" type="button">Activate offer</button>
+                        </div>
+                      </form>
+                      <form id="giftcardform__veri">
+                        <div class="formgroup cf">
+                          <div class="fieldcol">
+                            <label class="display_hide" for="giftcard_practice_name_veri">Practice Name*</label>
+                            <input id="giftcard_practice_name_veri" name="giftcard_practice_name_veri" type="text" autocomplete="off" placeholder="Practice name*" />
+                          </div>
+                          <div class="fieldcol">
+                            <label class="display_hide" for="giftcard_full_name_veri">Your Name*</label>
+                            <input id="giftcard_full_name_veri" name="giftcard_full_name_veri" type="text" autocomplete="off" placeholder="Your name*" />
+                          </div>
+                          <div class="fieldcol">
+                            <label class="display_hide" for="giftcard_your_role_veri">Your Role*</label>
+                            <input id="giftcard_your_role_veri" name="giftcard_your_role_veri" type="text" autocomplete="off" placeholder="Your role*" />
+                          </div>
+                          <div class="fieldcol">
+                            <label class="display_hide" for="giftcard_email_veri">Work Email*</label>
+                            <input id="giftcard_email_veri" name="giftcard_email_veri" type="email" autocomplete="off" placeholder="Work email*" />
+                          </div>
+                          <div class="fieldcol">
+                            <label class="display_hide" for="giftcard_phone_veri">Phone # *</label>
+                            <input id="giftcard_phone_veri" class="input-mask-phone" name="giftcard_phone_veri" autocomplete="off" type="text" placeholder="Phone#*" />
+                          </div>
+                          <div class="fieldcol">
+                            <label class="display_hide" for="giftcard_curnt_pms_veri">Current PMS*</label>
+                            <select id="giftcard_curnt_pms_veri" name="giftcard_curnt_pms_veri">
+                              <option value="">Current PMS*</option>
+                                                              <option value="AbelDent">AbelDent</option>
+                                <option value="Carestream">Carestream</option>
+                                <option value="ChiroTouch">ChiroTouch</option>
+                                <option value="ClearDent">ClearDent</option>
+                                <option value="Cloud9">Cloud9</option>
+                                <option value="CrystalPM">CrystalPM</option>
+                                <option value="Curve">Curve</option>
+                                <option value="Denticon">Denticon</option>
+                                <option value="Dentrix">Dentrix</option>
+                                <option value="Dentrix Ascend">Dentrix Ascend</option>
+                                <option value="Dolphin">Dolphin</option>
+                                <option value="Eaglesoft">Eaglesoft</option>
+                                <option value="Easy Dental">Easy Dental</option>
+                                <option value="Eyefinity">Eyefinity</option>
+                                <option value="Jane">Jane</option>
+                                <option value="OfficeMate">OfficeMate</option>
+                                <option value="OpenDental">OpenDental</option>
+                                <option value="OrthoTrac">OrthoTrac</option>
+                                <option value="PracticeWorks">PracticeWorks</option>
+                                <option value="RevolutionEHR">RevolutionEHR</option>
+                                <option value="Tracker">Tracker</option>
+                                <option value="Other">Other</option>
+                                                          </select>
+                          </div>
+                          <div class="fieldcol display_none veriother-fieldcol" id="other_ehr_div_veri">
+                            <input id="other_ehr_veri" name="other_ehr_veri" type="text" autocomplete="off" placeholder="PMS/EHR name" />
+                          </div>
+                          <div class="fieldcol ivcalltime-fieldcol calltime-field">
+                            <label for="best_time_to_call_custom">Best time to contact you to schedule a demo*</label>
+                            <div class="calltime-customslct">
+                              <input type="hidden" name="best_time_to_call_custom" id="best_time_to_call_custom" />
+                              <div class="calltimeslct-custominput calltimeslct-placeholder" tabindex="0">Schedule a time</div>
+                              <ul class="calltimeslct-options">
+                                <!-- <li class="aicall_option" data-value="Call Me Now (Adit AI)">Call Me Now (Adit AI) <span class="airecommend_tag">Recommended</span></li> -->
+                                <li data-value="Morning (8-12)">Morning (8-12)</li>
+                                <li data-value="Afternoon (12-4)">Afternoon (12-4)</li>
+                                <li data-value="Evening (4-7)">Evening (4-7)</li>
+                              </ul>
+                            </div>
+                          </div>
+
+                          <!-- <div class="fieldcol ivcalltime-fieldcol calltime-field">
+                            <label for="best_time_to_call_veri1">Best time to contact you to schedule a demo*</label>
+                            <select id="best_time_to_call_veri1" class="calltime_select" name="best_time_to_call_veri1">
+                              <option value="">Schedule a time</option>
+                               
+                              <option value="AI">Call Me Now (Adit AI)</option>
+                                                            <option value="Morning (8-12)">Morning (8-12)</option>
+                              <option value="Afternoon (12-4)">Afternoon (12-4)</option>
+                              <option value="Evening (4-7)">Evening (4-7)</option>
+                            </select>
+                          </div> -->
+
+                          <!-- Start: Toggle Ai/Human -->
+                          <!-- <div class="fieldcol callbacktoggle-fieldcol">
+                            <div class="calltoggleOpt2-field">
+                              <div class="calltoggleOpt2-label">Callback preference*</div>
+                              <div class="callback-radiobtns">
+                                <div class="callback-radiobtn">
+                                  <input type="radio" name="callback_pref" id="callback_ai" data-callback="ai" />
+                                  <label for="callback_ai">Instant AI Callback</label>
+                                </div>
+                                <div class="callback-radiobtn">
+                                  <input type="radio" name="callback_pref" id="callback_human" data-callback="human" />
+                                  <label for="callback_human">Book Human Callback</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="fieldcol ivcalltime-fieldcol scheduletime_human">
+                            <label class="display_hide" for="best_time_to_call_veri1">Best Time To Call*</label>
+                            <select id="best_time_to_call_veri1" name="best_time_to_call_veri1">
+                              <option value="">Schedule a time</option>
+                              <option value="Morning (8-12)">Morning (8-12)</option>
+                              <option value="Afternoon (12-4)">Afternoon (12-4)</option>
+                              <option value="Evening (4-7)">Evening (4-7)</option>
+                            </select>
+                          </div> -->
+                          <!-- End: Toggle Ai/Human -->
+
+                          <div class="fieldcol ivtextarea-fieldcol">
+                            <textarea name="additional_info_veri" id="additional_info_veri" autocomplete="off" placeholder="Additional info you'd like for us to know"></textarea>
+                          </div>
+                          <div class="formfield-col fieldcol check-fieldcol">
+                            <input type="checkbox" id="help_opt_me_txt_msg" name="help_opt_me_txt_msg" value="Yes"> 
+                              <label for="help_opt_me_txt_msg">Opt me in for text messages!</label>
+                          </div>
+                        </div>
+                        <div class="giftcard-sbmtbtn">
+                          <button class="btn callnow_aibtn disabled_formbtn" id="giftcard_submit_veri" type="button">Activate offer</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End: Header Request Demo Popup Form -->
+                <!-- Cookie Consent -->
+        <div id="cookie-consent"><p><span>This website uses cookies to ensure you get the best experience on our website.</span><button onclick="acceptCookies()">Got it!</button></p></div>
+
+      
+      
+      
+
+      <!--exit popup start-->
+
+                    
+
+
+          
+        
+
+        <!--exit popup end-->
+
+       
+
+           
+
+        <script src='https://static.adit.com/js/locations/5ca137ca-c12d-40c9-b290-c60899de670a/aditapp_number_change.js'></script>
+        <script src="https://adit.com/js/inputmask.min.js" integrity="" crossorigin="anonymous" ></script>      
+        
+        
+        <script nonce="qW9GfKVV2qmJE6HVMA4nqpNG6zGjvRZv">
+          // Function to set a cookie
+          function setCookie(name, value, days) {
+              var expires = "";
+              if (days) {
+                  var date = new Date();
+                  date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                  expires = "; expires=" + date.toUTCString();
+              }
+              document.cookie = name + "=" + value + expires + "; path=/";
+          }
+
+          // Function to check if a cookie exists
+          function getCookie(name) {
+              var nameEQ = name + "=";
+              var ca = document.cookie.split(';');
+              for (var i = 0; i < ca.length; i++) {
+                  var c = ca[i];
+                  while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                  if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+              }
+              return null;
+          }
+
+          // // Function to display or hide the cookie consent banner
+          // function checkCookieConsent() {
+          //     var consentCookie = getCookie('cookie_consent');
+          //     var consentBanner = document.getElementById('cookie-consent');
+
+          //     if (!consentCookie) {
+          //         // Cookie consent not given, show the banner
+          //         if(!$('body').hasClass('hidepageheader')){
+          //           if(!$('body').hasClass('genericdemo-landing')){
+          //             consentBanner.style.display = 'block';
+          //           }
+          //         }
+          //     }
+          // }
+
+          // // Function to handle accepting cookies
+          // function acceptCookies() {
+          //     setCookie('cookie_consent', 'true', 365); // Set cookie for 1 year
+          //     document.getElementById('cookie-consent').style.display = 'none';
+          // }
+
+          function checkCookieConsent() {
+            var consentCookie = getCookie('cookie_consent');
+            var consentBanner = document.getElementById('cookie-consent');
+
+            // check if element exists
+            if (!consentBanner) return; // exit
+
+            if (!consentCookie) {
+                // Cookie consent not given, show the banner
+                if(!$('body').hasClass('hidepageheader') && !$('body').hasClass('genericdemo-landing')){
+                    consentBanner.style.display = 'block';
+                }
+            }
+        }
+
+        function acceptCookies() {
+            var consentBanner = document.getElementById('cookie-consent');
+            if (!consentBanner) return; // safe check
+            setCookie('cookie_consent', 'true', 365); // Set cookie for 1 year
+            consentBanner.style.display = 'none';
+        }
+
+          // Check for cookie consent on page load
+          document.addEventListener('DOMContentLoaded', checkCookieConsent);
+    </script>     
+<script nonce="qW9GfKVV2qmJE6HVMA4nqpNG6zGjvRZv">
+  jQuery('#giftcard_curnt_pms1').heapbox({
+ 
+ "onChange":function(val, elm) {
+
+   var ehr_pms=val;
+
+  if(ehr_pms=="Other"){
+
+   jQuery("#other_ehr_div1").removeClass('display_none');          
+   jQuery("#other_ehr_div1").show();          
+
+  }
+
+  else{
+
+   jQuery("#other_ehr_div1").addClass('display_none');
+   jQuery("#other_ehr_div1").hide();
+
+  }
+
+  }
+
+  });
+
+jQuery('#giftcard_curnt_pms_head').heapbox({
+
+ "onChange":function(val, elm) {
+
+   var ehr_pms=val;
+
+  if(ehr_pms=="Other"){
+
+   jQuery("#other_ehr_div_head").removeClass('display_none');          
+   jQuery("#other_ehr_div_head").show();          
+
+  }
+
+  else{
+   jQuery("#other_ehr_div_head").addClass('display_none')
+   jQuery("#other_ehr_div_head").hide();
+
+  }
+
+  }
+
+});
+jQuery('#giftcard_curnt_pms_veri').heapbox({
+
+ "onChange":function(val, elm) {
+
+   var ehr_pms=val;
+
+  if(ehr_pms=="Other"){
+   
+   console.log('other');
+   jQuery("#other_ehr_div_veri").removeClass('display_none');          
+   jQuery("#other_ehr_div_veri").show();          
+
+  }
+
+  else{
+   jQuery("#other_ehr_div_veri").addClass('display_none')
+   jQuery("#other_ehr_div_veri").hide();
+
+  }
+
+  }
+
+});
+
+  </script>
+  <script nonce="qW9GfKVV2qmJE6HVMA4nqpNG6zGjvRZv">
+    jQuery(document).ready(function() {
+
+      // How use adit Phones Tabs
+      window.addEventListener("pageshow", function () {
+          $('#headcheck_link, #headcheck_link1').removeClass("active");
+        });
+      
+      jQuery('.testimonial-tabmenu li a').on('click', function(){
+        var target = jQuery(this).attr('data-rel');
+        jQuery('.testimonial-tabmenu li a').removeClass('active');
+          jQuery(this).addClass('active');
+          jQuery("#"+target).fadeIn('slow').siblings(".testimonial-tabdtls").hide();
+          jQuery("#"+target).addClass('active');
+          jQuery("#"+target).siblings().removeClass('active');
+          return false;
+      });
+
+
+        function isTablet() {
+            return (
+                /iPad|Android/i.test(navigator.userAgent) &&
+                !/Mobile/i.test(navigator.userAgent)
+            );
+        }
+
+        if (isTablet()) {
+            console.log('ipad');
+            jQuery('.input-mask-phone').inputmask({
+                mask: '(999) 999-9999',
+                jitMasking: true,
+                showMaskOnHover: false,
+                clearIncomplete: false,
+                inputmode: 'numeric'
+            });
+        }else{
+            console.log('ddddddd');
+          jQuery('.input-mask-phone').inputmask('(999) 999-9999'); 
+        }
+
+      // Opto Redirect Link
+      $('#headcheck_link, #headcheck_link1').click(function(){
+        var utm_source = getCookie('adit_exist_src');
+        if(utm_source=='direct'){
+          utm_source = $('#check_for_fb_rsrc').val();
+          if(utm_source.length==0){
+            utm_source='direct';
+          }
+        }
+        if(utm_source=='adit.com'){
+          utm_source='direct';
+        }        
+        var utm_medium = getCookie('adit_utm_medium');
+        var utm_campaign = getCookie('adit_utm_campaign');
+        var url='https://optometry.adit.com/';
+        if(utm_source!=='direct'){          
+          url=url+'?utm_source=' + utm_source;
+          if(utm_medium){
+            url+='&utm_medium=' + utm_medium;
+          }
+          if(utm_campaign){
+            url+='&utm_campaign=' + utm_campaign;
+          }
+          window.location.href =  url;
+        }
+        else{
+
+          window.location.href = url;
+        }        
+        $(this).addClass("active");
+      });
+    });
+
+  // $('body').on('click', '.parentwithoutlink', function () {
+  // // Check if the window size is less than or equal to 999
+  //     if ($(window).width() < 999) {
+  //         if ($(this).hasClass('active')) {
+  //             $(this).find('.childwithoutlink').hide();
+  //             $(this).removeClass('active');
+  //             $(this).find('.arrowclick').removeClass('active');
+  //         } else {
+  //             $(this).find('.childwithoutlink').show();
+  //             $(this).addClass('active');
+  //             $(this).find('.arrowclick').addClass('active');
+  //         }
+  //     }
+  // });
+
+  $('body').on('click', '.parentwithoutlink', function () {
+  // Check if the window size is less than or equal to 999
+    if ($(window).width() < 999) {
+      if ($(this).parent('.menu-item').hasClass('active')) {
+          $(this).parent('.menu-item').find('.childwithoutlink').hide();
+          $(this).parent('.menu-item').removeClass('active');
+          $(this).parent('.menu-item').find('.arrowclick').removeClass('active');
+      } else {
+          $(this).parent('.menu-item').find('.childwithoutlink').show();
+          $(this).parent('.menu-item').addClass('active');
+          $(this).parent('.menu-item').find('.arrowclick').addClass('active');
+      }
+    }
+  });
+
+  jQuery(window).on('load', function () {
+    (function () {
+        const second = 1000,
+            minute = second * 60,
+            hour = minute * 60;
+
+        // Get today's date and time
+        let today = new Date();
+
+        // Set countdown target to after tomorrow at 11:59:59 PM
+        let countDownDate = new Date();
+        countDownDate.setDate(today.getDate() + 2);
+        countDownDate.setHours(23, 59, 59, 999);
+
+        const x = setInterval(function () {
+            const now = new Date().getTime(),
+                distance = countDownDate.getTime() - now;
+
+            // Calculate total remaining hours
+            let totalHours = Math.floor(distance / hour);
+            let minutes = Math.floor((distance % hour) / minute);
+            let seconds = Math.floor((distance % minute) / second);
+
+            Array.from(document.getElementsByClassName("count_hours")).forEach(el => el.innerText = formatTime(totalHours));
+            Array.from(document.getElementsByClassName("count_minutes")).forEach(el => el.innerText = formatTime(minutes));
+            Array.from(document.getElementsByClassName("count_seconds")).forEach(el => el.innerText = formatTime(seconds));
+
+            // When countdown ends
+            if (distance < 0) {
+                clearInterval(x);
+                document.querySelector(".freephone_countdown").style.display = "none";
+            }
+        }, 1000); // Update every second
+    })();
+  });
+
+  function formatTime(value) {
+      return String(value).padStart(2, '0');
+  }
+
+
+
+  </script>
+
+
+    <script src="https://adit.com/js/mousewheel.min.js?v=1776276388" integrity="" crossorigin="anonymous" ></script>
+<script src="https://adit.com/js/sienna.min.js?v=1.2.1" defer></script>
+
+
+
+<script>
+$(document).ready(function () {
+  // Update visible placeholder text
+  $('#heapbox_best_time_to_call_veri .holder').text('Schedule a time');
+
+  // Update first select option text and value
+$('#best_time_to_call_veri option:first')
+    .text('Schedule a time')
+    .val('');
+});
+
+$('#best_time_to_call_veri').heapbox({
+  onChange: function (val, elm) {
+    // your existing logic (if any)
+  },
+  onReady: function () {
+    // 1️⃣ Update placeholder holder text
+    $('#heapbox_best_time_to_call_veri .holder').text('Schedule a time');
+
+    // 2️⃣ Update first dropdown option text
+    $('#heapbox_best_time_to_call_veri .heapOption:first a').text('Schedule a time');
+  }
+});
+
+</script>
+</body>
+</html>

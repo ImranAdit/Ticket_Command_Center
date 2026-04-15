@@ -2,7 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { LogOut, UploadCloud, Hexagon, Activity, Clock, AlertTriangle } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { classifyTickets, TicketData, MetricResult } from '../lib/api';
+import { classifyTickets, type TicketData, type MetricResult } from '../lib/api';
 
 interface DashboardProps {
     userEmail: string;
