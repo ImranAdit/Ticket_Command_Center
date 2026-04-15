@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+pydantic
+python-dateutil
+python-dotenv
+httpx
+python-multipart

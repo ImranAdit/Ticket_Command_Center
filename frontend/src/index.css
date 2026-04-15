@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  --color-obsidian-bg: #0B0E11;
+  --color-obsidian-surface: #111318;
+  --color-obsidian-card: #161A22;
+  --color-obsidian-border: #1E2433;
+  --color-obsidian-border2: #2A3347;
+
+  --color-neon-blue: #00B4FF;
+  --color-neon-blue-dim: #0066AA;
+  --color-neon-blue-glow: rgba(0, 180, 255, 0.12);
+
+  --color-amber-gold: #F59E0B;
+  --color-amber-gold-dim: #92600A;
+
+  --color-crimson-red: #EF4444;
+  --color-crimson-red-dim: #8B1A1A;
+
+  --color-green-ok: #22C55E;
+  --color-purple-dev: #A855F7;
+
+  --color-text-primary: #E2E8F0;
+  --color-text-muted: #6B7A99;
+  --color-text-faint: #3A4560;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  
+  html, body {
+    @apply h-full bg-obsidian-bg text-text-primary font-sans text-sm;
+    margin: 0;
+    padding: 0;
+  }
+
+  #root {
+    @apply flex flex-col h-screen overflow-hidden;
+  }
+}
+
+@layer utilities {
+  .glassmorphism {
+    @apply bg-obsidian-surface/80 backdrop-blur-[12px] border border-obsidian-border shadow-lg;
+  }
+  
+  .glass-card {
+    @apply bg-obsidian-card/80 backdrop-blur-md border border-obsidian-border2 rounded-xl;
+  }
+  
+  .text-glow-neon {
+    text-shadow: 0 0 10px var(--color-neon-blue-glow);
+  }
+  
+  .border-glow-neon {
+    box-shadow: 0 0 15px var(--color-neon-blue-glow) inset;
+  }
+}
+
+/* Custom Scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-obsidian-bg;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-obsidian-border2 rounded-full;
+}
