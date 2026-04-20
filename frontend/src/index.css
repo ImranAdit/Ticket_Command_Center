@@ -18,6 +18,8 @@
   --color-crimson-red-dim: #8B1A1A;
 
   --color-green-ok: #22C55E;
+  --color-green-ok-dim: rgba(34,197,94,0.12);
+
   --color-purple-dev: #A855F7;
 
   --color-text-primary: #E2E8F0;
@@ -28,10 +30,8 @@
 }
 
 @layer base {
-  :root {
-    color-scheme: dark;
-  }
-  
+  :root { color-scheme: dark; }
+
   html, body {
     @apply h-full bg-obsidian-bg text-text-primary font-sans text-sm;
     margin: 0;
@@ -44,31 +44,157 @@
 }
 
 @layer utilities {
+  /* ── Glassmorphism ── */
   .glassmorphism {
     @apply bg-obsidian-surface/80 backdrop-blur-[12px] border border-obsidian-border shadow-lg;
   }
-  
+
   .glass-card {
     @apply bg-obsidian-card/80 backdrop-blur-md border border-obsidian-border2 rounded-xl;
   }
-  
+
+  /* ── Glow effects ── */
   .text-glow-neon {
     text-shadow: 0 0 10px var(--color-neon-blue-glow);
   }
-  
+
   .border-glow-neon {
     box-shadow: 0 0 15px var(--color-neon-blue-glow) inset;
   }
+
+  /* ── Severity left borders ── */
+  .severity-critical {
+    border-left: 3px solid var(--color-crimson-red);
+    box-shadow: inset 3px 0 12px rgba(239,68,68,0.08);
+  }
+
+  .severity-moderate {
+    border-left: 3px solid var(--color-amber-gold);
+    box-shadow: inset 3px 0 12px rgba(245,158,11,0.08);
+  }
+
+  .severity-watch {
+    border-left: 3px solid #FBBF24;
+    box-shadow: inset 3px 0 8px rgba(251,191,36,0.06);
+  }
+
+  .severity-normal {
+    border-left: 3px solid var(--color-obsidian-border);
+  }
+
+  /* ── Skeleton shimmer ── */
+  .skeleton {
+    @apply rounded bg-obsidian-card;
+    background: linear-gradient(
+      90deg,
+      #161A22 25%,
+      #1E2433 50%,
+      #161A22 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* ── Live pulse dot ── */
+  .pulse-dot {
+    @apply relative inline-flex h-2.5 w-2.5;
+  }
+
+  .pulse-dot::before {
+    content: '';
+    @apply absolute inline-flex h-full w-full rounded-full bg-green-ok opacity-75;
+    animation: ping 1.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  .pulse-dot::after {
+    content: '';
+    @apply relative inline-flex rounded-full h-2.5 w-2.5 bg-green-ok;
+  }
+
+  /* ── Priority badges ── */
+  .badge-high {
+    @apply bg-crimson-red/10 text-crimson-red border border-crimson-red/30;
+  }
+
+  .badge-medium {
+    @apply bg-amber-gold/10 text-amber-gold border border-amber-gold/30;
+  }
+
+  .badge-low {
+    @apply bg-neon-blue/10 text-neon-blue border border-neon-blue/30;
+  }
+
+  /* ── Action quick buttons ── */
+  .action-btn {
+    @apply flex items-center gap-1 text-[10px] font-medium px-2 py-1 rounded border 
+           border-obsidian-border2 text-text-muted bg-obsidian-card 
+           hover:border-neon-blue/40 hover:text-neon-blue transition-all duration-150;
+  }
+
+  /* ── Stunning Button Effects ── */
+  .stunning-btn-glow {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .stunning-btn-glow::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      transparent 150deg,
+      rgba(0, 180, 255, 0.4) 180deg,
+      transparent 210deg,
+      transparent 360deg
+    );
+    animation: rotate 4s linear infinite;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .stunning-btn-glow:hover::after {
+    opacity: 1;
+  }
+
+  .stunning-btn-glass {
+    @apply bg-obsidian-surface/60 backdrop-blur-xl border border-neon-blue/20 hover:border-neon-blue/50;
+    box-shadow: 0 0 20px rgba(0, 180, 255, 0.05), inset 0 0 10px rgba(0, 180, 255, 0.05);
+  }
+
+  .stunning-btn-glass:hover {
+    box-shadow: 0 0 30px rgba(0, 180, 255, 0.15), inset 0 0 15px rgba(0, 180, 255, 0.1);
+    transform: translateY(-1px);
+  }
 }
 
-/* Custom Scrollbar for dark theme */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
 }
-::-webkit-scrollbar-track {
-  @apply bg-obsidian-bg;
+
+@keyframes ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
 }
-::-webkit-scrollbar-thumb {
-  @apply bg-obsidian-border2 rounded-full;
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
+
+@keyframes sweep {
+  0% { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(200%) skewX(-15deg); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { @apply bg-obsidian-bg; }
+::-webkit-scrollbar-thumb { @apply bg-obsidian-border2 rounded-full; }
+::-webkit-scrollbar-thumb:hover { @apply bg-text-faint; }
