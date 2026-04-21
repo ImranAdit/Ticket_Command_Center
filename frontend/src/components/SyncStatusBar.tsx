@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { RefreshCw, CheckCircle, AlertTriangle, Clock, Wifi, WifiOff } from 'lucide-react';
+import { RefreshCw, AlertTriangle, Clock, WifiOff } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { triggerSync, type SyncStatus } from '../lib/api';
 
