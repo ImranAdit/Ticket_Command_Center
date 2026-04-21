@@ -9,7 +9,7 @@ const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 if (!GOOGLE_CLIENT_ID) {
   console.error("Missing VITE_GOOGLE_CLIENT_ID");
 }
-
+console.log("CLIENT ID:", GOOGLE_CLIENT_ID);
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
