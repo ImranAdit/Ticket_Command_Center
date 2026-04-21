@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import asyncio
@@ -82,9 +83,31 @@ class TicketInput(BaseModel):
 class ClassifyRequest(BaseModel):
     tickets: List[TicketInput]
 
-@app.get("/")
+from fastapi.responses import FileResponse
+from fastapi import HTTPException
+
+@app.get("/api/health")
 def read_root():
     return {"status": "ok", "message": "Adit TCC Backend v2 — SLA Breach Engine active"}
+
+# SPA Catch-all and static files
+if os.path.exists("static"):
+    app.mount("/assets", StaticFiles(directory="static/assets"), name="assets")
+    
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        if full_path.startswith("api/"):
+            raise HTTPException(status_code=404, detail="API route not found")
+            
+        potential_path = os.path.join("static", full_path)
+        if os.path.isfile(potential_path):
+            return FileResponse(potential_path)
+            
+        return FileResponse("static/index.html")
+else:
+    @app.get("/")
+    def no_static():
+        return {"status": "warning", "message": "Frontend not built. Run frontend build and copy to static directory"}
 
 @app.post("/api/logic/classify")
 def classify_tickets(req: ClassifyRequest):
