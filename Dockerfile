@@ -29,4 +29,4 @@ COPY --from=builder /app/frontend/dist ./static
 EXPOSE $PORT
 
 # Command to run FastAPI server (Port will be injected by Railway)
-CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port $PORT"]
