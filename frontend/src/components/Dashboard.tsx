@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { LogOut, Activity, Clock, ShieldAlert, LayoutDashboard, Search, Filter } from 'lucide-react';
-import { cn } from '../lib/utils';
 import { fetchSyncStatus, fetchTickets, type BreachedTicket, type SyncStatus } from '../lib/api';
 import { SyncStatusBar } from './SyncStatusBar';
 import { DeptSection } from './DeptSection';
