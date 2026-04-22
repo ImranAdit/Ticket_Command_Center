@@ -80,7 +80,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onLogin }) => {
                 </div>
 
                 <div className="text-[10px] text-text-muted text-center tracking-[5px] uppercase mb-12 mt-2 font-bold opacity-80">
-                    Command Center
+                    Ticket Command Center
                 </div>
 
                 <div className="w-full flex flex-col items-center">
