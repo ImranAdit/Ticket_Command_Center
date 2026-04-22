@@ -65,8 +65,8 @@ async def _fetch_dept_tickets(client: httpx.AsyncClient, dept: dict, no_action_t
     all_tickets = []
     offset, limit = 0, 100
     
-    # Check tickets created in the last 180 days
-    since = (datetime.now(timezone.utc) - timedelta(days=180)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    # Check tickets created in the last 120 days
+    since = (datetime.now(timezone.utc) - timedelta(days=120)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     while True:
         # NOTE: 'isOverDue' removed from params to prevent Zoho 422 error
