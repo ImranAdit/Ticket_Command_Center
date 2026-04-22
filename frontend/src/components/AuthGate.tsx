@@ -126,7 +126,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onLogin }) => {
                     <div className="text-[11px] text-text-faint flex items-center justify-center gap-2 mt-10">
                         <Lock className="w-3.5 h-3.5" />
                         <span className="tracking-tight font-medium uppercase opacity-50">
-                            Sign in with your authorized Adit account
+                            Sign in using your Adit account
                         </span>
                     </div>
                 </div>
