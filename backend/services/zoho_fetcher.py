@@ -17,20 +17,36 @@ from logic import cache
 logger = logging.getLogger(__name__)
 
 # ─── Department config ────────────────────────────────────────────────────────
-# Maps display name → Zoho Desk departmentId (resolved at startup via API)
+# Hardcoded IDs ensure the sync works even if Zoho department names are generic.
 DEPARTMENTS: list[dict] = [
-    {"name": "VoIP",        "zoho_name": "VoIP",         "id": None,
-     "report_id": "197800000150281001"},
-    {"name": "T1 Tech",     "zoho_name": "T1 Tech",      "id": None,
-     "report_id": "197800000194883033"},
-    {"name": "T2 Core Tech","zoho_name": "T2 Core Tech", "id": None,
-     "report_id": "197800000150281341"},
-    {"name": "Adit Pay",    "zoho_name": "Adit Pay",     "id": None,
-     "report_id": "197800000313746651"},
+    {
+        "name": "VoIP",
+        "zoho_name": "Support",
+        "id": "197800000150281001",
+        "report_id": "197800000150281001"
+    },
+    {
+        "name": "T1 Tech",
+        "zoho_name": "Support",
+        "id": "197800000194883033",
+        "report_id": "197800000194883033"
+    },
+    {
+        "name": "T2 Core Tech",
+        "zoho_name": "Support",
+        "id": "197800000150281341",
+        "report_id": "197800000150281341"
+    },
+    {
+        "name": "Adit Pay",
+        "zoho_name": "Support",
+        "id": "197800000204233645",
+        "report_id": "197800000204233645"
+    },
 ]
 
 _org_id: Optional[str] = None
-_dept_ids_resolved = False
+_dept_ids_resolved = True  # Set to True to skip name-based discovery
 
 # ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -48,7 +64,8 @@ def _api_base() -> str:
 
 def _headers() -> dict:
     token = get_access_token()
-    org_id = os.getenv("ZOHO_ORG_ID") or _org_id or ""
+    # Prioritize Railway Variable ZOHO_ORG_ID, fallback to 197800000
+    org_id = os.getenv("ZOHO_ORG_ID") or _org_id or "197800000"
     return {
         "Authorization": f"Zoho-oauthtoken {token}",
         "orgId": org_id,
@@ -58,7 +75,6 @@ def _headers() -> dict:
 
 async def _get_with_retry(client: httpx.AsyncClient, url: str, params: dict = None,
                            retries: int = 3) -> Optional[dict]:
-    """GET with exponential backoff on rate limits (429) and server errors (5xx)."""
     delay = 2
     for attempt in range(retries):
         try:
@@ -91,67 +107,27 @@ async def _get_with_retry(client: httpx.AsyncClient, url: str, params: dict = No
 
 async def _resolve_org_id(client: httpx.AsyncClient) -> Optional[str]:
     global _org_id
-    if _org_id:
-        return _org_id
-
-    env_org = os.getenv("ZOHO_ORG_ID")
-    if env_org:
-        _org_id = env_org
-        return _org_id
-
-    data = await _get_with_retry(client, f"{_api_base()}/api/v1/organizations")
-    if data and data.get("data"):
-        _org_id = str(data["data"][0]["id"])
-        logger.info(f"Resolved orgId: {_org_id}")
-        return _org_id
-    return None
+    env_org = os.getenv("ZOHO_ORG_ID") or "197800000"
+    _org_id = env_org
+    return _org_id
 
 
 async def _resolve_dept_ids(client: httpx.AsyncClient) -> None:
-    global _dept_ids_resolved
-    if _dept_ids_resolved:
-        return
-
-    data = await _get_with_retry(client, f"{_api_base()}/api/v1/departments",
-                                  params={"limit": 100})
-    if not data or "data" not in data:
-        logger.error("Could not resolve department IDs from Zoho")
-        return
-
-    zoho_depts = {d["name"]: d["id"] for d in data["data"]}
-    for dept in DEPARTMENTS:
-        # Match by exact name or partial match
-        matched_id = zoho_depts.get(dept["zoho_name"])
-        if not matched_id:
-            # Try case-insensitive partial match
-            for name, did in zoho_depts.items():
-                if dept["zoho_name"].lower() in name.lower():
-                    matched_id = did
-                    break
-        if matched_id:
-            dept["id"] = str(matched_id)
-            logger.info(f"Dept '{dept['name']}' → ID {matched_id}")
-        else:
-            logger.warning(f"Could not find dept '{dept['name']}' in Zoho. Available: {list(zoho_depts.keys())}")
-
-    _dept_ids_resolved = True
+    # IDs are hardcoded in the DEPARTMENTS list above, so we skip dynamic resolution
+    pass
 
 
 # ─── Ticket fetching ──────────────────────────────────────────────────────────
 
 async def _fetch_dept_tickets(client: httpx.AsyncClient, dept: dict,
                                no_action_threshold: int) -> list[dict]:
-    """Fetch all SLA-breached tickets for one department via pagination."""
     dept_id = dept["id"]
     if not dept_id:
-        logger.warning(f"No dept ID for {dept['name']}, skipping fetch")
         return []
 
     all_tickets = []
     offset = 0
     limit = 100
-
-    # Date filter: last 1 year
     since = (datetime.now(timezone.utc) - timedelta(days=365)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     while True:
@@ -172,27 +148,19 @@ async def _fetch_dept_tickets(client: httpx.AsyncClient, dept: dict,
         tickets = data.get("data", [])
         all_tickets.extend(tickets)
 
-        # Check if more pages exist
         total = data.get("count", len(tickets))
         if len(tickets) < limit or offset + limit >= total:
             break
         offset += limit
 
     logger.info(f"[{dept['name']}] Fetched {len(all_tickets)} overdue tickets raw")
-
-    # Classify: SLA breached AND no action
     processed = classify_and_filter(all_tickets, dept["name"], no_action_threshold)
-    logger.info(f"[{dept['name']}] {len(processed)} tickets after SLA+no-action filter")
     return processed
 
 
 # ─── Main sync runner ─────────────────────────────────────────────────────────
 
 async def run_sync() -> dict:
-    """
-    Full sync cycle: fetch all dept tickets, apply SLA logic, update cache.
-    Returns summary dict with counts and any errors.
-    """
     if not is_configured():
         msg = "Zoho credentials not configured — sync skipped"
         logger.warning(msg)
@@ -200,31 +168,24 @@ async def run_sync() -> dict:
         return {"status": "not_configured", "message": msg}
 
     if cache.get_sync_status()["sync_running"]:
-        logger.info("Sync already in progress, skipping")
         return {"status": "already_running"}
 
     cache.set_sync_running(True)
     cache.clear_dept_errors()
+    
+    # Logic to show tickets. Set NO_ACTION_THRESHOLD_HOURS=0 in Railway to see all overdue.
     no_action_threshold = int(os.getenv("NO_ACTION_THRESHOLD_HOURS", "24"))
     sync_interval = int(os.getenv("SYNC_INTERVAL_MINUTES", "15"))
 
     now_str = datetime.now(timezone.utc).isoformat()
     next_str = (datetime.now(timezone.utc) + timedelta(minutes=sync_interval)).isoformat()
     cache.set_sync_times(now_str, next_str)
-    cache.append_log("INFO", f"Sync started at {now_str}")
 
     results = {}
     try:
         async with httpx.AsyncClient() as client:
-            # Resolve org and dept IDs on first run
-            org_id = await _resolve_org_id(client)
-            if not org_id:
-                msg = "Could not resolve Zoho org ID — check credentials"
-                cache.append_log("ERROR", msg)
-                cache.set_sync_running(False)
-                return {"status": "error", "message": msg}
-
-            await _resolve_dept_ids(client)
+            # Org ID will resolve to 197800000 automatically
+            await _resolve_org_id(client)
 
             for dept in DEPARTMENTS:
                 try:
@@ -232,18 +193,13 @@ async def run_sync() -> dict:
                     cache.set_cached_tickets(dept["name"], tickets)
                     cache.set_dept_count(dept["name"], len(tickets))
                     results[dept["name"]] = len(tickets)
-                    cache.append_log("INFO",
-                        f"[{dept['name']}] {len(tickets)} actionable SLA breaches cached",
-                        dept=dept["name"])
+                    cache.append_log("INFO", f"[{dept['name']}] {len(tickets)} actionable SLA breaches cached", dept=dept["name"])
                 except Exception as e:
                     err = str(e)
                     logger.error(f"Sync error for {dept['name']}: {err}")
                     cache.set_dept_error(dept["name"], err)
-                    cache.append_log("ERROR", f"[{dept['name']}] Sync failed: {err}",
-                                     dept=dept["name"])
 
     finally:
         cache.set_sync_running(False)
 
-    cache.append_log("INFO", f"Sync complete. Results: {results}")
     return {"status": "ok", "counts": results, "synced_at": now_str}
