@@ -76,7 +76,6 @@ async def _fetch_dept_tickets(client: httpx.AsyncClient, dept: dict, no_action_t
             "from": offset,
             "sortBy": "dueDate",
             "order": "asc",
-            "createdTimeRange": since,
             "include": "assignee,departments",
         }
         data = await _get_with_retry(client, f"{_api_base()}/api/v1/tickets", params=params)
