@@ -1,35 +1,33 @@
-# --- Builder Stage: Compile the React frontend ---
+# --- STEP 1: Build Frontend ---
 FROM node:18-alpine AS builder
-
 WORKDIR /app
 
-# Copy package files from root
-COPY package*.json ./
+# Copy ONLY package files first for better caching
+COPY package.json package-lock.json* ./
 RUN npm install
 
-# Copy all files from root to build the frontend
+# Copy everything else to build the frontend
 COPY . .
 RUN npm run build
 
-# --- Runtime Stage: Serve FastAPI and built React frontend ---
+# --- STEP 2: Setup Backend ---
 FROM python:3.11-slim
-
 WORKDIR /app
 
-# Install backend dependencies from root
-COPY requirements.txt .
+# Install backend dependencies
+# We use ./requirements.txt to be explicit
+COPY ./requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy all backend source files from root
+# Copy all source code
 COPY . .
 
-# Copy the built frontend from the builder stage
-# Adjust 'dist' to 'build' if you are using Create React App instead of Vite
+# Copy the built frontend
+# DOUBLE CHECK: If your frontend build folder is named 'build' (CRA) 
+# instead of 'dist' (Vite), change 'dist' to 'build' below.
 COPY --from=builder /app/dist ./static
 
-# Expose standard port
 EXPOSE 8080
 
 # Command to run FastAPI server
-# Using ${PORT:-8080} ensures it works locally and on Railway
 CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8080}"]
