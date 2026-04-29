@@ -3,11 +3,11 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 
 # Copy ONLY package files first for better caching
-COPY package.json package-lock.json* ./
+COPY frontend/package.json ./
 RUN npm install
 
 # Copy everything else to build the frontend
-COPY . .
+COPY frontend/ ./
 RUN npm run build
 
 # --- STEP 2: Setup Backend ---
@@ -16,11 +16,11 @@ WORKDIR /app
 
 # Install backend dependencies
 # We use ./requirements.txt to be explicit
-COPY ./requirements.txt ./
+COPY backend/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy all source code
-COPY . .
+COPY backend/ ./
 
 # Copy the built frontend
 # DOUBLE CHECK: If your frontend build folder is named 'build' (CRA) 
