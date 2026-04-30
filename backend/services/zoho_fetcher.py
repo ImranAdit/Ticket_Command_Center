@@ -65,25 +65,14 @@ async def _fetch_dept_tickets(client: httpx.AsyncClient, dept: dict, no_action_t
     all_tickets = []
     offset, limit = 0, 100
     
-    # Check tickets created in the last 120 days
-    since = (datetime.now(timezone.utc) - timedelta(days=120)).strftime("%Y-%m-%dT%H:%M:%SZ")
-
-    # ... inside _fetch_dept_tickets function ...
-
     while True:
-        # REPLACE YOUR OLD PARAMS BLOCK WITH THIS:
         params = {
             "departmentId": dept_id,
             "limit": limit,
             "from": offset,
-            "include": "assignee", 
-            # Note: Removed 'sortBy', 'order', and 'departments' 
-            # These are the common triggers for the 422 error.
+            "include": "assignee",
         }
         
-        data = await _get_with_retry(client, f"{_api_base()}/api/v1/tickets", params=params)
-# ... rest of the code ...
-        }
         data = await _get_with_retry(client, f"{_api_base()}/api/v1/tickets", params=params)
         
         if not data or "data" not in data:
