@@ -102,25 +102,26 @@ def classify_tickets(req: ClassifyRequest):
     return {"results": results}
 
 # ─── Static Files & SPA Handling ───────────────────────────────────────────
-# This section handles serving the React/Vite frontend from the 'static' folder
 STATIC_PATH = "static"
 
 if os.path.exists(STATIC_PATH):
-    # Mount the static directory for direct asset access (CSS, JS, Images)
-    app.mount("/static", StaticFiles(directory=STATIC_PATH), name="static")
+    # Change: Mount to root "/" so that "/assets/..." or "/favicon.ico" are found automatically
+    # This must remain AFTER the API routers are included.
+    app.mount("/assets", StaticFiles(directory=os.path.join(STATIC_PATH, "assets")), name="assets")
     
     @app.get("/{full_path:path}")
     async def serve_spa(full_path: str):
-        # 1. Ignore API calls so they can fall through to routers or return 404 correctly
+        # 1. Ignore API calls
         if full_path.startswith("api/"):
             raise HTTPException(status_code=404, detail="API route not found")
             
-        # 2. Check if the requested path is an actual file (like /favicon.ico)
+        # 2. Check if it's a real file in the static folder (like /logo.png)
         potential_file = os.path.join(STATIC_PATH, full_path)
         if os.path.isfile(potential_file):
             return FileResponse(potential_file)
             
-        # 3. Otherwise, serve index.html for all other routes (SPA client-side routing)
+        # 3. For any other route (like /login or /dashboard), serve index.html
+        # This allows React Router to handle the URL without the page disappearing
         index_file = os.path.join(STATIC_PATH, "index.html")
         if os.path.exists(index_file):
             return FileResponse(index_file)
