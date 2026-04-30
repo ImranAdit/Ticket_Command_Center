@@ -30,4 +30,6 @@ COPY --from=builder /app/dist ./static
 EXPOSE 8080
 
 # Command to run FastAPI server
-CMD ["sh", "-c", "exec uvicorn main:app --host 0.0.0.0 --port ${PORT:-8080}"]
+COPY backend/start.sh /app/start.sh
+RUN chmod +x /app/start.sh
+CMD ["/app/start.sh"]
