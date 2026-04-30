@@ -2,9 +2,8 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Copy ONLY package files first for better caching
-COPY frontend/package.json ./
-RUN npm install
+COPY frontend/package.json frontend/package-lock.json* ./
+RUN npm ci
 
 # Copy everything else to build the frontend
 COPY frontend/ ./
@@ -15,7 +14,6 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Install backend dependencies
-# We use ./requirements.txt to be explicit
 COPY backend/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -23,7 +21,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY backend/ ./
 
 # Copy the built frontend
-# DOUBLE CHECK: If your frontend build folder is named 'build' (CRA) 
+# DOUBLE CHECK: If your frontend build folder is named 'build' (CRA)
 # instead of 'dist' (Vite), change 'dist' to 'build' below.
 COPY --from=builder /app/dist ./static
 

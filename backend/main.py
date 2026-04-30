@@ -18,7 +18,6 @@ load_dotenv()
 # Note: Ensure these files exist in your 'backend' folder
 from routers import zoho, sync, actions
 from logic.business_hours import classify_ticket
-from services.zoho_fetcher import run_sync
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 # ─── Logging Setup ──────────────────────────────────────────────────────────
@@ -26,7 +25,12 @@ logging.basicConfig(level=logging.INFO,
                     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
 logger = logging.getLogger(__name__)
 
+
 # ─── Scheduler Setup ────────────────────────────────────────────────────────
+# v2 fetcher uses only documented Zoho Desk API params (fixes 422 errors).
+# Original services/zoho_fetcher.py is left completely untouched.
+from services.zoho_fetcher_v2 import run_sync
+
 scheduler = AsyncIOScheduler()
 
 async def _initial_sync():
