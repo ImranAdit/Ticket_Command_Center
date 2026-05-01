@@ -9,6 +9,11 @@ from typing import List, Optional
 import asyncio
 import logging
 import os
+import mimetypes
+
+mimetypes.add_type("application/javascript", ".js")
+mimetypes.add_type("text/css", ".css")
+mimetypes.add_type("image/svg+xml", ".svg")
 
 # Load environment variables
 from dotenv import load_dotenv

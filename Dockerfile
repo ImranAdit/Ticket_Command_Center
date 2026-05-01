@@ -7,6 +7,8 @@ RUN npm install
 
 # Copy everything else to build the frontend
 COPY frontend/ ./
+ARG VITE_GOOGLE_CLIENT_ID
+ENV VITE_GOOGLE_CLIENT_ID=$VITE_GOOGLE_CLIENT_ID
 RUN npm run build
 
 # --- STEP 2: Setup Backend ---
