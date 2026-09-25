@@ -190,7 +190,7 @@ async def _fetch_dept_tickets_for_status(
             "status": status,
             "limit": limit,
             "from": offset,
-            "include": "assignee,departments",
+            "include": "assignee,departments,team",
         }
         if dept_id:
             params["departmentId"] = dept_id
@@ -300,20 +300,23 @@ async def _fetch_all_depts_via_tickets(
     grouped: dict[str, list[dict]] = {d["name"]: [] for d in DEPARTMENTS}
     seen_ids: set[str] = set()
     names_seen: dict[str, int] = {}
+    teams_seen: dict[str, int] = {}
     for t in raw:
         tid = t.get("id")
         if not tid or tid in seen_ids:
             continue
         seen_ids.add(tid)
         zname = ((t.get("department") or {}).get("name") or "").strip()
+        tname = ((t.get("team") or {}).get("name") or "").strip()
         names_seen[zname or "(none)"] = names_seen.get(zname or "(none)", 0) + 1
-        d = _match_dept(zname)
+        teams_seen[tname or "(none)"] = teams_seen.get(tname or "(none)", 0) + 1
+        # VoIP / T1 Tech / T2 Core Tech / Adit Pay are Zoho *teams* (inside the
+        # Support department), so match on team first, then department.
+        d = _match_dept(tname) or _match_dept(zname)
         if d:
-            if not d["id"] and t.get("departmentId"):
-                d["id"] = str(t["departmentId"])  # learn the real ID for next time
             grouped[d["name"]].append(t)
 
-    msg = f"[v2] Zoho department names on open tickets: {names_seen}"
+    msg = f"[v2] Zoho departments on open tickets: {names_seen} | teams: {teams_seen}"
     logger.info(msg)
     cache.append_log("INFO", msg)
 
@@ -374,7 +377,7 @@ async def run_sync() -> dict:
 
             await _resolve_dept_ids(client)
 
-            if any(not d["id"] for d in DEPARTMENTS):
+            if True:  # group by team/department name from tickets (see _fetch_all_depts_via_tickets)
                 logger.warning("[v2] Department IDs unresolved — using all-department ticket fallback")
                 cache.append_log("WARN", "[v2] Department IDs unresolved — grouping tickets by department name instead")
                 try:
