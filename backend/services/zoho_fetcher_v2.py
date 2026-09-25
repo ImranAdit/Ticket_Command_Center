@@ -39,10 +39,13 @@ DEPARTMENTS: list[dict] = [
      "report_id": "197800000150281341"},
     {"name": "Adit Pay",     "zoho_name": "Adit Pay",     "id": None,
      "report_id": "197800000313746651"},
+    # PA is defined by a Zoho *status*, not a team (view: tickets/q/status/pending-work-pa-team)
+    {"name": "PA",           "zoho_name": "PA",           "id": None,
+     "status": "Pending work - PA Team"},
 ]
 
 # Ticket statuses to pull (open + on-hold covers all potentially overdue work)
-FETCH_STATUSES = ["Open", "On Hold"]
+FETCH_STATUSES = ["Open", "On Hold", "Pending work - PA Team"]
 
 _org_id: Optional[str] = None
 _last_api_error: Optional[str] = None
@@ -274,12 +277,16 @@ def _match_dept(zoho_dept_name: str) -> Optional[dict]:
     if not n:
         return None
     for d in DEPARTMENTS:
+        if d.get("status"):
+            continue  # status-defined buckets (PA) never match by name
         if n in TEAM_ALIASES.get(d["name"], []):
             return d
     for d in DEPARTMENTS:
-        if d["zoho_name"].lower() == n:
+        if not d.get("status") and d["zoho_name"].lower() == n:
             return d
     for d in DEPARTMENTS:
+        if d.get("status"):
+            continue
         z = d["zoho_name"].lower()
         if z in n or n in z:
             return d
@@ -324,7 +331,9 @@ async def _fetch_all_depts_via_tickets(
         teams_seen[tname or "(none)"] = teams_seen.get(tname or "(none)", 0) + 1
         # VoIP / T1 Tech / T2 Core Tech / Adit Pay are Zoho *teams* (inside the
         # Support department), so match on team first, then department.
-        d = _match_dept(tname) or _match_dept(zname)
+        tstatus = (t.get("status") or "").strip().lower()
+        d = next((x for x in DEPARTMENTS if x.get("status", "").lower() == tstatus and tstatus), None)
+        d = d or _match_dept(tname) or _match_dept(zname)
         if d:
             grouped[d["name"]].append(t)
 
