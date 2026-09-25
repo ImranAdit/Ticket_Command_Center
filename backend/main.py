@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 
 
 # ─── Scheduler Setup ────────────────────────────────────────────────────────
-from services.zoho_fetcher import run_sync
+from services.zoho_fetcher_v2 import run_sync
 
 scheduler = AsyncIOScheduler()
 
