@@ -91,6 +91,8 @@ async def _get_with_retry(
                 delay *= 2
                 continue
             resp.raise_for_status()
+            if resp.status_code == 204 or not resp.content:
+                return {"data": []}  # Zoho returns 204 No Content when nothing matches
             return resp.json()
         except httpx.HTTPStatusError as e:
             status = e.response.status_code
