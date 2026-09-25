@@ -8,7 +8,7 @@ from typing import Optional
 
 from logic import cache
 from logic.zoho_auth import is_configured
-from services import zoho_fetcher
+from services import zoho_fetcher_v2 as zoho_fetcher
 
 router = APIRouter()
 
@@ -62,7 +62,7 @@ def get_tickets(dept: Optional[str] = Query(None, description="Filter by departm
         total += len(tickets)
 
     # Also include departments with no data in cache yet
-    from services.zoho_fetcher import DEPARTMENTS
+    from services.zoho_fetcher_v2 import DEPARTMENTS
     for d in DEPARTMENTS:
         if d["name"] not in grouped:
             grouped[d["name"]] = []
@@ -71,6 +71,26 @@ def get_tickets(dept: Optional[str] = Query(None, description="Filter by departm
         "total": total,
         "departments": grouped,
         "sync_status": cache.get_sync_status(),
+    }
+
+
+@router.get("/debug-env")
+def debug_env():
+    """
+    Diagnostics: shows WHICH env vars this running container can see (names and
+    true/false only — never values), plus which Railway service/env/commit is live.
+    """
+    from logic.zoho_auth import get_last_error
+    required = ["ZOHO_CLIENT_ID", "ZOHO_CLIENT_SECRET", "ZOHO_REFRESH_TOKEN"]
+    optional = ["ZOHO_DC", "ZOHO_ORG_ID", "ZOHO_ACCOUNTS_URL", "NO_ACTION_THRESHOLD_HOURS"]
+    return {
+        "required_present": {k: bool((os.getenv(k) or "").strip()) for k in required},
+        "optional_present": {k: bool((os.getenv(k) or "").strip()) for k in optional},
+        "zoho_var_names_seen": sorted(k for k in os.environ if k.upper().startswith("ZOHO")),
+        "railway_service": os.getenv("RAILWAY_SERVICE_NAME"),
+        "railway_environment": os.getenv("RAILWAY_ENVIRONMENT_NAME"),
+        "railway_commit": (os.getenv("RAILWAY_GIT_COMMIT_SHA") or "")[:7] or None,
+        "last_token_error": get_last_error(),
     }
 
 
