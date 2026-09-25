@@ -211,6 +211,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ userEmail, onLogout }) => 
                                         name={dept}
                                         tickets={tickets}
                                         isLoading={loading}
+                                        error={status?.dept_errors?.[dept]}
                                         onActionDone={() => loadData(false)}
                                     />
                                 ))
