@@ -39,10 +39,11 @@ DEPARTMENTS: list[dict] = [
      "report_id": "197800000150281341"},
     {"name": "Adit Pay",     "zoho_name": "Adit Pay",     "id": None,
      "report_id": "197800000313746651"},
-    # PA = Zoho team "Pending work - PA Team" (exact match on team or status name,
-    # ignoring case/punctuation; never fuzzy-matched)
+    # PA = Practice Analytics teams (Zoho view "Pending work - PA Team").
+    # Exact matches on team or status name, ignoring case/punctuation; never
+    # fuzzy-matched (so "T3 - Pay, CRM, Tasks" can't land here).
     {"name": "PA",           "zoho_name": "PA",           "id": None,
-     "exact": "Pending work - PA Team"},
+     "exact": ["T2 - Practice Analytics", "T3 - Practice Analytics", "Pending work - PA Team"]},
 ]
 
 # Ticket statuses to pull (open + on-hold covers all potentially overdue work)
@@ -344,7 +345,7 @@ async def _fetch_all_depts_via_tickets(
         raw_status = (t.get("status") or "").strip()
         statuses_seen[raw_status or "(none)"] = statuses_seen.get(raw_status or "(none)", 0) + 1
         keys = {k for k in (_slug(raw_status), _slug(tname)) if k}
-        d = next((x for x in DEPARTMENTS if x.get("exact") and _slug(x["exact"]) in keys), None)
+        d = next((x for x in DEPARTMENTS if any(_slug(e) in keys for e in x.get("exact", []))), None)
         d = d or _match_dept(tname) or _match_dept(zname)
         if d:
             grouped[d["name"]].append(t)
