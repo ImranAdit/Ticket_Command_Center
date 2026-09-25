@@ -16,10 +16,23 @@ _token_cache = {
     "expires_at": 0,
 }
 _lock = Lock()
+_last_error: dict = {"message": None}
+
+
+def get_last_error() -> str | None:
+    return _last_error["message"]
+
+
+def _env(name: str) -> str:
+    """Read an env var, tolerating stray whitespace/quotes pasted into Railway."""
+    return (os.getenv(name) or "").strip().strip('"').strip("'")
 
 
 def _get_oauth_base() -> str:
-    dc = os.getenv("ZOHO_DC", "com")
+    explicit = _env("ZOHO_ACCOUNTS_URL")
+    if explicit:
+        return explicit.rstrip("/")
+    dc = _env("ZOHO_DC").lower() or "com"
     mapping = {
         "com": "https://accounts.zoho.com",
         "eu": "https://accounts.zoho.eu",
@@ -32,9 +45,9 @@ def _get_oauth_base() -> str:
 
 def get_access_token() -> str | None:
     """Return a valid access token, refreshing if needed. Returns None if not configured."""
-    client_id = os.getenv("ZOHO_CLIENT_ID")
-    client_secret = os.getenv("ZOHO_CLIENT_SECRET")
-    refresh_token = os.getenv("ZOHO_REFRESH_TOKEN")
+    client_id = _env("ZOHO_CLIENT_ID")
+    client_secret = _env("ZOHO_CLIENT_SECRET")
+    refresh_token = _env("ZOHO_REFRESH_TOKEN")
 
     if not all([client_id, client_secret, refresh_token]):
         logger.warning("Zoho OAuth credentials not configured in .env")
@@ -55,12 +68,13 @@ def get_access_token() -> str | None:
                 "client_secret": client_secret,
                 "refresh_token": refresh_token,
             }, timeout=15)
-            resp.raise_for_status()
             data = resp.json()
 
             if "access_token" not in data:
-                logger.error(f"Token refresh failed: {data}")
+                _last_error["message"] = f"Token refresh failed ({resp.status_code}): {data.get('error', data)}"
+                logger.error(_last_error["message"])
                 return None
+            _last_error["message"] = None
 
             _token_cache["access_token"] = data["access_token"]
             # expires_in is in seconds (typically 3600)
@@ -68,15 +82,16 @@ def get_access_token() -> str | None:
             logger.info("Zoho access token refreshed successfully")
             return _token_cache["access_token"]
 
-        except httpx.HTTPError as e:
-            logger.error(f"HTTP error refreshing token: {e}")
+        except (httpx.HTTPError, ValueError) as e:
+            _last_error["message"] = f"HTTP error refreshing token: {e}"
+            logger.error(_last_error["message"])
             return None
 
 
 def is_configured() -> bool:
     """Check if all required OAuth env vars are present."""
     return all([
-        os.getenv("ZOHO_CLIENT_ID"),
-        os.getenv("ZOHO_CLIENT_SECRET"),
-        os.getenv("ZOHO_REFRESH_TOKEN"),
+        _env("ZOHO_CLIENT_ID"),
+        _env("ZOHO_CLIENT_SECRET"),
+        _env("ZOHO_REFRESH_TOKEN"),
     ])
