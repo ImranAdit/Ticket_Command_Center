@@ -169,31 +169,40 @@ async def _resolve_dept_ids(client: httpx.AsyncClient) -> None:
 
 async def _fetch_dept_tickets_for_status(
     client: httpx.AsyncClient,
-    dept_id: str,
+    dept_id: Optional[str],
     status: str,
 ) -> list[dict]:
     """
-    Paginate through all tickets of a given status in one department.
+    Paginate through all tickets of a given status — in one department, or
+    across ALL departments when dept_id is None.
     Uses ONLY documented Zoho Desk GET /api/v1/tickets query params.
     """
     tickets: list[dict] = []
     offset = 0
     limit = 100
     max_offset = 4900  # Zoho caps `from` at 4999
+    use_sort = True
 
     while offset <= max_offset:
         params = {
-            "departmentId": dept_id,
             "status": status,
             "limit": limit,
             "from": offset,
-            "sortBy": "dueDate",  # ascending; Zoho uses a "-" prefix for desc, there is no "order" param
             "include": "assignee,departments",
         }
+        if dept_id:
+            params["departmentId"] = dept_id
+        if use_sort:
+            # ascending → most-overdue first, so they survive the 5000-row cap
+            params["sortBy"] = "dueDate"
         data = await _get_with_retry(
             client, f"{_api_base()}/api/v1/tickets", params=params
         )
         if data is None:
+            if offset == 0 and use_sort and "422" in (_last_api_error or ""):
+                logger.warning("[v2] Zoho rejected sortBy=dueDate, retrying unsorted")
+                use_sort = False
+                continue
             if offset == 0:
                 # Surface the failure instead of silently reporting "All clear"
                 raise RuntimeError(_last_api_error or "Zoho tickets request failed")
@@ -248,6 +257,70 @@ async def _fetch_dept_tickets(
     return processed
 
 
+def _match_dept(zoho_dept_name: str) -> Optional[dict]:
+    """Map a Zoho department name onto one of our configured DEPARTMENTS."""
+    n = (zoho_dept_name or "").strip().lower()
+    if not n:
+        return None
+    for d in DEPARTMENTS:
+        if d["zoho_name"].lower() == n:
+            return d
+    for d in DEPARTMENTS:
+        z = d["zoho_name"].lower()
+        if z in n or n in z:
+            return d
+    return None
+
+
+async def _fetch_all_depts_via_tickets(
+    client: httpx.AsyncClient,
+    no_action_threshold: int,
+) -> dict[str, list[dict]]:
+    """
+    Fallback when department IDs can't be resolved (e.g. the OAuth token lacks
+    Desk.basic.READ → 403 SCOPE_MISMATCH on /departments). Pulls open/on-hold
+    tickets across all departments (needs only Desk.tickets.READ) and groups
+    them by the department name Zoho returns on each ticket.
+    """
+    raw: list[dict] = []
+    for status in FETCH_STATUSES:
+        try:
+            page = await _fetch_dept_tickets_for_status(client, None, status)
+        except RuntimeError as e:
+            if status == FETCH_STATUSES[0]:
+                raise
+            logger.warning(f"[v2] Skipping status '{status}': {e}")
+            cache.append_log("WARN", f"[v2] Skipping status '{status}': {e}")
+            continue
+        logger.info(f"[v2][all depts] status='{status}' → {len(page)} tickets fetched")
+        raw.extend(page)
+
+    grouped: dict[str, list[dict]] = {d["name"]: [] for d in DEPARTMENTS}
+    seen_ids: set[str] = set()
+    names_seen: dict[str, int] = {}
+    for t in raw:
+        tid = t.get("id")
+        if not tid or tid in seen_ids:
+            continue
+        seen_ids.add(tid)
+        zname = ((t.get("department") or {}).get("name") or "").strip()
+        names_seen[zname or "(none)"] = names_seen.get(zname or "(none)", 0) + 1
+        d = _match_dept(zname)
+        if d:
+            if not d["id"] and t.get("departmentId"):
+                d["id"] = str(t["departmentId"])  # learn the real ID for next time
+            grouped[d["name"]].append(t)
+
+    msg = f"[v2] Zoho department names on open tickets: {names_seen}"
+    logger.info(msg)
+    cache.append_log("INFO", msg)
+
+    return {
+        name: classify_and_filter(tickets, name, no_action_threshold)
+        for name, tickets in grouped.items()
+    }
+
+
 # ─── Main sync runner ──────────────────────────────────────────────────────────
 
 async def run_sync() -> dict:
@@ -298,6 +371,25 @@ async def run_sync() -> dict:
                 return {"status": "error", "message": msg}
 
             await _resolve_dept_ids(client)
+
+            if any(not d["id"] for d in DEPARTMENTS):
+                logger.warning("[v2] Department IDs unresolved — using all-department ticket fallback")
+                cache.append_log("WARN", "[v2] Department IDs unresolved — grouping tickets by department name instead")
+                try:
+                    by_dept = await _fetch_all_depts_via_tickets(client, no_action_threshold)
+                except Exception as e:
+                    err = str(e)
+                    logger.error(f"[v2] Fallback sync failed: {err}")
+                    for dept in DEPARTMENTS:
+                        cache.set_dept_error(dept["name"], err)
+                    cache.append_log("ERROR", f"[v2] Fallback sync failed: {err}")
+                    return {"status": "error", "message": err}
+                for name, tickets in by_dept.items():
+                    cache.set_cached_tickets(name, tickets)
+                    cache.set_dept_count(name, len(tickets))
+                    results[name] = len(tickets)
+                cache.append_log("INFO", f"[v2] Sync complete (fallback). Results: {results}")
+                return {"status": "ok", "counts": results, "synced_at": now_str, "mode": "fallback"}
 
             for dept in DEPARTMENTS:
                 try:
