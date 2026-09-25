@@ -5,14 +5,14 @@ import { useGoogleLogin } from '@react-oauth/google';
 import { ADIT_LOGO } from '../assets/aditLogo';
 
 interface AuthGateProps {
-    onLogin: (email: string) => void;
+    onLogin: (email: string, name?: string) => void;
 }
 
 export const AuthGate: React.FC<AuthGateProps> = ({ onLogin }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const validateAndLogin = (email: string) => {
+    const validateAndLogin = (email: string, name?: string) => {
         const cleanEmail = email.trim().toLowerCase();
 
         if (!cleanEmail.endsWith('@adit.com')) {
@@ -22,7 +22,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onLogin }) => {
         }
 
         localStorage.setItem('lastAditEmail', cleanEmail);
-        onLogin(cleanEmail);
+        onLogin(cleanEmail, name?.trim() || undefined);
         setLoading(false);
     };
 
@@ -45,7 +45,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onLogin }) => {
                     throw new Error('Unable to fetch email from Google');
                 }
 
-                validateAndLogin(user.email);
+                validateAndLogin(user.email, user.name || user.given_name);
             } catch (err) {
                 setError('Google login failed. Please try again.');
                 setLoading(false);
