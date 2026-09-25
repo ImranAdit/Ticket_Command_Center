@@ -271,6 +271,12 @@ TEAM_ALIASES: dict[str, list[str]] = {
 }
 
 
+def _slug(text: str) -> str:
+    """'Pending Work – PA Team' → 'pending-work-pa-team' (matches Zoho view URLs)."""
+    import re
+    return re.sub(r"[^a-z0-9]+", "-", (text or "").lower()).strip("-")
+
+
 def _match_dept(zoho_dept_name: str) -> Optional[dict]:
     """Map a Zoho team/department name onto one of our configured DEPARTMENTS."""
     n = (zoho_dept_name or "").strip().lower()
@@ -320,6 +326,7 @@ async def _fetch_all_depts_via_tickets(
     seen_ids: set[str] = set()
     names_seen: dict[str, int] = {}
     teams_seen: dict[str, int] = {}
+    statuses_seen: dict[str, int] = {}
     for t in raw:
         tid = t.get("id")
         if not tid or tid in seen_ids:
@@ -331,13 +338,15 @@ async def _fetch_all_depts_via_tickets(
         teams_seen[tname or "(none)"] = teams_seen.get(tname or "(none)", 0) + 1
         # VoIP / T1 Tech / T2 Core Tech / Adit Pay are Zoho *teams* (inside the
         # Support department), so match on team first, then department.
-        tstatus = (t.get("status") or "").strip().lower()
-        d = next((x for x in DEPARTMENTS if x.get("status", "").lower() == tstatus and tstatus), None)
+        raw_status = (t.get("status") or "").strip()
+        statuses_seen[raw_status or "(none)"] = statuses_seen.get(raw_status or "(none)", 0) + 1
+        tstatus = _slug(raw_status)
+        d = next((x for x in DEPARTMENTS if tstatus and _slug(x.get("status", "")) == tstatus), None)
         d = d or _match_dept(tname) or _match_dept(zname)
         if d:
             grouped[d["name"]].append(t)
 
-    msg = f"[v2] Zoho departments on open tickets: {names_seen} | teams: {teams_seen}"
+    msg = f"[v2] Zoho statuses: {statuses_seen} | departments: {names_seen} | teams: {teams_seen}"
     logger.info(msg)
     cache.append_log("INFO", msg)
 
