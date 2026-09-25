@@ -9,6 +9,7 @@ const DEPT_COLORS: Record<string, string> = {
     'T1 Tech':      'text-purple-dev border-purple-dev/30',
     'T2 Core Tech': 'text-amber-gold border-amber-gold/30',
     'Adit Pay':     'text-green-ok border-green-ok/30',
+    'PA':           'text-crimson-red border-crimson-red/30',
 };
 
 const DEPT_ICONS: Record<string, string> = {
@@ -16,6 +17,7 @@ const DEPT_ICONS: Record<string, string> = {
     'T1 Tech':      '🔧',
     'T2 Core Tech': '⚙️',
     'Adit Pay':     '💳',
+    'PA':           '📊',
 };
 
 interface DeptSectionProps {
