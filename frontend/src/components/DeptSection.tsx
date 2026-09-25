@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronRight, CheckCircle, ShieldAlert } from 'lucide-react';
+import { ChevronDown, ChevronRight, CheckCircle, ShieldAlert, AlertTriangle } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { type BreachedTicket } from '../lib/api';
 import { BreachTicketRow } from './BreachTicketRow';
@@ -22,11 +22,12 @@ interface DeptSectionProps {
     name: string;
     tickets: BreachedTicket[];
     isLoading?: boolean;
+    error?: string;
     onActionDone?: () => void;
 }
 
 export const DeptSection: React.FC<DeptSectionProps> = ({
-    name, tickets, isLoading = false, onActionDone
+    name, tickets, isLoading = false, error, onActionDone
 }) => {
     const [collapsed, setCollapsed] = useState(false);
     const colorClass = DEPT_COLORS[name] || 'text-text-primary border-obsidian-border2';
@@ -68,6 +69,10 @@ export const DeptSection: React.FC<DeptSectionProps> = ({
                                 </span>
                             )}
                         </div>
+                    ) : error ? (
+                        <span title={error} className="flex items-center gap-1 text-[11px] text-crimson-red font-medium">
+                            <AlertTriangle className="w-3 h-3" /> Sync error — {error.length > 90 ? error.slice(0, 90) + '…' : error}
+                        </span>
                     ) : (
                         !isLoading && (
                             <span className="flex items-center gap-1 text-[11px] text-green-ok font-medium">
@@ -99,6 +104,12 @@ export const DeptSection: React.FC<DeptSectionProps> = ({
                                     <div className="skeleton h-4 w-24 rounded" />
                                 </div>
                             ))}
+                        </div>
+                    ) : tickets.length === 0 && error ? (
+                        <div className="flex flex-col items-center justify-center py-10 text-crimson-red gap-2 px-6 text-center">
+                            <AlertTriangle className="w-8 h-8 text-crimson-red/60" />
+                            <span className="text-sm">Could not sync this department from Zoho</span>
+                            <span className="text-xs text-text-faint break-all">{error}</span>
                         </div>
                     ) : tickets.length === 0 ? (
                         <div className="flex flex-col items-center justify-center py-10 text-text-faint gap-2">
