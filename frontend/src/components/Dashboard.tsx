@@ -3,6 +3,7 @@ import { LogOut, Activity, Clock, ShieldAlert, LayoutDashboard, Search, Filter }
 import { fetchSyncStatus, fetchTickets, type BreachedTicket, type SyncStatus } from '../lib/api';
 import { SyncStatusBar } from './SyncStatusBar';
 import { DeptSection } from './DeptSection';
+import { ADIT_LOGO } from '../assets/aditLogo';
 
 interface DashboardProps {
     userEmail: string;
@@ -76,7 +77,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ userEmail, onLogout }) => 
             <header className="flex items-center justify-between px-6 py-3 bg-obsidian-surface border-b border-obsidian-border shrink-0 z-20">
                 <div className="flex items-center gap-3">
                     <img 
-                        src="https://adit.com/storage/settings/logo.png" 
+                        src={ADIT_LOGO} 
                         alt="Adit" 
                         className="h-[24px] object-contain"
                     />
