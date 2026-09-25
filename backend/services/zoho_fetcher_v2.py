@@ -259,11 +259,23 @@ async def _fetch_dept_tickets(
     return processed
 
 
+# Exact Zoho team names that belong to each dashboard bucket (lower-case).
+# Anything not listed falls back to a name-contains match (e.g. every team
+# with "VoIP" in its name → VoIP, "T2 - Adit Pay" → Adit Pay).
+TEAM_ALIASES: dict[str, list[str]] = {
+    "T1 Tech": ["t1 - customer support"],
+    "T2 Core Tech": ["t2 - core"],
+}
+
+
 def _match_dept(zoho_dept_name: str) -> Optional[dict]:
-    """Map a Zoho department name onto one of our configured DEPARTMENTS."""
+    """Map a Zoho team/department name onto one of our configured DEPARTMENTS."""
     n = (zoho_dept_name or "").strip().lower()
     if not n:
         return None
+    for d in DEPARTMENTS:
+        if n in TEAM_ALIASES.get(d["name"], []):
+            return d
     for d in DEPARTMENTS:
         if d["zoho_name"].lower() == n:
             return d
