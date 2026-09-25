@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { cn } from '../lib/utils';
 import { Lock, Loader2, ArrowRight } from 'lucide-react';
 import { useGoogleLogin } from '@react-oauth/google';
+import { ADIT_LOGO } from '../assets/aditLogo';
 
 interface AuthGateProps {
     onLogin: (email: string) => void;
@@ -73,7 +74,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onLogin }) => {
 
                 <div className="mb-4 flex items-center justify-center">
                     <img
-                        src="https://adit.com/storage/settings/logo.png"
+                        src={ADIT_LOGO}
                         alt="Adit"
                         className="h-[52px] object-contain"
                     />
