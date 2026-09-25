@@ -7,10 +7,11 @@ import { ADIT_LOGO } from '../assets/aditLogo';
 
 interface DashboardProps {
     userEmail: string;
+    userName?: string;
     onLogout: () => void;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ userEmail, onLogout }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ userEmail, userName, onLogout }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [status, setStatus] = useState<SyncStatus | null>(null);
     const [ticketsByDept, setTicketsByDept] = useState<Record<string, BreachedTicket[]>>({});
@@ -84,7 +85,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ userEmail, onLogout }) => 
                     <div className="flex items-center gap-2">
                         <span className="text-text-muted font-light px-2">|</span>
                         <div className="flex items-center gap-2 text-[11px] tracking-[3px] uppercase font-bold">
-                            TCC <span className="text-[10px] text-neon-blue font-mono px-1.5 py-0.5 bg-neon-blue/10 border border-neon-blue/20 rounded">v2.0</span>
+                            Ticket Command Center
                         </div>
                     </div>
                 </div>
@@ -106,7 +107,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ userEmail, onLogout }) => 
                 <div className="flex items-center gap-6">
                     <div className="flex flex-col items-end">
                         <span className="text-[10px] text-text-muted uppercase tracking-wider font-medium">Logged in as</span>
-                        <span className="text-xs font-bold text-text-primary">{userEmail}</span>
+                        <span className="text-xs font-bold text-text-primary" title={userEmail}>{userName || userEmail.split('@')[0]}</span>
                     </div>
                     <button 
                         onClick={onLogout}
