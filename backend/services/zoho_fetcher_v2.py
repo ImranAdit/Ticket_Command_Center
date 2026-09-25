@@ -45,13 +45,14 @@ DEPARTMENTS: list[dict] = [
 FETCH_STATUSES = ["Open", "On Hold"]
 
 _org_id: Optional[str] = None
+_last_api_error: Optional[str] = None
 _dept_ids_resolved = False
 
 
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 
 def _api_base() -> str:
-    dc = os.getenv("ZOHO_DC", "com")
+    dc = (os.getenv("ZOHO_DC") or "com").strip().lower()
     mapping = {
         "com": "https://desk.zoho.com",
         "eu":  "https://desk.zoho.eu",
@@ -64,7 +65,7 @@ def _api_base() -> str:
 
 def _headers() -> dict:
     token = get_access_token()
-    org_id = os.getenv("ZOHO_ORG_ID") or _org_id or ""
+    org_id = (os.getenv("ZOHO_ORG_ID") or "").strip() or _org_id or ""
     return {
         "Authorization": f"Zoho-oauthtoken {token}",
         "orgId": org_id,
@@ -79,6 +80,7 @@ async def _get_with_retry(
     retries: int = 3,
 ) -> Optional[dict]:
     """GET with exponential back-off on rate-limits (429) and server errors (5xx)."""
+    global _last_api_error
     delay = 2
     for attempt in range(retries):
         try:
@@ -94,6 +96,7 @@ async def _get_with_retry(
             status = e.response.status_code
             body = e.response.text[:300]
             logger.error(f"API Error on {url}: {e} | body: {body}")
+            _last_api_error = f"Zoho {status}: {body}"
             if status >= 500 and attempt < retries - 1:
                 await asyncio.sleep(delay)
                 delay *= 2
@@ -101,6 +104,7 @@ async def _get_with_retry(
             return None
         except httpx.RequestError as e:
             logger.error(f"Request error on {url}: {e}")
+            _last_api_error = f"Request error: {e}"
             if attempt < retries - 1:
                 await asyncio.sleep(delay)
                 delay *= 2
@@ -116,7 +120,7 @@ async def _resolve_org_id(client: httpx.AsyncClient) -> Optional[str]:
     if _org_id:
         return _org_id
 
-    env_org = os.getenv("ZOHO_ORG_ID")
+    env_org = (os.getenv("ZOHO_ORG_ID") or "").strip()
     if env_org:
         _org_id = env_org
         return _org_id
@@ -183,14 +187,16 @@ async def _fetch_dept_tickets_for_status(
             "status": status,
             "limit": limit,
             "from": offset,
-            "sortBy": "dueDate",
-            "order": "asc",
+            "sortBy": "dueDate",  # ascending; Zoho uses a "-" prefix for desc, there is no "order" param
             "include": "assignee,departments",
         }
         data = await _get_with_retry(
             client, f"{_api_base()}/api/v1/tickets", params=params
         )
-        if not data:
+        if data is None:
+            if offset == 0:
+                # Surface the failure instead of silently reporting "All clear"
+                raise RuntimeError(_last_api_error or "Zoho tickets request failed")
             break
 
         page = data.get("data", [])
@@ -211,8 +217,9 @@ async def _fetch_dept_tickets(
     """Fetch all open/on-hold tickets for one department, then classify locally."""
     dept_id = dept["id"]
     if not dept_id:
-        logger.warning(f"[v2] No dept ID for '{dept['name']}', skipping")
-        return []
+        raise RuntimeError(
+            f"Department '{dept['zoho_name']}' not found in Zoho Desk (check name / Desk.basic.READ scope)"
+        )
 
     all_raw: list[dict] = []
     for status in FETCH_STATUSES:
@@ -271,13 +278,23 @@ async def run_sync() -> dict:
 
     results = {}
     try:
+        if not get_access_token():
+            from logic.zoho_auth import get_last_error
+            msg = get_last_error() or "Could not get Zoho access token"
+            logger.error(f"[v2] {msg}")
+            cache.append_log("ERROR", f"[v2] {msg}")
+            for dept in DEPARTMENTS:
+                cache.set_dept_error(dept["name"], msg)
+            return {"status": "error", "message": msg}
+
         async with httpx.AsyncClient() as client:
             org_id = await _resolve_org_id(client)
             if not org_id:
-                msg = "[v2] Could not resolve Zoho org ID — check credentials"
+                msg = f"Could not resolve Zoho org ID — {_last_api_error or 'check credentials'}"
                 logger.error(msg)
                 cache.append_log("ERROR", msg)
-                cache.set_sync_running(False)
+                for dept in DEPARTMENTS:
+                    cache.set_dept_error(dept["name"], msg)
                 return {"status": "error", "message": msg}
 
             await _resolve_dept_ids(client)
