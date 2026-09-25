@@ -3,13 +3,13 @@ import { AuthGate } from './components/AuthGate'
 import { Dashboard } from './components/Dashboard'
 
 function App() {
-  const [userEmail, setUserEmail] = useState<string | null>(null)
+  const [user, setUser] = useState<{ email: string; name?: string } | null>(null)
 
-  if (!userEmail) {
-    return <AuthGate onLogin={setUserEmail} />
+  if (!user) {
+    return <AuthGate onLogin={(email, name) => setUser({ email, name })} />
   }
 
-  return <Dashboard userEmail={userEmail} onLogout={() => setUserEmail(null)} />
+  return <Dashboard userEmail={user.email} userName={user.name} onLogout={() => setUser(null)} />
 }
 
 export default App
