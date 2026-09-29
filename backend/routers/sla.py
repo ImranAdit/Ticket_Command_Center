@@ -62,6 +62,17 @@ async def probe_sources():
     async with httpx.AsyncClient() as client:
         views_status, views = await _get_raw_status(client, "/api/v1/views", {"module": "tickets", "limit": 100})
         view_list = [{"id": v.get("id"), "name": v.get("name")} for v in ((views or {}).get("data") or [])]
+        # custom views are per department — try each department seen on synced tickets
+        from services import zoho_fetcher_v2
+        dept_ids = sorted({str(t.get("departmentId")) for ts in (zoho_fetcher_v2.LAST_GROUPED_RAW or {}).values()
+                           for t in ts if t.get("departmentId")})
+        dept_view_status = {}
+        for did in dept_ids + ["allDepartment"]:
+            st, j = await _get_raw_status(client, "/api/v1/views", {"module": "tickets", "departmentId": did, "limit": 100})
+            dept_view_status[did] = st
+            for x in ((j or {}).get("data") or []) if isinstance(j, dict) else []:
+                if not any(y["id"] == x.get("id") for y in view_list):
+                    view_list.append({"id": x.get("id"), "name": x.get("name"), "departmentId": did})
         for name in sorted(k for k in os.environ if k.startswith("ZOHO_REPORT_")):
             url = os.getenv(name) or ""
             entry = {"variable": name, "attempts": []}
@@ -70,12 +81,21 @@ async def probe_sources():
             if m:
                 rid = m.group(1)
                 entry.update(kind="report", id=rid)
-                for path in (f"/api/v1/reports/{rid}", f"/api/v1/reports/{rid}/data",
-                             f"/api/v1/reports/{rid}/export"):
-                    st, j = await _get_raw_status(client, path)
-                    entry["attempts"].append({"path": path, "status": st,
-                                              "error": (j or {}).get("errorCode") if isinstance(j, dict) else None,
-                                              "keys": sorted(j.keys())[:15] if isinstance(j, dict) else None})
+                st, j = await _get_raw_status(client, f"/api/v1/reports/{rid}")
+                entry["report"] = {"status": st, "name": (j or {}).get("name") if isinstance(j, dict) else None,
+                                   "reportType": (j or {}).get("reportType") if isinstance(j, dict) else None}
+                from services.sla_preview import _headers, _api_base
+                try:
+                    r = await client.get(f"{_api_base()}/api/v1/reports/{rid}/export", headers=_headers(), timeout=40)
+                    body = r.content or b""
+                    text = body[:4000].decode("utf-8", "replace")
+                    lines = text.splitlines()
+                    entry["export"] = {"status": r.status_code, "content_type": r.headers.get("content-type"),
+                                       "bytes": len(body), "first_line_columns": lines[0][:400] if lines else None,
+                                       "approx_rows": body.count(b"\n"),
+                                       "json_keys": (sorted(r.json().keys()) if "json" in r.headers.get("content-type", "") else None)}
+                except Exception as e:
+                    entry["export"] = {"error": str(e)[:150]}
             elif v:
                 entry.update(kind="view", slug=v.group(1))
                 match = next((x for x in view_list if slug(x["name"]) == v.group(1)), None)
@@ -87,8 +107,8 @@ async def probe_sources():
             else:
                 entry["kind"] = "unrecognised link"
             out.append(entry)
-    return {"views_api_status": views_status, "views_found": len(view_list),
-            "view_names": [x["name"] for x in view_list][:60], "sources": out}
+    return {"views_api_status": views_status, "dept_view_status": dept_view_status, "views_found": len(view_list),
+            "view_names": [x["name"] for x in view_list][:80], "sources": out}
 
 
 _PAGE = """<!doctype html><html><head><meta charset="utf-8"><title>SLA Preview — Ticket Command Center</title>
