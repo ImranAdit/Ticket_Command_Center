@@ -270,6 +270,11 @@ async def refresh(grouped_raw: dict[str, list[dict]]) -> None:
                         "agent": (f"{assignee.get('firstName', '')} {assignee.get('lastName', '')}".strip()
                                   or "Unassigned"),
                         "team": ((t.get("team") or {}).get("name")),
+                        "assigneeId": t.get("assigneeId"),
+                        "priority": t.get("priority") or "Normal",
+                        "created_time": t.get("createdTime"),
+                        "modified_time": t.get("modifiedTime"),
+                        "due_date": t.get("dueDate"),
                         "zoho_url": t.get("webUrl") or
                         f"https://help.adit.com/agent/aditadvertising/support/tickets/details/{tid}",
                         **ev,
@@ -294,12 +299,46 @@ async def refresh(grouped_raw: dict[str, list[dict]]) -> None:
         _state["departments"] = out
         _state["counts"] = counts
         _state["generated_at"] = now.isoformat()
+        _publish_to_dashboard(out)
         logger.info(f"[sla] preview refreshed: {counts}")
     except Exception as e:
         logger.exception("[sla] preview refresh failed")
         _note_error(f"refresh failed: {e}")
     finally:
         _state["running"] = False
+
+
+SEVERITY = {"breach": "critical", "at_risk": "moderate", "unclear": "watch"}
+
+
+def _publish_to_dashboard(out: dict[str, list[dict]]) -> None:
+    """Feed the main dashboard (/api/sync/tickets) with v3 results in its existing shape."""
+    from services import zoho_fetcher_v2
+    if not getattr(zoho_fetcher_v2, "V3_DASHBOARD", False):
+        return
+    from logic import cache
+    for dept, rows in out.items():
+        mapped = [{
+            "id": r["id"],
+            "ticketNumber": r.get("ticketNumber") or "",
+            "subject": r.get("subject") or "No Subject",
+            "status": r.get("status") or "",
+            "assignee": r.get("agent") or "Unassigned",
+            "assigneeId": r.get("assigneeId"),
+            "priority": r.get("priority") or "Normal",
+            "department": dept,
+            "sla_status": "breached" if r["state"] == "breach" else "at_risk",
+            "created_time": r.get("created_time"),
+            "modified_time": r.get("modified_time"),
+            "due_date": r.get("due_date"),
+            "hours_overdue": r.get("hours") or 0,
+            "severity": SEVERITY[r["state"]],
+            "zoho_url": r.get("zoho_url"),
+            "rule": r.get("rule"),
+            "detail": r.get("detail"),
+        } for r in rows if r["state"] in SEVERITY]
+        cache.set_cached_tickets(dept, mapped)
+        cache.set_dept_count(dept, sum(1 for m in mapped if m["severity"] == "critical"))
 
 
 async def inspect(ticket_id: str) -> dict:
