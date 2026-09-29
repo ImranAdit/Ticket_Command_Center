@@ -49,7 +49,12 @@ DEPARTMENTS: list[dict] = [
 # Ticket statuses to pull (open + on-hold covers all potentially overdue work)
 # Zoho statuses in use: Open, Pending Adit, Pending customer, Working, Pending Meeting.
 # Only statuses where the ball is in Adit's court count toward SLA breaches.
-FETCH_STATUSES = ["Open", "Pending Adit", "Working"]
+FETCH_STATUSES = ["Open", "Pending Adit", "Working", "Pending Meeting"]
+# The current dashboard ignores Pending Meeting (the SLA preview handles it with the callback rule)
+DASHBOARD_EXCLUDED_STATUSES = {"pending meeting"}
+
+# Raw tickets per department from the last sync, used by services/sla_preview.py
+LAST_GROUPED_RAW: dict[str, list[dict]] = {}
 
 _org_id: Optional[str] = None
 _last_api_error: Optional[str] = None
@@ -354,8 +359,18 @@ async def _fetch_all_depts_via_tickets(
     logger.info(msg)
     cache.append_log("INFO", msg)
 
+    global LAST_GROUPED_RAW
+    LAST_GROUPED_RAW = grouped
+    try:  # new SLA rules preview runs in the background; never blocks the main sync
+        from services import sla_preview
+        asyncio.get_running_loop().create_task(sla_preview.refresh(grouped))
+    except Exception as e:
+        logger.warning(f"[v2] Could not start SLA preview: {e}")
+
     return {
-        name: classify_and_filter(tickets, name, no_action_threshold)
+        name: classify_and_filter(
+            [t for t in tickets if (t.get("status") or "").strip().lower() not in DASHBOARD_EXCLUDED_STATUSES],
+            name, no_action_threshold)
         for name, tickets in grouped.items()
     }
 
