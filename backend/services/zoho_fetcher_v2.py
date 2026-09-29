@@ -53,6 +53,10 @@ FETCH_STATUSES = ["Open", "Pending Adit", "Working", "Pending Meeting"]
 # The current dashboard ignores Pending Meeting (the SLA preview handles it with the callback rule)
 DASHBOARD_EXCLUDED_STATUSES = {"pending meeting"}
 
+# When on, the dashboard shows the SLA rules v3 results (written by services/sla_preview.py)
+# instead of the legacy overdue logic. Set SLA_V3_DASHBOARD=0 to roll back.
+V3_DASHBOARD = os.getenv("SLA_V3_DASHBOARD", "1") != "0"
+
 # Raw tickets per department from the last sync, used by services/sla_preview.py
 LAST_GROUPED_RAW: dict[str, list[dict]] = {}
 
@@ -439,8 +443,9 @@ async def run_sync() -> dict:
                     cache.append_log("ERROR", f"[v2] Fallback sync failed: {err}")
                     return {"status": "error", "message": err}
                 for name, tickets in by_dept.items():
-                    cache.set_cached_tickets(name, tickets)
-                    cache.set_dept_count(name, len(tickets))
+                    if not V3_DASHBOARD:  # v3: sla_preview publishes to the dashboard cache
+                        cache.set_cached_tickets(name, tickets)
+                        cache.set_dept_count(name, len(tickets))
                     results[name] = len(tickets)
                 cache.append_log("INFO", f"[v2] Sync complete (fallback). Results: {results}")
                 return {"status": "ok", "counts": results, "synced_at": now_str, "mode": "fallback"}
