@@ -198,3 +198,53 @@
 ::-webkit-scrollbar-track { @apply bg-obsidian-bg; }
 ::-webkit-scrollbar-thumb { @apply bg-obsidian-border2 rounded-full; }
 ::-webkit-scrollbar-thumb:hover { @apply bg-text-faint; }
+
+/* ── Premium 3D product title ─────────────────────────────────────────── */
+.title-3d {
+    position: relative;
+    display: inline-block;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    line-height: 1;
+    white-space: nowrap;
+    /* brushed-chrome face with a cyan core */
+    background: linear-gradient(180deg,
+        #ffffff 0%, #f2f7ff 28%, #b9dbff 48%, #4ea3ff 54%, #8fc4ff 70%, #eef6ff 100%);
+    background-size: 100% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    /* stacked drop-shadows = extruded depth + soft floor shadow + glow */
+    filter:
+        drop-shadow(0 1px 0 #6f9fd8)
+        drop-shadow(0 1px 0 #3f6fa8)
+        drop-shadow(0 1px 0 #2b5286)
+        drop-shadow(0 1px 0 #1e3c66)
+        drop-shadow(0 1px 0 #142a4a)
+        drop-shadow(0 4px 5px rgba(0, 0, 0, 0.75))
+        drop-shadow(0 0 14px rgba(56, 189, 248, 0.35));
+    transform: perspective(600px) rotateX(8deg);
+    transform-origin: center bottom;
+}
+/* moving specular highlight */
+.title-3d::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg,
+        transparent 0%, transparent 40%, rgba(255, 255, 255, 0.95) 50%, transparent 60%, transparent 100%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: title-shine 6s ease-in-out infinite;
+    pointer-events: none;
+}
+@keyframes title-shine {
+    0%, 60% { background-position: 150% 0; }
+    100%    { background-position: -100% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .title-3d::after { animation: none; }
+}
