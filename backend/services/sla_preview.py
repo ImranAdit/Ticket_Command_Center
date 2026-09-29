@@ -82,6 +82,23 @@ async def _get(client: httpx.AsyncClient, path: str, params: Optional[dict] = No
     return None
 
 
+async def _get_raw_status(client: httpx.AsyncClient, path: str, params: Optional[dict] = None):
+    """GET returning (status_code, json|errorCode) — used by diagnostics only."""
+    try:
+        resp = await client.get(f"{_api_base()}{path}", params=params, headers=_headers(), timeout=25)
+        if resp.status_code == 204 or not resp.content:
+            return resp.status_code, {"data": []}
+        try:
+            j = resp.json()
+        except ValueError:
+            return resp.status_code, None
+        if resp.status_code >= 400 and isinstance(j, dict):
+            return resp.status_code, {"errorCode": j.get("errorCode"), "message": str(j.get("message"))[:120]}
+        return resp.status_code, j
+    except Exception as e:
+        return 0, {"error": str(e)[:120]}
+
+
 def _note_error(msg: str) -> None:
     logger.warning(f"[sla] {msg}")
     errs = _state["errors"]
