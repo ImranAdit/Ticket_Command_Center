@@ -45,14 +45,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ userEmail, userName, onLog
 
     const stats = useMemo(() => {
         const allTickets = Object.values(ticketsByDept).flat();
-        const critical = allTickets.filter(t => t.severity === 'critical').length;
-        const deptsImpacted = Object.entries(ticketsByDept).filter(([_, t]) => t.length > 0).length;
-        
-        return {
-            total: allTickets.length,
-            critical,
-            deptsImpacted
-        };
+        const breaches = allTickets.filter(t => t.severity === 'critical').length;
+        const atRisk = allTickets.filter(t => t.severity === 'moderate' || t.severity === 'watch').length;
+        const deptsImpacted = Object.values(ticketsByDept)
+            .filter(t => t.some(x => x.severity === 'critical')).length;
+
+        return { breaches, atRisk, deptsImpacted };
     }, [ticketsByDept]);
 
     const filteredDepts = useMemo(() => {
@@ -137,20 +135,20 @@ export const Dashboard: React.FC<DashboardProps> = ({ userEmail, userName, onLog
                                 <Activity className="w-4 h-4 text-neon-blue group-hover:scale-110 transition-transform" />
                              </div>
                              <div className="text-3xl font-bold tracking-tight text-glow-neon">
-                                {loading ? "..." : stats.total}
+                                {loading ? "..." : stats.breaches}
                              </div>
-                             <div className="text-[10px] text-text-faint font-medium">Auto-synced from Zoho Desk</div>
+                             <div className="text-[10px] text-text-faint font-medium">Business hours · Mon–Fri 7am–7pm CT</div>
                         </div>
 
                         <div className="glass-card p-5 group flex flex-col gap-3 hover:border-crimson-red/30 transition-all border-t-2 border-t-crimson-red">
                              <div className="flex items-center justify-between">
-                                <span className="text-[10px] uppercase tracking-[2px] font-bold text-text-muted">Critical Status</span>
+                                <span className="text-[10px] uppercase tracking-[2px] font-bold text-text-muted">At Risk</span>
                                 <ShieldAlert className="w-4 h-4 text-crimson-red group-hover:scale-110 transition-transform pulse" />
                              </div>
                              <div className="text-3xl font-bold tracking-tight text-crimson-red">
-                                {loading ? "..." : stats.critical}
+                                {loading ? "..." : stats.atRisk}
                              </div>
-                             <div className="text-[10px] text-text-faint font-medium">&gt; 72 hours overdue without action</div>
+                             <div className="text-[10px] text-text-faint font-medium">No action for 7+ business hours</div>
                         </div>
 
                         <div className="glass-card p-5 group flex flex-col gap-3 hover:border-purple-dev/30 transition-all border-t-2 border-t-purple-dev">
