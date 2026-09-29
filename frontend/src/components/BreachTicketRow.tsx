@@ -8,6 +8,13 @@ interface BreachTicketRowProps {
     onActionDone?: () => void;
 }
 
+const RULE_LABEL: Record<string, string> = {
+    first_response: 'No first reply',
+    inactivity: 'No action',
+    carried_over: 'No action',
+    callback: 'Since callback',
+};
+
 export const BreachTicketRow: React.FC<BreachTicketRowProps> = ({ ticket, onActionDone }) => {
     const [actionLoading, setActionLoading] = useState<string | null>(null);
     const [actionSuccess, setActionSuccess] = useState<string | null>(null);
@@ -58,8 +65,15 @@ export const BreachTicketRow: React.FC<BreachTicketRowProps> = ({ ticket, onActi
             </div>
 
             {/* Subject */}
-            <div className="text-[12px] truncate pr-4 text-text-primary/90" title={ticket.subject}>
-                {ticket.subject}
+            <div className="min-w-0 pr-4">
+                <div className="text-[12px] truncate text-text-primary/90" title={ticket.subject}>
+                    {ticket.subject}
+                </div>
+                {ticket.detail && (
+                    <div className="text-[10px] truncate text-text-faint mt-0.5" title={ticket.detail}>
+                        {ticket.detail}
+                    </div>
+                )}
             </div>
 
             {/* Assignee */}
@@ -87,7 +101,9 @@ export const BreachTicketRow: React.FC<BreachTicketRowProps> = ({ ticket, onActi
                 )}>
                     {ticket.hours_overdue} hrs
                 </span>
-                <span className="text-[9px] text-text-faint uppercase font-medium">Overdue</span>
+                <span className="text-[9px] text-text-faint uppercase font-medium">
+                    {(ticket.rule && RULE_LABEL[ticket.rule]) || 'Overdue'}
+                </span>
             </div>
 
             {/* Quick Actions */}
