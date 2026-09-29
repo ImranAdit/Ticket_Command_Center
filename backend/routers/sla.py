@@ -46,6 +46,51 @@ async def inspect(id: str):
     return await sla_preview.inspect(id)
 
 
+@router.get("/probe-sources")
+async def probe_sources():
+    """
+    Read-only diagnostic: for each ZOHO_REPORT_* link, check which Zoho Desk API calls can
+    read it (report or view). Returns status codes / key names only — no ticket content.
+    """
+    import os, re, httpx
+    from services.sla_preview import _get_raw_status
+
+    def slug(t):
+        return re.sub(r"[^a-z0-9]+", "-", (t or "").lower()).strip("-")
+
+    out = []
+    async with httpx.AsyncClient() as client:
+        views_status, views = await _get_raw_status(client, "/api/v1/views", {"module": "tickets", "limit": 100})
+        view_list = [{"id": v.get("id"), "name": v.get("name")} for v in ((views or {}).get("data") or [])]
+        for name in sorted(k for k in os.environ if k.startswith("ZOHO_REPORT_")):
+            url = os.getenv(name) or ""
+            entry = {"variable": name, "attempts": []}
+            m = re.search(r"/reports/details/(\d+)", url)
+            v = re.search(r"/tickets/(?:q/status|list|view)/([\w-]+)", url)
+            if m:
+                rid = m.group(1)
+                entry.update(kind="report", id=rid)
+                for path in (f"/api/v1/reports/{rid}", f"/api/v1/reports/{rid}/data",
+                             f"/api/v1/reports/{rid}/export"):
+                    st, j = await _get_raw_status(client, path)
+                    entry["attempts"].append({"path": path, "status": st,
+                                              "error": (j or {}).get("errorCode") if isinstance(j, dict) else None,
+                                              "keys": sorted(j.keys())[:15] if isinstance(j, dict) else None})
+            elif v:
+                entry.update(kind="view", slug=v.group(1))
+                match = next((x for x in view_list if slug(x["name"]) == v.group(1)), None)
+                entry["view_match"] = match
+                if match:
+                    st, j = await _get_raw_status(client, "/api/v1/tickets", {"viewId": match["id"], "limit": 5})
+                    entry["attempts"].append({"path": "/api/v1/tickets?viewId=", "status": st,
+                                              "rows": len((j or {}).get("data") or []) if isinstance(j, dict) else None})
+            else:
+                entry["kind"] = "unrecognised link"
+            out.append(entry)
+    return {"views_api_status": views_status, "views_found": len(view_list),
+            "view_names": [x["name"] for x in view_list][:60], "sources": out}
+
+
 _PAGE = """<!doctype html><html><head><meta charset="utf-8"><title>SLA Preview — Ticket Command Center</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
