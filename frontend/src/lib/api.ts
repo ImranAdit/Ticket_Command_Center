@@ -59,6 +59,8 @@ export interface BreachedTicket {
   hours_overdue: number;
   severity: Severity;
   zoho_url: string;
+  rule?: 'first_response' | 'inactivity' | 'carried_over' | 'callback' | string;
+  detail?: string;
 }
 
 export interface SyncStatus {
