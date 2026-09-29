@@ -312,6 +312,103 @@ def _match_dept(zoho_dept_name: str) -> Optional[dict]:
     return None
 
 
+# ─── Department sources from Railway variables ────────────────────────────────
+# Each department is defined by the Zoho link in its variable. Ticket *views*
+# (…/tickets/list|q/status/<view>) are read directly via GET /tickets?viewId=.
+# Summary *reports* can't be listed ticket-by-ticket through the API, so those
+# departments fall back to team-name matching until the link is changed to a view.
+DEPT_SOURCE_VARS = {
+    "VoIP": "ZOHO_REPORT_VOIP",
+    "T1 Tech": "ZOHO_REPORT_T1",
+    "T2 Core Tech": "ZOHO_REPORT_T2",
+    "Adit Pay": "ZOHO_REPORT_ADITPAY",
+    "PA": "ZOHO_REPORT_PA",
+}
+CLOSED_STATUSES = {"closed"}
+SOURCE_INFO: dict[str, dict] = {}   # dept -> {"source", "view", "note"} (shown in /api/sla/preview)
+
+
+def _link_slug(url: str) -> Optional[str]:
+    import re
+    m = re.search(r"/tickets/(?:q/status|list|view)/([\w-]+)", url or "")
+    return m.group(1) if m else None
+
+
+def _name_slug(name: str) -> str:
+    import re
+    return re.sub(r"[^a-z0-9]+", "-", (name or "").lower()).strip("-")
+
+
+def _register_extra_departments() -> None:
+    """Any extra ZOHO_REPORT_<NAME> variable becomes its own department."""
+    for var in sorted(k for k in os.environ if k.startswith("ZOHO_REPORT_")):
+        if var in DEPT_SOURCE_VARS.values():
+            continue
+        title = var[len("ZOHO_REPORT_"):].replace("_", " ").title()
+        if not any(d["name"] == title for d in DEPARTMENTS):
+            DEPARTMENTS.append({"name": title, "zoho_name": title, "id": None, "exact": ["__none__"]})
+        DEPT_SOURCE_VARS[title] = var
+
+
+async def _fetch_view_tickets(client: httpx.AsyncClient, view_id: str) -> Optional[list[dict]]:
+    tickets: list[dict] = []
+    offset, limit, use_include = 0, 100, True
+    while offset <= 4900:
+        params = {"viewId": view_id, "limit": limit, "from": offset}
+        if use_include:
+            params["include"] = "assignee,departments,team"
+        data = await _get_with_retry(client, f"{_api_base()}/api/v1/tickets", params=params)
+        if data is None:
+            if offset == 0 and use_include and "422" in (_last_api_error or ""):
+                use_include = False
+                continue
+            return tickets if offset else None
+        page = data.get("data", [])
+        tickets.extend(page)
+        if len(page) < limit:
+            break
+        offset += limit
+    return tickets
+
+
+async def _apply_view_sources(client: httpx.AsyncClient, grouped: dict[str, list[dict]],
+                              dept_ids: set[str]) -> None:
+    """Replace keyword-matched tickets with the tickets from each department's view link."""
+    views: dict[str, dict] = {}
+    for did in sorted(dept_ids):
+        data = await _get_with_retry(client, f"{_api_base()}/api/v1/views",
+                                     params={"module": "tickets", "departmentId": did, "limit": 100})
+        for v in (data or {}).get("data") or []:
+            views.setdefault(_name_slug(v.get("name")), v)
+
+    for dept, var in DEPT_SOURCE_VARS.items():
+        url = os.getenv(var) or ""
+        grouped.setdefault(dept, [])
+        if not url:
+            SOURCE_INFO[dept] = {"source": "team match", "note": f"{var} not set"}
+            continue
+        slug = _link_slug(url)
+        if not slug:
+            SOURCE_INFO[dept] = {"source": "team match",
+                                 "note": f"{var} is a summary report — Zoho can't list its tickets; use a ticket view link"}
+            continue
+        view = views.get(slug)
+        if not view:
+            SOURCE_INFO[dept] = {"source": "team match", "note": f"view '{slug}' not found in Zoho"}
+            continue
+        tickets = await _fetch_view_tickets(client, str(view["id"]))
+        if tickets is None:
+            SOURCE_INFO[dept] = {"source": "team match", "view": view.get("name"),
+                                 "note": f"could not read view: {_last_api_error}"}
+            continue
+        active = [t for t in tickets if (t.get("statusType") or "").lower() != "closed"
+                  and (t.get("status") or "").strip().lower() not in CLOSED_STATUSES]
+        grouped[dept] = active
+        SOURCE_INFO[dept] = {"source": "view", "view": view.get("name"),
+                             "note": f"{len(active)} open tickets ({len(tickets) - len(active)} closed skipped)"}
+    cache.append_log("INFO", f"[v2] Department sources: {SOURCE_INFO}")
+
+
 async def _fetch_all_depts_via_tickets(
     client: httpx.AsyncClient,
     no_action_threshold: int,
@@ -362,6 +459,15 @@ async def _fetch_all_depts_via_tickets(
     msg = f"[v2] Zoho statuses: {statuses_seen} | departments: {names_seen} | teams: {teams_seen}"
     logger.info(msg)
     cache.append_log("INFO", msg)
+
+    # Departments defined by a view link use exactly that view's tickets
+    try:
+        _register_extra_departments()
+        dept_ids = {str(t["departmentId"]) for t in raw if t.get("departmentId")}
+        await _apply_view_sources(client, grouped, dept_ids)
+    except Exception as e:
+        logger.warning(f"[v2] View sources failed, keeping team match: {e}")
+        cache.append_log("WARN", f"[v2] View sources failed, keeping team match: {e}")
 
     global LAST_GROUPED_RAW
     LAST_GROUPED_RAW = grouped
