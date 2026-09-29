@@ -8,3 +8,5 @@ python-multipart
 pytz
 apscheduler
 cachetools
+pytesseract
+Pillow
