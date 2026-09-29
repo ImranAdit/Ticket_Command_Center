@@ -25,6 +25,9 @@ from logic.zoho_auth import get_access_token
 logger = logging.getLogger(__name__)
 
 CONCURRENCY = 4
+HISTORY_PAGES = 4  # 4 x 50 events
+# Zoho history property that records a change of assigned agent
+OWNER_PROPERTIES = {"case owner", "ticket owner", "assignee", "owner"}
 _details_cache: dict[str, dict] = {}      # ticket id -> {"modified": str, "details": {...}}
 _ocr_cache: dict[str, Optional[str]] = {}  # image url -> text
 _state: dict = {
@@ -154,10 +157,9 @@ async def _ocr_image(client: httpx.AsyncClient, url: str) -> Optional[str]:
 async def _fetch_details(client: httpx.AsyncClient, ticket: dict) -> dict:
     tid = ticket["id"]
     status = (ticket.get("status") or "").strip().lower()
-    threads_j, comments_j, history_j = await asyncio.gather(
+    threads_j, comments_j = await asyncio.gather(
         _get(client, f"/api/v1/tickets/{tid}/threads", {"from": 0, "limit": 100}),
         _get(client, f"/api/v1/tickets/{tid}/comments", {"from": 0, "limit": 100}),
-        _get(client, f"/api/v1/tickets/{tid}/History", {"from": 0, "limit": 100}),
     )
 
     agent_replies, customer_msgs, first_in = [], [], None
@@ -196,19 +198,28 @@ async def _fetch_details(client: httpx.AsyncClient, ticket: dict) -> dict:
             if n["image_text"]:
                 break
 
+    # History is newest-first, max 50 per page and full of automation noise, so page
+    # through (up to HISTORY_PAGES) until the latest owner change has been seen.
     assigned_at = resumed_at = None
-    for ev in (history_j or {}).get("data") or []:
-        et = sla_rules.parse_dt(ev.get("eventTime"))
-        if not et:
-            continue
-        for info in ev.get("eventInfo") or []:
-            prop = str(info.get("propertyName") or "").lower()
-            pv = info.get("propertyValue") or {}
-            prev = _val_name(pv.get("previousValue")).lower() if isinstance(pv, dict) else ""
-            if "owner" in prop or "assignee" in prop or prop == "agent":
-                assigned_at = max(assigned_at, et) if assigned_at else et
-            if prop == "status" and prev in sla_rules.PAUSED_STATUSES:
-                resumed_at = max(resumed_at, et) if resumed_at else et
+    history_count = 0
+    for page in range(HISTORY_PAGES):
+        history_j = await _get(client, f"/api/v1/tickets/{tid}/History", {"from": page * 50, "limit": 50})
+        events = (history_j or {}).get("data") or []
+        history_count += len(events)
+        for ev in events:
+            et = sla_rules.parse_dt(ev.get("eventTime"))
+            if not et:
+                continue
+            for info in ev.get("eventInfo") or []:
+                prop = str(info.get("propertyName") or "").strip().lower()
+                pv = info.get("propertyValue") or {}
+                prev = _val_name(pv.get("previousValue")).lower() if isinstance(pv, dict) else ""
+                if prop in OWNER_PROPERTIES:
+                    assigned_at = max(assigned_at, et) if assigned_at else et
+                if prop == "status" and prev in sla_rules.PAUSED_STATUSES:
+                    resumed_at = max(resumed_at, et) if resumed_at else et
+        if assigned_at or len(events) < 50:
+            break
 
     return {
         "agent_replies": agent_replies,
@@ -217,8 +228,7 @@ async def _fetch_details(client: httpx.AsyncClient, ticket: dict) -> dict:
         "notes": notes,
         "assigned_at": assigned_at,
         "resumed_at": resumed_at,
-        "_counts": {"threads": len(threads), "notes": len(notes),
-                    "history": len((history_j or {}).get("data") or [])},
+        "_counts": {"threads": len(threads), "notes": len(notes), "history": history_count},
     }
 
 
