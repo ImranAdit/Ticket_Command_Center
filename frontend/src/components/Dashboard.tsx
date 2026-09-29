@@ -82,9 +82,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ userEmail, userName, onLog
                     />
                     <div className="flex items-center gap-2">
                         <span className="text-text-muted font-light px-2">|</span>
-                        <div className="flex items-center gap-2 text-[11px] tracking-[3px] uppercase font-bold">
+                        <span className="title-3d text-[16px]" data-text="Ticket Command Center">
                             Ticket Command Center
-                        </div>
+                        </span>
                     </div>
                 </div>
 
