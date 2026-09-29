@@ -36,6 +36,7 @@ export const DeptSection: React.FC<DeptSectionProps> = ({
     const icon = DEPT_ICONS[name] || '📋';
     const criticalCount = tickets.filter(t => t.severity === 'critical').length;
     const moderateCount = tickets.filter(t => t.severity === 'moderate').length;
+    const watchCount = tickets.filter(t => t.severity === 'watch').length;
 
     return (
         <div className="rounded-xl border border-obsidian-border bg-obsidian-surface/60 overflow-hidden">
@@ -58,16 +59,17 @@ export const DeptSection: React.FC<DeptSectionProps> = ({
                                 "bg-crimson-red/10 text-crimson-red border-crimson-red/30"
                             )}>
                                 <ShieldAlert className="w-3 h-3" />
-                                {tickets.length} breach{tickets.length !== 1 ? 'es' : ''}
+                                {criticalCount} breach{criticalCount !== 1 ? 'es' : ''}
                             </span>
-                            {criticalCount > 0 && (
-                                <span className="text-[10px] px-1.5 py-0.5 bg-crimson-red/20 text-crimson-red rounded font-bold">
-                                    {criticalCount} CRIT
-                                </span>
-                            )}
                             {moderateCount > 0 && (
                                 <span className="text-[10px] px-1.5 py-0.5 bg-amber-gold/20 text-amber-gold rounded font-bold">
-                                    {moderateCount} MOD
+                                    {moderateCount} AT RISK
+                                </span>
+                            )}
+                            {watchCount > 0 && (
+                                <span className="text-[10px] px-1.5 py-0.5 bg-neon-blue/15 text-neon-blue rounded font-bold"
+                                      title="Pending Meeting ticket with no readable callback time in its private notes">
+                                    {watchCount} CALLBACK UNCLEAR
                                 </span>
                             )}
                         </div>
