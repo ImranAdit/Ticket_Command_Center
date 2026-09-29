@@ -15,6 +15,10 @@ RUN npm run build
 FROM python:3.11-slim
 WORKDIR /app
 
+# OCR engine for reading calendar screenshots in Pending Meeting notes
+RUN apt-get update && apt-get install -y --no-install-recommends tesseract-ocr \
+    && rm -rf /var/lib/apt/lists/*
+
 # Install backend dependencies
 COPY backend/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
