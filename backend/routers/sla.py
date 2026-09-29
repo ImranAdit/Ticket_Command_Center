@@ -27,6 +27,7 @@ def preview(state: str | None = Query(None, description="Filter: breach, at_risk
         "progress": s["progress"],
         "counts": s["counts"],
         "errors": s["errors"],
+        "sources": getattr(__import__("services.zoho_fetcher_v2", fromlist=["SOURCE_INFO"]), "SOURCE_INFO", {}),
         "departments": depts,
     }
 
