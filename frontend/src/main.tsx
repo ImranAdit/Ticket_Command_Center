@@ -1,6 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import '@fontsource/montserrat/500.css'
+import '@fontsource/montserrat/600.css'
 import './index.css'
 import App from './App.tsx'
 
