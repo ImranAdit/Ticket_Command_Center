@@ -6,7 +6,7 @@ import { ADIT_LOGO } from '../assets/aditLogo';
 import { signInWithGoogle } from '../lib/api';
 
 interface AuthGateProps {
-    onLogin: (email: string, name?: string) => void;
+    onLogin: (email: string, name?: string, depts?: string[] | null) => void;
 }
 
 export const AuthGate: React.FC<AuthGateProps> = ({ onLogin }) => {
@@ -20,7 +20,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onLogin }) => {
             try {
                 // The server verifies the Google account and checks it against the approved list
                 const user = await signInWithGoogle(tokenResponse.access_token);
-                onLogin(user.email, user.name?.trim() || undefined);
+                onLogin(user.email, user.name?.trim() || undefined, user.depts);
             } catch (err: any) {
                 const status = err?.response?.status;
                 const detail = err?.response?.data?.detail;
