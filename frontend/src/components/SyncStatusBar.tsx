@@ -95,7 +95,7 @@ export const SyncStatusBar: React.FC<SyncStatusBarProps> = ({ status, onSyncComp
             <div className="flex items-center gap-4">
                 {status && isConfigured && Object.entries(status.dept_counts).map(([dept, count]) => (
                     <div key={dept} className="flex items-center gap-1">
-                        <span className="text-text-faint">{dept}:</span>
+                        <span className="text-[#A3B1CC] font-medium">{dept}:</span>
                         <span className={cn(
                             "font-bold tabular-nums",
                             count > 0 ? "text-crimson-red" : "text-green-ok"
