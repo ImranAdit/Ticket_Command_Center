@@ -81,8 +81,8 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onLogin }) => {
                 </div>
 
                 <div className="text-center mb-12 mt-3">
-                    <span className="title-3d text-[22px]" data-text="Ticket Command Center">
-                        Ticket Command Center
+                    <span className="title-exec center text-[26px]">
+                        Ticket <b>Command</b> Center
                     </span>
                 </div>
 
