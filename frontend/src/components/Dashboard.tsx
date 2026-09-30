@@ -217,13 +217,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ userEmail, userName, onLog
                                 ))
                             )}
                         </div>
-
-                        <footer className="credit mt-12 mb-2">
-                            <span>Designed &amp; Developed by <b>Imran</b></span>
-                        </footer>
                     </div>
                 </div>
             </main>
+
+            <footer className="credit shrink-0 py-2.5 bg-obsidian-bg border-t border-obsidian-border">
+                <span>Designed &amp; Developed by <b>Imran</b></span>
+            </footer>
         </div>
     );
 };
