@@ -10,7 +10,32 @@ if (!BACKEND_URL) {
 // ─── Axios instance ───────────────────────────────────────────────────────
 export const api = axios.create({
   baseURL: BACKEND_URL,
+  withCredentials: true,
 });
+
+// Session ended or access revoked -> App returns to the sign-in page
+api.interceptors.response.use(
+  (r) => r,
+  (err) => {
+    const url: string = err?.config?.url || '';
+    if (err?.response?.status === 401 && !url.startsWith('/api/auth/')) {
+      window.dispatchEvent(new Event('tcc:unauthorized'));
+    }
+    return Promise.reject(err);
+  },
+);
+
+// ─── Access control ───────────────────────────────────────────────────────
+export interface SessionUser { email: string; name?: string | null }
+
+export const signInWithGoogle = async (accessToken: string): Promise<SessionUser> =>
+  (await api.post('/api/auth/google', { access_token: accessToken })).data;
+
+export const getSession = async (): Promise<SessionUser | null> => {
+  try { return (await api.get('/api/auth/me')).data; } catch { return null; }
+};
+
+export const signOut = async () => { try { await api.post('/api/auth/logout'); } catch { /* ignore */ } };
 
 // ─── Legacy CSV classify (kept for backward compat) ───────────────────────
 export interface TicketData {
