@@ -3,6 +3,7 @@ import { cn } from '../lib/utils';
 import { Lock, Loader2, ArrowRight } from 'lucide-react';
 import { useGoogleLogin } from '@react-oauth/google';
 import { ADIT_LOGO } from '../assets/aditLogo';
+import { signInWithGoogle } from '../lib/api';
 
 interface AuthGateProps {
     onLogin: (email: string, name?: string) => void;
@@ -12,42 +13,21 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onLogin }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const validateAndLogin = (email: string, name?: string) => {
-        const cleanEmail = email.trim().toLowerCase();
-
-        if (!cleanEmail.endsWith('@adit.com')) {
-            setError('Access restricted to @adit.com accounts only. Access Denied.');
-            setLoading(false);
-            return;
-        }
-
-        localStorage.setItem('lastAditEmail', cleanEmail);
-        onLogin(cleanEmail, name?.trim() || undefined);
-        setLoading(false);
-    };
-
     const login = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
+            setLoading(true);
+            setError(null);
             try {
-                setLoading(true);
-                setError(null);
-
-                // Fetch user info from Google
-                const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-                    headers: {
-                        Authorization: `Bearer ${tokenResponse.access_token}`,
-                    },
-                });
-
-                const user = await res.json();
-
-                if (!user?.email) {
-                    throw new Error('Unable to fetch email from Google');
-                }
-
-                validateAndLogin(user.email, user.name || user.given_name);
-            } catch (err) {
-                setError('Google login failed. Please try again.');
+                // The server verifies the Google account and checks it against the approved list
+                const user = await signInWithGoogle(tokenResponse.access_token);
+                onLogin(user.email, user.name?.trim() || undefined);
+            } catch (err: any) {
+                const status = err?.response?.status;
+                const detail = err?.response?.data?.detail;
+                setError(status === 403
+                    ? (detail || "This account hasn't been approved for access yet.")
+                    : (detail || 'Google login failed. Please try again.'));
+            } finally {
                 setLoading(false);
             }
         },
@@ -126,10 +106,10 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onLogin }) => {
                         </div>
                     )}
 
-                    <div className="text-[11px] text-text-faint flex items-center justify-center gap-2 mt-10">
-                        <Lock className="w-3.5 h-3.5" />
-                        <span className="tracking-tight font-medium uppercase opacity-50">
-                            Sign in using your Adit account
+                    <div className="text-[12px] text-text-muted flex items-start justify-center gap-2 mt-8 leading-relaxed text-center max-w-[340px]">
+                        <Lock className="w-3.5 h-3.5 mt-[3px] shrink-0 opacity-70" />
+                        <span>
+                            Sign in with Google to continue. Access is granted individually — your account must be approved before you can sign in.
                         </span>
                     </div>
                 </div>
