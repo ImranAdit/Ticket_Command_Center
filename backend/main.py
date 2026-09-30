@@ -48,7 +48,7 @@ async def _initial_sync():
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup: kick off scheduler and initial sync. Shutdown: stop scheduler."""
-    sync_interval = int(os.getenv("SYNC_INTERVAL_MINUTES", "15"))
+    sync_interval = int(os.getenv("SYNC_INTERVAL_MINUTES", "10"))
     scheduler.add_job(run_sync, "interval", minutes=sync_interval, id="zoho_sync",
                       misfire_grace_time=60)
     scheduler.start()
