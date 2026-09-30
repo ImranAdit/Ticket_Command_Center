@@ -42,11 +42,76 @@ def _split(v: str) -> set[str]:
 
 
 def allowed_emails() -> set[str]:
+    """Full-access accounts: see every department (owner + ALLOWED_EMAILS)."""
     return _split(os.getenv("ALLOWED_EMAILS", "")) | _split(os.getenv("OWNER_EMAILS", "imran@adit.com"))
 
 
+# Department-only accounts: they see just the departments listed for them.
+# Override on Railway with DEPT_ACCESS, e.g.
+#   T1 Tech: a@adit.com, b@adit.com; VoIP: c@adit.com; PA: d@adit.com
+# (when DEPT_ACCESS is set it replaces this default list entirely)
+DEFAULT_DEPT_ACCESS = {
+    "T1 Tech": "sebastin.n@adit.com, ronnie@adit.com",
+    "VoIP": "samantha.shine@adit.com",
+    "T2 Core Tech": "kiara.smith@adit.com",
+    "Adit Pay": "sebastin.n@adit.com, sandy.clark@adit.com",
+    "PA": "peter@adit.com",
+}
+
+
+def dept_access() -> dict[str, set[str]]:
+    raw = (os.getenv("DEPT_ACCESS") or "").strip()
+    if not raw:
+        return {d: _split(e) for d, e in DEFAULT_DEPT_ACCESS.items()}
+    out: dict[str, set[str]] = {}
+    for part in re.split(r"[;\n]+", raw):
+        if ":" in part:
+            dept, emails = part.split(":", 1)
+            if dept.strip():
+                out.setdefault(dept.strip(), set()).update(_split(emails))
+    return out
+
+
+def access_for(email: str) -> dict | None:
+    """{"role": "admin", "depts": None} | {"role": "dept", "depts": [...]} | None (no access)."""
+    e = (email or "").strip().lower()
+    if not e:
+        return None
+    if e in allowed_emails():
+        return {"role": "admin", "depts": None}
+    depts = sorted(d for d, emails in dept_access().items() if e in emails)
+    return {"role": "dept", "depts": depts} if depts else None
+
+
 def is_allowed(email: str) -> bool:
-    return (email or "").strip().lower() in allowed_emails()
+    return access_for(email) is not None
+
+
+def visible_depts(request: Request) -> set[str] | None:
+    """Lower-cased department names this request may see; None = everything."""
+    acc = getattr(request.state, "access", None)
+    if not acc or acc.get("role") == "admin":
+        return None
+    return {d.lower() for d in acc.get("depts") or []}
+
+
+def can_see_dept(request: Request, dept: str) -> bool:
+    vis = visible_depts(request)
+    return vis is None or (dept or "").lower() in vis
+
+
+def can_act_on_ticket(request: Request, ticket_id: str) -> bool:
+    if visible_depts(request) is None:
+        return True
+    from logic import cache
+    return any(str(t.get("id")) == str(ticket_id)
+               for d, ts in cache.get_all_cached_tickets().items() if can_see_dept(request, d)
+               for t in ts)
+
+
+# Department-only accounts may call just these API routes
+DEPT_USER_PATHS = ("/api/sync/status", "/api/sync/tickets", "/api/sync/trigger",
+                   "/api/actions/comment", "/api/actions/escalate")
 
 
 def _secret() -> bytes:
@@ -81,15 +146,19 @@ def read_session(token: str | None) -> dict | None:
         return None
     if data.get("x", 0) < time.time() or not is_allowed(data.get("e", "")):
         return None
-    return {"email": data["e"], "name": data.get("n") or None}
+    return {"email": data["e"], "name": data.get("n") or None, **access_for(data["e"])}
 
 
 async def require_session(request: Request, call_next):
     """HTTP middleware: guard every /api/* route except the public ones."""
     path = request.url.path
     if path.startswith("/api/") and not path.startswith(PUBLIC_API) and request.method != "OPTIONS":
-        if not read_session(request.cookies.get(COOKIE)):
+        s = read_session(request.cookies.get(COOKIE))
+        if not s:
             return JSONResponse({"detail": "Not signed in or access not granted"}, status_code=401)
+        request.state.access = {"role": s["role"], "depts": s["depts"]}
+        if s["role"] != "admin" and not path.startswith(DEPT_USER_PATHS):
+            return JSONResponse({"detail": "Not available for department-level access"}, status_code=403)
     return await call_next(request)
 
 
@@ -125,7 +194,7 @@ async def google_login(req: GoogleLogin, request: Request):
         return JSONResponse({"detail": f"{email} hasn't been approved for access yet. Ask the tool owner to grant access.",
                              "email": email}, status_code=403)
 
-    resp = JSONResponse({"email": email, "name": name})
+    resp = JSONResponse({"email": email, "name": name, **access_for(email)})
     secure = request.url.scheme == "https" or request.headers.get("x-forwarded-proto") == "https"
     resp.set_cookie(COOKIE, make_session(email, name), max_age=SESSION_TTL, httponly=True,
                     secure=secure, samesite="lax", path="/")
