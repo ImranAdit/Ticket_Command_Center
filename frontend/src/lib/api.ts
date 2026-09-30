@@ -26,7 +26,7 @@ api.interceptors.response.use(
 );
 
 // ─── Access control ───────────────────────────────────────────────────────
-export interface SessionUser { email: string; name?: string | null }
+export interface SessionUser { email: string; name?: string | null; role?: string; depts?: string[] | null }
 
 export const signInWithGoogle = async (accessToken: string): Promise<SessionUser> =>
   (await api.post('/api/auth/google', { access_token: accessToken })).data;
