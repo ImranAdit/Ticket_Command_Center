@@ -223,3 +223,23 @@
     background: linear-gradient(90deg, #f7941d, #2aa8e0);
 }
 .title-exec.center::after { left: 50%; transform: translateX(-50%); }
+
+/* ── Footer credit: gradient hairline ────────────────────────────────── */
+.credit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    color: #6b7385;
+}
+.credit::before {
+    content: "";
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #f7941d, #2aa8e0, transparent);
+}
+.credit b { color: #e8ecf2; font-weight: 600; }
