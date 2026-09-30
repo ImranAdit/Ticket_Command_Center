@@ -278,6 +278,9 @@ async def refresh(grouped_raw: dict[str, list[dict]]) -> None:
                         details = await _fetch_details(client, t)
                         _details_cache[tid] = {"modified": t.get("modifiedTime"), "details": details}
                     ev = sla_rules.evaluate_ticket(t, details, now)
+                    acts = [d for d in details.get("agent_replies", []) if d] + \
+                           [n["time"] for n in details.get("notes", []) if n.get("time")]
+                    last_agent = max(acts).isoformat() if acts else None
                     assignee = t.get("assignee") or {}
                     out[dept].append({
                         "id": tid,
@@ -291,6 +294,7 @@ async def refresh(grouped_raw: dict[str, list[dict]]) -> None:
                         "priority": t.get("priority") or "Normal",
                         "created_time": t.get("createdTime"),
                         "modified_time": t.get("modifiedTime"),
+                        "last_agent_action": last_agent,
                         "due_date": t.get("dueDate"),
                         "zoho_url": t.get("webUrl") or
                         f"https://help.adit.com/agent/aditadvertising/support/tickets/details/{tid}",
@@ -347,6 +351,7 @@ def _publish_to_dashboard(out: dict[str, list[dict]]) -> None:
             "sla_status": "breached" if r["state"] == "breach" else "at_risk",
             "created_time": r.get("created_time"),
             "modified_time": r.get("modified_time"),
+            "last_agent_action": r.get("last_agent_action"),
             "due_date": r.get("due_date"),
             "hours_overdue": r.get("hours") or 0,
             "severity": SEVERITY[r["state"]],
