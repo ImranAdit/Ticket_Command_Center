@@ -125,7 +125,7 @@ export const DeptSection: React.FC<DeptSectionProps> = ({
                         <div>
                             {/* Column headers */}
                             <div className="grid grid-cols-[3rem_8rem_1fr_9.5rem_7rem_7rem_8rem_7rem] gap-2 px-4 py-2
-                                            bg-black/20 text-[9px] uppercase tracking-widest text-text-faint font-semibold border-b border-obsidian-border/40">
+                                            bg-black/20 text-[10px] uppercase tracking-widest text-[#A3B1CC] font-semibold border-b border-obsidian-border/40">
                                 <span>Sev</span>
                                 <span>Ticket ID</span>
                                 <span>Subject</span>
