@@ -134,6 +134,10 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onLogin }) => {
                     </div>
                 </div>
             </div>
+
+            <footer className="credit absolute bottom-6 left-0 right-0 z-10">
+                <span>Designed &amp; Developed by <b>Imran</b></span>
+            </footer>
         </div>
     );
 };
