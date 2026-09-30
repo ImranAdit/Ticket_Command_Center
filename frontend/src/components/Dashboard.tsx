@@ -5,6 +5,7 @@ import { SyncStatusBar } from './SyncStatusBar';
 import { DeptSection } from './DeptSection';
 import { ADIT_LOGO } from '../assets/aditLogo';
 import { useTheme } from '../lib/theme';
+import { ActiveUsers } from './ActiveUsers';
 
 interface DashboardProps {
     userEmail: string;
@@ -106,6 +107,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ userEmail, userName, userD
                 </div>
 
                 <div className="flex items-center gap-4">
+                    <ActiveUsers />
                     <button
                         onClick={toggleTheme}
                         title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
