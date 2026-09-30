@@ -8,10 +8,11 @@ import { ADIT_LOGO } from '../assets/aditLogo';
 interface DashboardProps {
     userEmail: string;
     userName?: string;
+    userDepts?: string[] | null;
     onLogout: () => void;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ userEmail, userName, onLogout }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ userEmail, userName, userDepts, onLogout }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [status, setStatus] = useState<SyncStatus | null>(null);
     const [ticketsByDept, setTicketsByDept] = useState<Record<string, BreachedTicket[]>>({});
@@ -106,6 +107,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ userEmail, userName, onLog
                     <div className="flex flex-col items-end">
                         <span className="text-[10px] text-text-muted uppercase tracking-wider font-medium">Logged in as</span>
                         <span className="text-xs font-bold text-text-primary" title={userEmail}>{userName || userEmail.split('@')[0]}</span>
+                        {userDepts && userDepts.length > 0 && (
+                            <span className="text-[10px] text-[#A3B1CC] mt-0.5" title="You can view these departments">
+                                {userDepts.join(' · ')}
+                            </span>
+                        )}
                     </div>
                     <button 
                         onClick={onLogout}
