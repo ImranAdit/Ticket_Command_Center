@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ExternalLink, MessageSquare, UserPlus, AlertCircle, Loader2, Check } from 'lucide-react';
+import { ExternalLink, MessageSquare, UserPlus, AlertCircle, Loader2, Check, Clock } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { type BreachedTicket, addComment, escalateTicket } from '../lib/api';
 
@@ -14,6 +14,13 @@ const RULE_LABEL: Record<string, string> = {
     carried_over: 'No action',
     callback: 'Since callback',
 };
+
+// Support runs on Central time — show every timestamp in CT
+const fmtCT = (iso: string, withYear = false) =>
+    new Date(iso).toLocaleString('en-US', {
+        timeZone: 'America/Chicago', month: 'short', day: 'numeric',
+        ...(withYear ? { year: 'numeric' } : {}), hour: 'numeric', minute: '2-digit',
+    });
 
 export const BreachTicketRow: React.FC<BreachTicketRowProps> = ({ ticket, onActionDone }) => {
     const [actionLoading, setActionLoading] = useState<string | null>(null);
@@ -66,8 +73,25 @@ export const BreachTicketRow: React.FC<BreachTicketRowProps> = ({ ticket, onActi
 
             {/* Subject */}
             <div className="min-w-0 pr-4">
-                <div className="text-[12px] truncate text-text-primary/90" title={ticket.subject}>
-                    {ticket.subject}
+                <div className="flex items-center gap-2 min-w-0">
+                    <div className="text-[12px] truncate text-text-primary/90" title={ticket.subject}>
+                        {ticket.subject}
+                    </div>
+                    {(() => {
+                        const ts = ticket.last_agent_action || ticket.modified_time;
+                        if (!ts || isNaN(new Date(ts).getTime())) return null;
+                        const label = ticket.last_agent_action ? 'Agent' : 'Modified';
+                        return (
+                            <span
+                                className="shrink-0 inline-flex items-center gap-1 text-[10px] text-text-muted bg-white/[0.04] border border-obsidian-border2 rounded px-1.5 py-[1px] whitespace-nowrap"
+                                title={`${ticket.last_agent_action ? 'Last agent reply / note' : 'Last modified'}: ${fmtCT(ts, true)} CT`}
+                            >
+                                <Clock className="w-2.5 h-2.5 opacity-70" />
+                                <span className="text-text-faint">{label}</span>
+                                {fmtCT(ts)} CT
+                            </span>
+                        );
+                    })()}
                 </div>
                 {ticket.detail && (
                     <div className="text-[10px] truncate text-text-faint mt-0.5" title={ticket.detail}>
