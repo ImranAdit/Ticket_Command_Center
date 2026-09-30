@@ -98,7 +98,7 @@ def debug_env():
 def get_config():
     """Return current configurable thresholds."""
     return {
-        "sync_interval_minutes": int(os.getenv("SYNC_INTERVAL_MINUTES", "15")),
+        "sync_interval_minutes": int(os.getenv("SYNC_INTERVAL_MINUTES", "10")),
         "no_action_threshold_hours": int(os.getenv("NO_ACTION_THRESHOLD_HOURS", "24")),
         "severity_critical_hours": float(os.getenv("SEVERITY_CRITICAL_HOURS", "72")),
         "severity_moderate_hours": float(os.getenv("SEVERITY_MODERATE_HOURS", "24")),
