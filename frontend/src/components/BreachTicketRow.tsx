@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { ExternalLink, MessageSquare, UserPlus, AlertCircle, Loader2, Check } from 'lucide-react';
+import React from 'react';
+import { ExternalLink, AlertCircle } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { type BreachedTicket, addComment, escalateTicket } from '../lib/api';
+import { type BreachedTicket } from '../lib/api';
 
 interface BreachTicketRowProps {
     ticket: BreachedTicket;
@@ -22,30 +22,10 @@ const fmtCT = (iso: string, withYear = false) =>
         ...(withYear ? { year: 'numeric' } : {}), hour: 'numeric', minute: '2-digit',
     });
 
-export const BreachTicketRow: React.FC<BreachTicketRowProps> = ({ ticket, onActionDone }) => {
-    const [actionLoading, setActionLoading] = useState<string | null>(null);
-    const [actionSuccess, setActionSuccess] = useState<string | null>(null);
-
-    const handleAction = async (type: 'comment' | 'escalate', fn: () => Promise<any>) => {
-        setActionLoading(type);
-        try {
-            await fn();
-            setActionSuccess(type);
-            setTimeout(() => {
-                setActionSuccess(null);
-                if (onActionDone) onActionDone();
-            }, 2000);
-        } catch (err) {
-            console.error(`Action ${type} failed:`, err);
-            alert(`Failed to ${type} ticket. API might be unreachable.`);
-        } finally {
-            setActionLoading(null);
-        }
-    };
-
+export const BreachTicketRow: React.FC<BreachTicketRowProps> = ({ ticket }) => {
     return (
         <div className={cn(
-            "grid grid-cols-[3rem_8rem_1fr_9.5rem_7rem_7rem_8rem_7rem] gap-2 px-4 py-2.5 items-center transition-colors",
+            "grid grid-cols-[3rem_8rem_1fr_9.5rem_8rem_8rem_8rem] gap-2 px-4 py-2.5 items-center transition-colors",
             "hover:bg-white/[0.03] border-b border-obsidian-border/30",
             ticket.severity === 'critical' && "severity-critical",
             ticket.severity === 'moderate' && "severity-moderate",
@@ -129,43 +109,6 @@ export const BreachTicketRow: React.FC<BreachTicketRowProps> = ({ ticket, onActi
                 <span className="text-[9px] text-text-faint uppercase font-medium">
                     {(ticket.rule && RULE_LABEL[ticket.rule]) || 'Overdue'}
                 </span>
-            </div>
-
-            {/* Quick Actions */}
-            <div className="flex items-center gap-1.5">
-                <button 
-                    onClick={() => handleAction('comment', () => addComment(ticket.id, "Checking on this SLA breach.", false))}
-                    disabled={!!actionLoading}
-                    className="action-btn"
-                    title="Add Internal Comment"
-                >
-                    {actionLoading === 'comment' ? (
-                        <Loader2 className="w-3 h-3 animate-spin" />
-                    ) : actionSuccess === 'comment' ? (
-                        <Check className="w-3 h-3 text-green-ok" />
-                    ) : (
-                        <MessageSquare className="w-3 h-3" />
-                    )}
-                </button>
-
-                <button 
-                    onClick={() => handleAction('escalate', () => escalateTicket(ticket.id))}
-                    disabled={!!actionLoading}
-                    className="action-btn"
-                    title="Escalate Ticket"
-                >
-                    {actionLoading === 'escalate' ? (
-                        <Loader2 className="w-3 h-3 animate-spin" />
-                    ) : actionSuccess === 'escalate' ? (
-                        <Check className="w-3 h-3 text-green-ok" />
-                    ) : (
-                        <AlertCircle className="w-3 h-3" />
-                    )}
-                </button>
-
-                <button className="action-btn" title="Reassign">
-                   <UserPlus className="w-3 h-3" />
-                </button>
             </div>
         </div>
     );
