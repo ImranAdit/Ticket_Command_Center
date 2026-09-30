@@ -168,7 +168,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ userEmail, userName, onLog
                                 <Clock className="w-4 h-4 text-amber-gold group-hover:scale-110 transition-transform" />
                              </div>
                              <div className="text-3xl font-bold tracking-tight text-amber-gold">
-                                {loading ? "..." : (status?.sync_running ? "RUNNING" : "15m")}
+                                {loading ? "..." : (status?.sync_running ? "RUNNING" : "10m")}
                              </div>
                              <div className="text-[10px] text-text-faint font-medium">Automated poll frequency</div>
                         </div>
