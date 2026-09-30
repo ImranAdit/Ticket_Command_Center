@@ -21,7 +21,7 @@ load_dotenv()
 
 # Import your local logic and routers
 # Note: Ensure these files exist in your 'backend' folder
-from routers import zoho, sync, actions, sla
+from routers import zoho, sync, actions, sla, auth
 from logic.business_hours import classify_ticket
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
@@ -77,7 +77,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# ─── Access control: only approved accounts (ALLOWED_EMAILS) reach /api/* ──
+app.middleware("http")(auth.require_session)
+
 # ─── API Routers ────────────────────────────────────────────────────────────
+app.include_router(auth.router,    prefix="/api/auth",    tags=["auth"])
 app.include_router(zoho.router,    prefix="/api/zoho",    tags=["zoho"])
 app.include_router(sync.router,    prefix="/api/sync",    tags=["sync"])
 app.include_router(actions.router, prefix="/api/actions", tags=["actions"])
