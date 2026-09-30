@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ExternalLink, MessageSquare, UserPlus, AlertCircle, Loader2, Check, Clock } from 'lucide-react';
+import { ExternalLink, MessageSquare, UserPlus, AlertCircle, Loader2, Check } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { type BreachedTicket, addComment, escalateTicket } from '../lib/api';
 
@@ -45,7 +45,7 @@ export const BreachTicketRow: React.FC<BreachTicketRowProps> = ({ ticket, onActi
 
     return (
         <div className={cn(
-            "grid grid-cols-[3rem_8rem_1fr_7rem_7rem_8rem_7rem] gap-2 px-4 py-2.5 items-center transition-colors",
+            "grid grid-cols-[3rem_8rem_1fr_9.5rem_7rem_7rem_8rem_7rem] gap-2 px-4 py-2.5 items-center transition-colors",
             "hover:bg-white/[0.03] border-b border-obsidian-border/30",
             ticket.severity === 'critical' && "severity-critical",
             ticket.severity === 'moderate' && "severity-moderate",
@@ -73,25 +73,8 @@ export const BreachTicketRow: React.FC<BreachTicketRowProps> = ({ ticket, onActi
 
             {/* Subject */}
             <div className="min-w-0 pr-4">
-                <div className="flex items-center gap-2 min-w-0">
-                    <div className="text-[12px] truncate text-text-primary/90" title={ticket.subject}>
-                        {ticket.subject}
-                    </div>
-                    {(() => {
-                        const ts = ticket.last_agent_action || ticket.modified_time;
-                        if (!ts || isNaN(new Date(ts).getTime())) return null;
-                        const label = ticket.last_agent_action ? 'Agent' : 'Modified';
-                        return (
-                            <span
-                                className="shrink-0 inline-flex items-center gap-1 text-[10px] text-text-muted bg-white/[0.04] border border-obsidian-border2 rounded px-1.5 py-[1px] whitespace-nowrap"
-                                title={`${ticket.last_agent_action ? 'Last agent reply / note' : 'Last modified'}: ${fmtCT(ts, true)} CT`}
-                            >
-                                <Clock className="w-2.5 h-2.5 opacity-70" />
-                                <span className="text-text-faint">{label}</span>
-                                {fmtCT(ts)} CT
-                            </span>
-                        );
-                    })()}
+                <div className="text-[12px] truncate text-text-primary/90" title={ticket.subject}>
+                    {ticket.subject}
                 </div>
                 {ticket.detail && (
                     <div className="text-[10px] truncate text-text-faint mt-0.5" title={ticket.detail}>
@@ -99,6 +82,24 @@ export const BreachTicketRow: React.FC<BreachTicketRowProps> = ({ ticket, onActi
                     </div>
                 )}
             </div>
+
+            {/* Last activity: last agent reply / note, else last modified */}
+            {(() => {
+                const ts = ticket.last_agent_action || ticket.modified_time;
+                if (!ts || isNaN(new Date(ts).getTime())) {
+                    return <div className="text-[11px] text-text-faint">—</div>;
+                }
+                const isAgent = !!ticket.last_agent_action;
+                return (
+                    <div className="flex flex-col min-w-0"
+                         title={`${isAgent ? 'Last agent reply / note' : 'Last modified'}: ${fmtCT(ts, true)} CT`}>
+                        <span className="text-[11px] text-text-primary/90 whitespace-nowrap">{fmtCT(ts)}</span>
+                        <span className="text-[9px] text-text-faint uppercase font-medium">
+                            {isAgent ? 'Agent reply / note' : 'Last modified'}
+                        </span>
+                    </div>
+                );
+            })()}
 
             {/* Assignee */}
             <div className="text-[11px] text-text-muted truncate">
