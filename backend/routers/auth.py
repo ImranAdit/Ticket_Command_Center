@@ -127,8 +127,9 @@ def _unb64(s: str) -> bytes:
     return base64.urlsafe_b64decode(s + "=" * (-len(s) % 4))
 
 
-def make_session(email: str, name: str | None) -> str:
-    body = _b64(json.dumps({"e": email, "n": name or "", "x": int(time.time()) + SESSION_TTL}).encode())
+def make_session(email: str, name: str | None, picture: str | None = None) -> str:
+    body = _b64(json.dumps({"e": email, "n": name or "", "p": picture or "",
+                            "x": int(time.time()) + SESSION_TTL}).encode())
     sig = _b64(hmac.new(_secret(), body.encode(), hashlib.sha256).digest())
     return f"{body}.{sig}"
 
@@ -146,7 +147,25 @@ def read_session(token: str | None) -> dict | None:
         return None
     if data.get("x", 0) < time.time() or not is_allowed(data.get("e", "")):
         return None
-    return {"email": data["e"], "name": data.get("n") or None, **access_for(data["e"])}
+    return {"email": data["e"], "name": data.get("n") or None, "picture": data.get("p") or None,
+            "super": is_owner(data["e"]), **access_for(data["e"])}
+
+
+# ─── Who's online (super admin only) ──────────────────────────────────────
+# In-memory: the dashboard calls the API at least once a minute, so anyone seen in the
+# last ACTIVE_WINDOW seconds counts as active. Resets on redeploy (people reappear on
+# their next poll).
+ACTIVE_WINDOW = 180
+_presence: dict[str, dict] = {}
+
+
+def is_owner(email: str) -> bool:
+    return (email or "").strip().lower() in _split(os.getenv("OWNER_EMAILS", "imran@adit.com"))
+
+
+def touch_presence(s: dict) -> None:
+    _presence[s["email"]] = {"email": s["email"], "name": s.get("name"), "picture": s.get("picture"),
+                             "role": s.get("role"), "depts": s.get("depts"), "last_seen": time.time()}
 
 
 async def require_session(request: Request, call_next):
@@ -157,6 +176,7 @@ async def require_session(request: Request, call_next):
         if not s:
             return JSONResponse({"detail": "Not signed in or access not granted"}, status_code=401)
         request.state.access = {"role": s["role"], "depts": s["depts"]}
+        touch_presence(s)
         if s["role"] != "admin" and not path.startswith(DEPT_USER_PATHS):
             return JSONResponse({"detail": "Not available for department-level access"}, status_code=403)
     return await call_next(request)
@@ -180,12 +200,13 @@ async def google_login(req: GoogleLogin, request: Request):
         email = (tok.get("email") or "").strip().lower()
         if not email or str(tok.get("email_verified")).lower() != "true":
             return JSONResponse({"detail": "Your Google account email is not verified."}, status_code=401)
-        name = None
+        name, picture = None, None
         try:
             u = await client.get("https://www.googleapis.com/oauth2/v3/userinfo",
                                  headers={"Authorization": f"Bearer {req.access_token}"})
             if u.status_code == 200:
                 name = u.json().get("name") or u.json().get("given_name")
+                picture = u.json().get("picture")
         except Exception:
             pass
 
@@ -194,9 +215,12 @@ async def google_login(req: GoogleLogin, request: Request):
         return JSONResponse({"detail": f"{email} hasn't been approved for access yet. Ask the tool owner to grant access.",
                              "email": email}, status_code=403)
 
-    resp = JSONResponse({"email": email, "name": name, **access_for(email)})
+    token = make_session(email, name, picture)
+    session = read_session(token)
+    touch_presence(session)
+    resp = JSONResponse(session)
     secure = request.url.scheme == "https" or request.headers.get("x-forwarded-proto") == "https"
-    resp.set_cookie(COOKIE, make_session(email, name), max_age=SESSION_TTL, httponly=True,
+    resp.set_cookie(COOKIE, token, max_age=SESSION_TTL, httponly=True,
                     secure=secure, samesite="lax", path="/")
     return resp
 
@@ -206,11 +230,33 @@ def me(request: Request):
     s = read_session(request.cookies.get(COOKIE))
     if not s:
         return JSONResponse({"detail": "Not signed in"}, status_code=401)
+    touch_presence(s)
     return s
 
 
+@router.get("/active")
+def active_users(request: Request):
+    """Who is signed in and active right now — visible to the super admin (owner) only."""
+    s = read_session(request.cookies.get(COOKIE))
+    if not s:
+        return JSONResponse({"detail": "Not signed in"}, status_code=401)
+    if not s.get("super"):
+        return JSONResponse({"detail": "Super admin only"}, status_code=403)
+    touch_presence(s)
+    now = time.time()
+    users = [
+        {**u, "seconds_ago": int(now - u["last_seen"]), "you": u["email"] == s["email"]}
+        for u in sorted(_presence.values(), key=lambda u: -u["last_seen"])
+        if now - u["last_seen"] <= ACTIVE_WINDOW and is_allowed(u["email"])
+    ]
+    return {"window_seconds": ACTIVE_WINDOW, "users": users}
+
+
 @router.post("/logout")
-def logout():
+def logout(request: Request):
+    s = read_session(request.cookies.get(COOKIE))
+    if s:
+        _presence.pop(s["email"], None)
     resp = JSONResponse({"ok": True})
     resp.delete_cookie(COOKIE, path="/")
     return resp
