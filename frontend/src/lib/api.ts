@@ -80,6 +80,7 @@ export interface BreachedTicket {
   sla_status: 'breached' | 'at_risk';
   created_time: string | null;
   modified_time: string | null;
+  last_agent_action?: string | null;
   due_date: string | null;
   hours_overdue: number;
   severity: Severity;
