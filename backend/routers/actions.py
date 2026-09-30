@@ -3,7 +3,7 @@ Actions Router — quick actions on tickets via Zoho Desk API.
 Supports: add comment, reassign, escalate (add tag).
 """
 import logging
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
 from typing import Optional
 
@@ -31,6 +31,12 @@ class EscalateRequest(BaseModel):
     note: Optional[str] = "Escalated — SLA breach with no action"
 
 
+def _check_ticket_access(request: Request, ticket_id: str):
+    from routers.auth import can_act_on_ticket
+    if not can_act_on_ticket(request, ticket_id):
+        raise HTTPException(status_code=403, detail="This ticket is outside your department")
+
+
 def _check_configured():
     if not is_configured():
         raise HTTPException(
@@ -40,8 +46,9 @@ def _check_configured():
 
 
 @router.post("/comment")
-async def add_comment(req: CommentRequest):
+async def add_comment(req: CommentRequest, request: Request):
     """Add an internal comment (or public reply) to a ticket."""
+    _check_ticket_access(request, req.ticket_id)
     _check_configured()
     url = f"{_api_base()}/api/v1/tickets/{req.ticket_id}/comments"
     payload = {
@@ -76,8 +83,9 @@ async def assign_ticket(req: AssignRequest):
 
 
 @router.post("/escalate")
-async def escalate_ticket(req: EscalateRequest):
+async def escalate_ticket(req: EscalateRequest, request: Request):
     """Escalate a ticket by adding 'Escalated' tag and an internal note."""
+    _check_ticket_access(request, req.ticket_id)
     _check_configured()
     base = _api_base()
     hdrs = _headers()
