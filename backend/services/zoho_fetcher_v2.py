@@ -506,7 +506,7 @@ async def run_sync() -> dict:
     cache.set_sync_running(True)
     cache.clear_dept_errors()
     no_action_threshold = int(os.getenv("NO_ACTION_THRESHOLD_HOURS", "24"))
-    sync_interval = int(os.getenv("SYNC_INTERVAL_MINUTES", "10"))
+    sync_interval = int(os.getenv("SYNC_INTERVAL_MINUTES", "5"))
 
     now_str = datetime.now(timezone.utc).isoformat()
     next_str = (datetime.now(timezone.utc) + timedelta(minutes=sync_interval)).isoformat()
