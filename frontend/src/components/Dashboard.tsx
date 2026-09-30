@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { LogOut, Activity, Clock, ShieldAlert, LayoutDashboard, Search, Filter } from 'lucide-react';
+import { LogOut, Activity, Clock, ShieldAlert, LayoutDashboard, Search, Filter, Sun, Moon } from 'lucide-react';
 import { fetchSyncStatus, fetchTickets, type BreachedTicket, type SyncStatus } from '../lib/api';
 import { SyncStatusBar } from './SyncStatusBar';
 import { DeptSection } from './DeptSection';
 import { ADIT_LOGO } from '../assets/aditLogo';
+import { useTheme } from '../lib/theme';
 
 interface DashboardProps {
     userEmail: string;
@@ -14,6 +15,7 @@ interface DashboardProps {
 
 export const Dashboard: React.FC<DashboardProps> = ({ userEmail, userName, userDepts, onLogout }) => {
     const [searchQuery, setSearchQuery] = useState('');
+    const { theme, toggle: toggleTheme } = useTheme();
     const [status, setStatus] = useState<SyncStatus | null>(null);
     const [ticketsByDept, setTicketsByDept] = useState<Record<string, BreachedTicket[]>>({});
     const [loading, setLoading] = useState(true);
@@ -103,7 +105,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ userEmail, userName, userD
                     </div>
                 </div>
 
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-4">
+                    <button
+                        onClick={toggleTheme}
+                        title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                        aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                        className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-obsidian-card border border-obsidian-border2 text-text-muted hover:text-neon-blue hover:border-neon-blue/40 transition-all text-[11px] font-medium"
+                    >
+                        {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                        <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
+                    </button>
                     <div className="flex flex-col items-end">
                         <span className="text-[10px] text-text-muted uppercase tracking-wider font-medium">Logged in as</span>
                         <span className="text-xs font-bold text-text-primary" title={userEmail}>{userName || userEmail.split('@')[0]}</span>
