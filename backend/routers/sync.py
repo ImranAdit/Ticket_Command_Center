@@ -3,20 +3,29 @@ Sync Router — exposes sync status, ticket data, manual trigger, and logs.
 """
 import os
 import asyncio
-from fastapi import APIRouter, Query, BackgroundTasks
+from fastapi import APIRouter, Query, BackgroundTasks, Request
 from typing import Optional
 
 from logic import cache
 from logic.zoho_auth import is_configured
 from services import zoho_fetcher_v2 as zoho_fetcher
+from routers.auth import can_see_dept
 
 router = APIRouter()
 
 
-@router.get("/status")
-def get_sync_status():
-    """Returns current sync metadata: last/next sync time, dept counts, errors."""
+def _scoped_status(request: Request) -> dict:
+    """Sync status limited to the departments this user may see."""
     status = cache.get_sync_status()
+    for key in ("dept_counts", "dept_errors"):
+        status[key] = {d: v for d, v in (status.get(key) or {}).items() if can_see_dept(request, d)}
+    return status
+
+
+@router.get("/status")
+def get_sync_status(request: Request):
+    """Returns current sync metadata: last/next sync time, dept counts, errors."""
+    status = _scoped_status(request)
     return {
         "configured": is_configured(),
         **status,
@@ -38,12 +47,13 @@ async def trigger_sync(background_tasks: BackgroundTasks):
 
 
 @router.get("/tickets")
-def get_tickets(dept: Optional[str] = Query(None, description="Filter by department name")):
+def get_tickets(request: Request, dept: Optional[str] = Query(None, description="Filter by department name")):
     """
     Returns cached SLA-breached tickets with no action.
     Optionally filter by ?dept=VoIP (etc.)
+    Department-level users only ever receive their own departments.
     """
-    all_data = cache.get_all_cached_tickets()
+    all_data = {d: t for d, t in cache.get_all_cached_tickets().items() if can_see_dept(request, d)}
 
     if dept:
         filtered = all_data.get(dept, [])
@@ -51,7 +61,7 @@ def get_tickets(dept: Optional[str] = Query(None, description="Filter by departm
             "dept": dept,
             "count": len(filtered),
             "tickets": filtered,
-            "sync_status": cache.get_sync_status(),
+            "sync_status": _scoped_status(request),
         }
 
     # Return all departments grouped
@@ -64,13 +74,13 @@ def get_tickets(dept: Optional[str] = Query(None, description="Filter by departm
     # Also include departments with no data in cache yet
     from services.zoho_fetcher_v2 import DEPARTMENTS
     for d in DEPARTMENTS:
-        if d["name"] not in grouped:
+        if d["name"] not in grouped and can_see_dept(request, d["name"]):
             grouped[d["name"]] = []
 
     return {
         "total": total,
         "departments": grouped,
-        "sync_status": cache.get_sync_status(),
+        "sync_status": _scoped_status(request),
     }
 
 
