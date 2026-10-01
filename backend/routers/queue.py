@@ -75,11 +75,35 @@ async def _last_note(client: httpx.AsyncClient, t: dict, d: dict) -> Optional[st
     if d.get("commentCount") not in (0, "0"):
         j = await zf._get_with_retry(client, f"{zf._api_base()}/api/v1/tickets/{t['id']}/comments",
                                      params={"from": 0, "limit": 100})
-        times = [x.get("commentedTime") for x in (j or {}).get("data") or [] if x.get("commentedTime")]
-        last = max(times) if times else None
+        notes = [x for x in (j or {}).get("data") or [] if x.get("commentedTime")]
+        last = max((x["commentedTime"] for x in notes), default=None)
+        staff = [x for x in notes if ((x.get("commenter") or {}).get("type") or "AGENT").upper() == "AGENT"]
+        if staff:
+            n = max(staff, key=lambda x: x["commentedTime"])
+            c["last_staff_note"] = (n["commentedTime"], _person(n.get("commenter")))
     if c:
         c["last_note"] = last
     return last
+
+
+def _person(p: Optional[dict]) -> Optional[str]:
+    p = p or {}
+    return (p.get("name") or f"{p.get('firstName') or ''} {p.get('lastName') or ''}".strip()
+            or p.get("email") or None)
+
+
+def _last_action(t: dict) -> dict:
+    """Most recent Adit staff action: a note or a reply to the customer, with who did it."""
+    c = _detail_cache.get(str(t["id"])) or {}
+    cands = []
+    if c.get("last_staff_note"):
+        cands.append((*c["last_staff_note"], "note"))
+    if c.get("last_staff_reply"):
+        cands.append((*c["last_staff_reply"], "reply"))
+    if not cands:
+        return {"last_action_by": None, "last_action_type": None, "last_action_time": None}
+    when, who, kind = max(cands, key=lambda x: x[0])
+    return {"last_action_by": who or "Adit agent", "last_action_type": kind, "last_action_time": when}
 
 
 async def _created_by(client: httpx.AsyncClient, t: dict, d: dict) -> Optional[str]:
@@ -95,6 +119,11 @@ async def _created_by(client: httpx.AsyncClient, t: dict, d: dict) -> Optional[s
     url = f"{zf._api_base()}/api/v1/tickets/{t['id']}/threads"
     j = await zf._get_with_retry(client, url, params={"from": 0, "limit": 100})
     threads = (j or {}).get("data") or []
+    replies = [x for x in threads if (x.get("direction") or "").lower() == "out"
+               and ((x.get("author") or {}).get("type") or "").upper() == "AGENT" and x.get("createdTime")]
+    if replies and c is not None:
+        r = max(replies, key=lambda x: x["createdTime"])
+        c["last_staff_reply"] = (r["createdTime"], _person(r.get("author")))
     first = next((x for x in threads if x.get("isDescriptionThread")), None)
     if not first and threads:
         count = int(d.get("threadCount") or t.get("threadCount") or 0)
@@ -212,6 +241,7 @@ async def _build() -> dict:
                 "created_by_contact": _contact_name(d) if created_by == "Client" else None,
                 "created_time": t.get("createdTime") or d.get("createdTime"),
                 "last_note_time": last_note,
+                **_last_action(t),
                 "status": t.get("status"),
                 "zoho_url": t.get("webUrl") or d.get("webUrl") or
                 f"https://help.adit.com/agent/aditadvertising/support/tickets/details/{tid}",
