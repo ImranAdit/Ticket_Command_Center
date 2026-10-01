@@ -13,6 +13,7 @@ export interface QueueTicket {
     priority: string;
     created_by?: string | null;
     created_time?: string | null;
+    last_note_time?: string | null;
     zoho_url: string;
 }
 
@@ -41,7 +42,7 @@ const ageLabel = (iso: string) => {
     return `${Math.round(h / 24)}d ago`;
 };
 
-const GRID = 'grid grid-cols-[8rem_13rem_1fr_8rem_11rem_10rem] gap-2';
+const GRID = 'grid grid-cols-[7rem_13rem_1fr_7rem_10rem_9rem_9rem] gap-2';
 
 export const UnassignedQueue: React.FC<{ search: string; onCount?: (n: number) => void }> = ({ search, onCount }) => {
     const [data, setData] = useState<QueueResponse | null>(null);
@@ -146,6 +147,7 @@ export const UnassignedQueue: React.FC<{ search: string; onCount?: (n: number) =
                                 <span>Priority</span>
                                 <span>Created By</span>
                                 <span>Created (CT)</span>
+                                <span>Last Note (CT)</span>
                             </div>
                             {rows.map((t) => (
                                 <div key={t.id} className={cn(GRID, 'px-4 py-2.5 items-center transition-colors hover:bg-white/[0.03] border-b border-obsidian-border/30 border-l-[3px] border-l-neon-blue/60')}>
@@ -179,6 +181,17 @@ export const UnassignedQueue: React.FC<{ search: string; onCount?: (n: number) =
                                             <span className="text-[9px] text-text-faint uppercase font-medium">{ageLabel(t.created_time)}</span>
                                         </div>
                                     ) : <div className="text-[11px] text-text-faint">—</div>}
+                                    {t.last_note_time ? (
+                                        <div className="flex flex-col" title={`Last note: ${fmtCT(t.last_note_time, true)} CT`}>
+                                            <span className="text-[11px] text-text-primary/90 whitespace-nowrap">{fmtCT(t.last_note_time)}</span>
+                                            <span className="text-[9px] text-text-faint uppercase font-medium">{ageLabel(t.last_note_time)}</span>
+                                        </div>
+                                    ) : (
+                                        <div className="flex flex-col">
+                                            <span className="text-[11px] text-text-faint">—</span>
+                                            <span className="text-[9px] text-text-faint uppercase font-medium">No notes</span>
+                                        </div>
+                                    )}
                                 </div>
                             ))}
                         </div>
