@@ -10,14 +10,13 @@ interface ActiveUser {
     picture?: string | null;
     role?: string;
     depts?: string[] | null;
+    super?: boolean;
     seconds_ago: number;
     you: boolean;
 }
 
 const initials = (u: ActiveUser) =>
     (u.name || u.email).split(/[\s.@_-]+/).filter(Boolean).slice(0, 2).map((p) => p[0]!.toUpperCase()).join('');
-
-const since = (s: number) => (s < 60 ? 'Active now' : `Active ${Math.round(s / 60)}m ago`);
 
 const Avatar: React.FC<{ user: ActiveUser; size?: number; ring?: boolean }> = ({ user, size = 28, ring = true }) => {
     const [broken, setBroken] = useState(false);
@@ -107,7 +106,7 @@ export const ActiveUsers: React.FC = () => {
                                     </div>
                                     <div className="text-[10px] text-text-muted truncate">{u.email}</div>
                                     <div className="text-[10px] text-text-faint truncate">
-                                        {u.role === 'admin' ? 'Full access' : (u.depts || []).join(' · ')} · {since(u.seconds_ago)}
+                                        {u.super ? 'Super Admin' : u.role === 'admin' ? 'Full access' : (u.depts || []).join(' · ')}
                                     </div>
                                 </div>
                             </div>
