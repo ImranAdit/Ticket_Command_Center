@@ -75,13 +75,35 @@ def _custom_fields(d: dict) -> dict:
     return out
 
 
+# Zoho fields that hold the deal, best first ("Deal Name" is a CRM lookup on most tickets)
+DEAL_KEYS = ("Deal Name", "cf_deal_name", "Deal Names", "Deal", "cf_deal", "cf_related_deal")
+
+
+def _text(v) -> Optional[str]:
+    """Readable text from a Zoho field value (plain text, lookup object or list)."""
+    if v is None:
+        return None
+    if isinstance(v, dict):
+        for k in ("name", "displayName", "Deal_Name", "dealName", "value", "label"):
+            if v.get(k):
+                return str(v[k]).strip()
+        return None
+    if isinstance(v, list):
+        parts = [p for p in (_text(x) for x in v) if p]
+        return ", ".join(parts) or None
+    s = str(v).strip()
+    return None if s in ("", "{}", "[]", "null", "None") else s
+
+
 def _deal_name(d: dict) -> Optional[str]:
     cf = _custom_fields(d)
-    for k, v in cf.items():
-        if "deal" in k.lower() and v not in (None, "", []):
-            return str(v)
-    acc = d.get("account") if isinstance(d.get("account"), dict) else {}
-    return acc.get("accountName") or d.get("accountName") or None
+    for k in DEAL_KEYS:
+        t = _text(cf.get(k))
+        if t:
+            return t
+    contact = d.get("contact") if isinstance(d.get("contact"), dict) else {}
+    acc = d.get("account") if isinstance(d.get("account"), dict) else (contact.get("account") or {})
+    return _text(acc.get("accountName") if isinstance(acc, dict) else None) or _text(d.get("accountName"))
 
 
 async def _agent_name(client: httpx.AsyncClient, agent_id) -> Optional[str]:
@@ -127,7 +149,7 @@ async def _build() -> dict:
                 "ticketNumber": t.get("ticketNumber") or d.get("ticketNumber") or "",
                 "subject": t.get("subject") or d.get("subject") or "No Subject",
                 "deal_name": _deal_name(d),
-                "priority": t.get("priority") or d.get("priority") or "—",
+                "priority": t.get("priority") or d.get("priority") or "None",
                 "created_by": created_by,
                 "created_time": t.get("createdTime") or d.get("createdTime"),
                 "status": t.get("status"),
@@ -162,7 +184,9 @@ async def t2cs_unassigned(request: Request, refresh: bool = False, debug: bool =
                 "list_keys": sorted(ts[0].keys()) if ts else [],
                 "detail_keys": sorted(d.keys()), "custom_field_keys": sorted(_custom_fields(d).keys()),
                 "has_createdBy": bool(d.get("createdBy")), "agent_lookup_ok": bool(agent),
-                "contact_keys": sorted((d.get("contact") or {}).keys()) if isinstance(d.get("contact"), dict) else None}
+                "contact_keys": sorted((d.get("contact") or {}).keys()) if isinstance(d.get("contact"), dict) else None,
+                "deal_fields": {k: type(_custom_fields(d).get(k)).__name__ for k in DEAL_KEYS},
+                "deal_name_resolved": _deal_name(d)}
 
     if refresh or not _cache["payload"] or time.time() - _cache["at"] > CACHE_SECONDS:
         try:
