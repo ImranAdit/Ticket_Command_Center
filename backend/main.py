@@ -21,7 +21,7 @@ load_dotenv()
 
 # Import your local logic and routers
 # Note: Ensure these files exist in your 'backend' folder
-from routers import zoho, sync, actions, sla, auth
+from routers import zoho, sync, actions, sla, auth, queue
 from logic.business_hours import classify_ticket
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
@@ -86,6 +86,7 @@ app.include_router(zoho.router,    prefix="/api/zoho",    tags=["zoho"])
 app.include_router(sync.router,    prefix="/api/sync",    tags=["sync"])
 app.include_router(actions.router, prefix="/api/actions", tags=["actions"])
 app.include_router(sla.router,     prefix="/api/sla",     tags=["sla"])
+app.include_router(queue.router,   prefix="/api/queue",   tags=["queue"])
 
 # ─── Models ─────────────────────────────────────────────────────────────────
 class TicketInput(BaseModel):
