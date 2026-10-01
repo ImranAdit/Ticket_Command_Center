@@ -171,7 +171,8 @@ def can_view_queue(email: str) -> bool:
 
 def touch_presence(s: dict) -> None:
     _presence[s["email"]] = {"email": s["email"], "name": s.get("name"), "picture": s.get("picture"),
-                             "role": s.get("role"), "depts": s.get("depts"), "last_seen": time.time()}
+                             "role": s.get("role"), "depts": s.get("depts"), "super": bool(s.get("super")),
+                             "last_seen": time.time()}
 
 
 async def require_session(request: Request, call_next):
