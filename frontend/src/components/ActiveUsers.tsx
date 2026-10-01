@@ -104,7 +104,6 @@ export const ActiveUsers: React.FC = () => {
                                     <div className="text-[12px] font-semibold text-text-primary truncate">
                                         {u.name || u.email.split('@')[0]}{u.you && <span className="text-text-muted font-normal"> (you)</span>}
                                     </div>
-                                    <div className="text-[10px] text-text-muted truncate">{u.email}</div>
                                     <div className="text-[10px] text-text-faint truncate">
                                         {u.super ? 'Super Admin' : u.role === 'admin' ? 'Full access' : (u.depts || []).join(' · ')}
                                     </div>
