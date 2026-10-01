@@ -12,6 +12,7 @@ export interface QueueTicket {
     deal_name?: string | null;
     priority: string;
     created_by?: string | null;
+    created_by_contact?: string | null;
     created_time?: string | null;
     last_note_time?: string | null;
     zoho_url: string;
@@ -172,7 +173,7 @@ export const UnassignedQueue: React.FC<{ search: string; onCount?: (n: number) =
                                             {t.priority}
                                         </span>
                                     </div>
-                                    <div className="text-[11px] text-text-muted truncate" title={t.created_by || ''}>
+                                    <div className="text-[11px] text-text-muted truncate" title={t.created_by === 'Client' && t.created_by_contact ? `Client: ${t.created_by_contact}` : (t.created_by || '')}>
                                         {t.created_by || '—'}
                                     </div>
                                     {t.created_time ? (
