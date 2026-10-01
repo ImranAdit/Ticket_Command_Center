@@ -82,6 +82,40 @@ async def _last_note(client: httpx.AsyncClient, t: dict, d: dict) -> Optional[st
     return last
 
 
+async def _created_by(client: httpx.AsyncClient, t: dict, d: dict) -> Optional[str]:
+    """
+    Who opened the ticket, from its first (description) thread:
+      customer email/web/chat message -> "Client"
+      Adit agent (phone ticket, new outbound email, internal) -> the agent's name
+    Falls back to Zoho's createdBy agent only if the ticket has no threads.
+    """
+    c = _detail_cache.get(str(t["id"])) or {}
+    if "created_by" in c:
+        return c["created_by"]
+    url = f"{zf._api_base()}/api/v1/tickets/{t['id']}/threads"
+    j = await zf._get_with_retry(client, url, params={"from": 0, "limit": 100})
+    threads = (j or {}).get("data") or []
+    first = next((x for x in threads if x.get("isDescriptionThread")), None)
+    if not first and threads:
+        count = int(d.get("threadCount") or t.get("threadCount") or 0)
+        if count > len(threads):   # oldest thread is on a later page
+            j2 = await zf._get_with_retry(client, url, params={"from": count - 1, "limit": 1})
+            threads += (j2 or {}).get("data") or []
+        first = min(threads, key=lambda x: x.get("createdTime") or "9999")
+    if first:
+        author = first.get("author") or {}
+        if (author.get("type") or "").upper() == "AGENT" and (first.get("direction") or "").lower() != "in":
+            who = (author.get("name") or f"{author.get('firstName') or ''} {author.get('lastName') or ''}".strip()
+                   or await _agent_name(client, d.get("createdBy")) or "Adit agent")
+        else:
+            who = "Client"
+    else:
+        who = await _agent_name(client, d.get("createdBy")) or "Client"
+    if c:
+        c["created_by"] = who
+    return who
+
+
 def _custom_fields(d: dict) -> dict:
     out = {}
     for key in ("cf", "customFields"):
@@ -166,7 +200,7 @@ async def _build() -> dict:
             async with sem:
                 d = await _detail(client, t)
                 last_note = await _last_note(client, t, d)
-            created_by = await _agent_name(client, d.get("createdBy")) or _contact_name(d)
+            created_by = await _created_by(client, t, d)
             tid = str(t["id"])
             return {
                 "id": tid,
@@ -175,6 +209,7 @@ async def _build() -> dict:
                 "deal_name": _deal_name(d),
                 "priority": t.get("priority") or d.get("priority") or "None",
                 "created_by": created_by,
+                "created_by_contact": _contact_name(d) if created_by == "Client" else None,
                 "created_time": t.get("createdTime") or d.get("createdTime"),
                 "last_note_time": last_note,
                 "status": t.get("status"),
