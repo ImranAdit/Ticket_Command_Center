@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, AlertCircle } from 'lucide-react';
+import { ExternalLink, AlertCircle, Phone } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { type BreachedTicket } from '../lib/api';
 
@@ -53,8 +53,22 @@ export const BreachTicketRow: React.FC<BreachTicketRowProps> = ({ ticket }) => {
 
             {/* Subject */}
             <div className="min-w-0 pr-4">
-                <div className="text-[12px] truncate text-text-primary/90" title={ticket.subject}>
-                    {ticket.subject}
+                <div className="flex items-center gap-1.5 min-w-0">
+                    {ticket.rule === 'callback' && (
+                        <Phone
+                            className={cn(
+                                "w-3.5 h-3.5 shrink-0",
+                                ticket.severity === 'critical' ? "text-crimson-red" :
+                                ticket.severity === 'moderate' ? "text-amber-gold" : "text-neon-blue"
+                            )}
+                            aria-label="Callback ticket"
+                        >
+                            <title>Callback ticket (Pending Meeting)</title>
+                        </Phone>
+                    )}
+                    <div className="text-[12px] truncate text-text-primary/90" title={ticket.subject}>
+                        {ticket.subject}
+                    </div>
                 </div>
                 {ticket.detail && (
                     <div className="text-[10px] truncate text-text-faint mt-0.5" title={ticket.detail}>
