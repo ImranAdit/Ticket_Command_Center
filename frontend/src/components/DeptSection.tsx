@@ -32,11 +32,40 @@ export const DeptSection: React.FC<DeptSectionProps> = ({
     name, tickets, isLoading = false, error, onActionDone
 }) => {
     const [collapsed, setCollapsed] = useState(false);
+    // Click a badge to show only that kind of ticket; click it again to show everything
+    const [filter, setFilter] = useState<'critical' | 'moderate' | 'watch' | null>(null);
     const colorClass = DEPT_COLORS[name] || 'text-text-primary border-obsidian-border2';
     const icon = DEPT_ICONS[name] || '📋';
     const criticalCount = tickets.filter(t => t.severity === 'critical').length;
     const moderateCount = tickets.filter(t => t.severity === 'moderate').length;
     const watchCount = tickets.filter(t => t.severity === 'watch').length;
+    const filtered = filter ? tickets.filter(t => t.severity === filter) : tickets;
+    // if the chosen kind no longer has tickets (e.g. after a sync), fall back to the full list
+    const shown = filtered.length ? filtered : tickets;
+
+    // Badges sit inside the header (which collapses the section), so they stop the click from bubbling
+    const badgeProps = (kind: 'critical' | 'moderate' | 'watch', count: number) => ({
+        role: 'button' as const,
+        tabIndex: count > 0 ? 0 : -1,
+        'aria-pressed': filter === kind,
+        title: count === 0 ? undefined : filter === kind ? 'Show all tickets' : 'Show only these tickets',
+        onClick: (e: React.MouseEvent) => {
+            e.stopPropagation();
+            if (count === 0) return;
+            setFilter(f => (f === kind ? null : kind));
+            setCollapsed(false);
+        },
+        onKeyDown: (e: React.KeyboardEvent) => {
+            if ((e.key === 'Enter' || e.key === ' ') && count > 0) {
+                e.preventDefault(); e.stopPropagation();
+                setFilter(f => (f === kind ? null : kind));
+                setCollapsed(false);
+            }
+        },
+    });
+    const activeRing = (kind: string) => filter === kind
+        ? 'ring-2 ring-offset-1 ring-offset-obsidian-surface ring-current'
+        : filter ? 'opacity-50 hover:opacity-100' : 'hover:brightness-125';
 
     return (
         <div className="rounded-xl border border-obsidian-border bg-obsidian-surface/60 overflow-hidden">
@@ -54,21 +83,23 @@ export const DeptSection: React.FC<DeptSectionProps> = ({
                     {/* Breach count badge */}
                     {tickets.length > 0 ? (
                         <div className="flex items-center gap-1.5">
-                            <span className={cn(
-                                "flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full border",
-                                "bg-crimson-red/10 text-crimson-red border-crimson-red/30"
+                            <span {...badgeProps('critical', criticalCount)} className={cn(
+                                "flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full border transition-all",
+                                "bg-crimson-red/10 text-crimson-red border-crimson-red/30",
+                                criticalCount > 0 && "cursor-pointer", activeRing('critical')
                             )}>
                                 <ShieldAlert className="w-3 h-3" />
                                 {criticalCount} breach{criticalCount !== 1 ? 'es' : ''}
                             </span>
                             {moderateCount > 0 && (
-                                <span className="text-[10px] px-1.5 py-0.5 bg-amber-gold/20 text-amber-gold rounded font-bold">
+                                <span {...badgeProps('moderate', moderateCount)}
+                                      className={cn("text-[10px] px-1.5 py-0.5 bg-amber-gold/20 text-amber-gold rounded font-bold cursor-pointer transition-all", activeRing('moderate'))}>
                                     {moderateCount} AT RISK
                                 </span>
                             )}
                             {watchCount > 0 && (
-                                <span className="text-[10px] px-1.5 py-0.5 bg-neon-blue/15 text-neon-blue rounded font-bold"
-                                      title="Pending Meeting ticket with no readable callback time in its private notes">
+                                <span {...badgeProps('watch', watchCount)}
+                                      className={cn("text-[10px] px-1.5 py-0.5 bg-neon-blue/15 text-neon-blue rounded font-bold cursor-pointer transition-all", activeRing('watch'))}>
                                     {watchCount} CALLBACK UNCLEAR
                                 </span>
                             )}
@@ -134,7 +165,16 @@ export const DeptSection: React.FC<DeptSectionProps> = ({
                                 <span>Priority</span>
                                 <span>Overdue</span>
                             </div>
-                            {tickets.map(ticket => (
+                            {filter && filtered.length > 0 && (
+                                <div className="px-4 py-1.5 text-[10px] text-text-muted bg-black/10 border-b border-obsidian-border/40">
+                                    Showing {shown.length} of {tickets.length} —{' '}
+                                    {filter === 'critical' ? 'breaches' : filter === 'moderate' ? 'at risk' : 'callback unclear'} only.{' '}
+                                    <span role="button" tabIndex={0} className="text-neon-blue cursor-pointer hover:underline"
+                                          onClick={() => setFilter(null)}
+                                          onKeyDown={(e) => { if (e.key === 'Enter') setFilter(null); }}>Show all</span>
+                                </div>
+                            )}
+                            {shown.map(ticket => (
                                 <BreachTicketRow
                                     key={ticket.id}
                                     ticket={ticket}
