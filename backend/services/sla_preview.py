@@ -278,9 +278,11 @@ async def refresh(grouped_raw: dict[str, list[dict]]) -> None:
                         details = await _fetch_details(client, t)
                         _details_cache[tid] = {"modified": t.get("modifiedTime"), "details": details}
                     ev = sla_rules.evaluate_ticket(t, details, now)
-                    acts = [d for d in details.get("agent_replies", []) if d] + \
-                           [n["time"] for n in details.get("notes", []) if n.get("time")]
-                    last_agent = max(acts).isoformat() if acts else None
+                    # latest agent action, and whether it was a reply to the customer or a note
+                    acts = [(d, "reply") for d in details.get("agent_replies", []) if d] + \
+                           [(n["time"], "note") for n in details.get("notes", []) if n.get("time")]
+                    last_dt, last_kind = max(acts, key=lambda a: a[0]) if acts else (None, None)
+                    last_agent = last_dt.isoformat() if last_dt else None
                     assignee = t.get("assignee") or {}
                     out[dept].append({
                         "id": tid,
@@ -295,6 +297,7 @@ async def refresh(grouped_raw: dict[str, list[dict]]) -> None:
                         "created_time": t.get("createdTime"),
                         "modified_time": t.get("modifiedTime"),
                         "last_agent_action": last_agent,
+                        "last_agent_action_type": last_kind,
                         "due_date": t.get("dueDate"),
                         "zoho_url": t.get("webUrl") or
                         f"https://help.adit.com/agent/aditadvertising/support/tickets/details/{tid}",
@@ -352,6 +355,7 @@ def _publish_to_dashboard(out: dict[str, list[dict]]) -> None:
             "created_time": r.get("created_time"),
             "modified_time": r.get("modified_time"),
             "last_agent_action": r.get("last_agent_action"),
+            "last_agent_action_type": r.get("last_agent_action_type"),
             "due_date": r.get("due_date"),
             "hours_overdue": r.get("hours") or 0,
             "severity": SEVERITY[r["state"]],
