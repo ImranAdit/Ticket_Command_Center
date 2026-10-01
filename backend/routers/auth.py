@@ -148,7 +148,7 @@ def read_session(token: str | None) -> dict | None:
     if data.get("x", 0) < time.time() or not is_allowed(data.get("e", "")):
         return None
     return {"email": data["e"], "name": data.get("n") or None, "picture": data.get("p") or None,
-            "super": is_owner(data["e"]), **access_for(data["e"])}
+            "super": is_owner(data["e"]), "queues": can_view_queue(data["e"]), **access_for(data["e"])}
 
 
 # ─── Who's online (super admin only) ──────────────────────────────────────
@@ -161,6 +161,12 @@ _presence: dict[str, dict] = {}
 
 def is_owner(email: str) -> bool:
     return (email or "").strip().lower() in _split(os.getenv("OWNER_EMAILS", "imran@adit.com"))
+
+
+def can_view_queue(email: str) -> bool:
+    """Extra queues (e.g. T2 CS - Open Unassigned): owner + QUEUE_VIEWERS only."""
+    e = (email or "").strip().lower()
+    return is_owner(e) or e in _split(os.getenv("QUEUE_VIEWERS", ""))
 
 
 def touch_presence(s: dict) -> None:
@@ -177,7 +183,8 @@ async def require_session(request: Request, call_next):
             return JSONResponse({"detail": "Not signed in or access not granted"}, status_code=401)
         request.state.access = {"role": s["role"], "depts": s["depts"]}
         touch_presence(s)
-        if s["role"] != "admin" and not path.startswith(DEPT_USER_PATHS):
+        if (s["role"] != "admin" and not path.startswith(DEPT_USER_PATHS)
+                and not (path.startswith("/api/queue/") and can_view_queue(s["email"]))):
             return JSONResponse({"detail": "Not available for department-level access"}, status_code=403)
     return await call_next(request)
 
