@@ -83,13 +83,21 @@ export const BreachTicketRow: React.FC<BreachTicketRowProps> = ({ ticket }) => {
                 if (!ts || isNaN(new Date(ts).getTime())) {
                     return <div className="text-[11px] text-text-faint">—</div>;
                 }
-                const isAgent = !!ticket.last_agent_action;
+                const kind = ticket.last_agent_action_type;
+                const label = !ticket.last_agent_action ? 'Last modified'
+                    : kind === 'note' ? 'Note'
+                    : kind === 'reply' ? 'Agent reply'
+                    : 'Agent reply / note';   // until the next sync fills in the type
+                const tip = !ticket.last_agent_action ? 'Last modified'
+                    : kind === 'note' ? 'Last action: private note'
+                    : kind === 'reply' ? 'Last action: reply to the customer'
+                    : 'Last agent reply / note';
                 return (
-                    <div className="flex flex-col min-w-0"
-                         title={`${isAgent ? 'Last agent reply / note' : 'Last modified'}: ${fmtCT(ts, true)} CT`}>
+                    <div className="flex flex-col min-w-0" title={`${tip}: ${fmtCT(ts, true)} CT`}>
                         <span className="text-[11px] text-text-primary/90 whitespace-nowrap">{fmtCT(ts)}</span>
-                        <span className="text-[9px] text-text-faint uppercase font-medium">
-                            {isAgent ? 'Agent reply / note' : 'Last modified'}
+                        <span className={cn("text-[9px] uppercase font-medium",
+                            kind === 'note' ? "text-amber-gold/80" : kind === 'reply' ? "text-neon-blue/80" : "text-text-faint")}>
+                            {label}
                         </span>
                     </div>
                 );
