@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { LogOut, Activity, Clock, ShieldAlert, LayoutDashboard, Search, Filter, Sun, Moon } from 'lucide-react';
-import { fetchSyncStatus, fetchTickets, type BreachedTicket, type SyncStatus } from '../lib/api';
+import { LogOut, Activity, Clock, ShieldAlert, LayoutDashboard, Search, Filter, Sun, Moon, Inbox, ArrowLeft } from 'lucide-react';
+import { fetchSyncStatus, fetchTickets, getSession, type BreachedTicket, type SyncStatus } from '../lib/api';
 import { SyncStatusBar } from './SyncStatusBar';
 import { DeptSection } from './DeptSection';
 import { ADIT_LOGO } from '../assets/aditLogo';
 import { useTheme } from '../lib/theme';
 import { ActiveUsers } from './ActiveUsers';
+import { UnassignedQueue, fetchUnassignedQueue } from './UnassignedQueue';
 
 interface DashboardProps {
     userEmail: string;
@@ -17,6 +18,17 @@ interface DashboardProps {
 export const Dashboard: React.FC<DashboardProps> = ({ userEmail, userName, userDepts, onLogout }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const { theme, toggle: toggleTheme } = useTheme();
+    // Extra queue view (T2 CS - Open Unassigned) — only for accounts the server allows
+    const [view, setView] = useState<'breaches' | 'unassigned'>('breaches');
+    const [canQueue, setCanQueue] = useState(false);
+    const [queueCount, setQueueCount] = useState<number | null>(null);
+    useEffect(() => {
+        getSession().then((s) => {
+            if (!s?.queues) return;
+            setCanQueue(true);
+            fetchUnassignedQueue().then((r) => setQueueCount(r.count ?? r.tickets?.length ?? 0)).catch(() => {});
+        });
+    }, []);
     const [status, setStatus] = useState<SyncStatus | null>(null);
     const [ticketsByDept, setTicketsByDept] = useState<Record<string, BreachedTicket[]>>({});
     const [loading, setLoading] = useState(true);
@@ -107,6 +119,23 @@ export const Dashboard: React.FC<DashboardProps> = ({ userEmail, userName, userD
                 </div>
 
                 <div className="flex items-center gap-4">
+                    {canQueue && (
+                        <button
+                            onClick={() => setView((v) => (v === 'breaches' ? 'unassigned' : 'breaches'))}
+                            title={view === 'breaches' ? 'Open the T2 CS - Open Unassigned queue' : 'Back to SLA breaches'}
+                            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all text-[11px] font-medium ${
+                                view === 'unassigned'
+                                    ? 'bg-neon-blue/10 border-neon-blue/40 text-neon-blue'
+                                    : 'bg-obsidian-card border-obsidian-border2 text-text-muted hover:text-neon-blue hover:border-neon-blue/40'
+                            }`}
+                        >
+                            {view === 'breaches' ? <Inbox className="w-4 h-4" /> : <ArrowLeft className="w-4 h-4" />}
+                            <span>{view === 'breaches' ? 'T2 CS Unassigned' : 'SLA Breaches'}</span>
+                            {view === 'breaches' && queueCount !== null && (
+                                <span className="ml-0.5 px-1.5 rounded-full bg-neon-blue/15 text-neon-blue text-[10px] font-bold">{queueCount}</span>
+                            )}
+                        </button>
+                    )}
                     <ActiveUsers />
                     <button
                         onClick={toggleTheme}
@@ -145,7 +174,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ userEmail, userName, userD
                 <div className="absolute bottom-0 right-1/4 w-[400px] h-[300px] bg-purple-dev/5 blur-[120px] pointer-events-none rounded-full" />
 
                 <div className="max-w-[1400px] mx-auto p-6 flex flex-col gap-6 relative z-10">
-                    
+                    {view === 'unassigned' ? (
+                        <UnassignedQueue search={searchQuery} onCount={setQueueCount} />
+                    ) : (<>
                     {/* Hero Metric Tiles */}
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <div className="glass-card p-5 group flex flex-col gap-3 hover:border-neon-blue/30 transition-all border-t-2 border-t-neon-blue">
@@ -237,6 +268,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ userEmail, userName, userD
                             )}
                         </div>
                     </div>
+                    </>)}
                 </div>
             </main>
 
