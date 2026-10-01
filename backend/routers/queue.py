@@ -66,6 +66,22 @@ async def _detail(client: httpx.AsyncClient, t: dict) -> dict:
     return d
 
 
+async def _last_note(client: httpx.AsyncClient, t: dict, d: dict) -> Optional[str]:
+    """Time of the most recent note (comment) on the ticket; cached with the ticket detail."""
+    c = _detail_cache.get(str(t["id"])) or {}
+    if "last_note" in c:
+        return c["last_note"]
+    last = None
+    if d.get("commentCount") not in (0, "0"):
+        j = await zf._get_with_retry(client, f"{zf._api_base()}/api/v1/tickets/{t['id']}/comments",
+                                     params={"from": 0, "limit": 100})
+        times = [x.get("commentedTime") for x in (j or {}).get("data") or [] if x.get("commentedTime")]
+        last = max(times) if times else None
+    if c:
+        c["last_note"] = last
+    return last
+
+
 def _custom_fields(d: dict) -> dict:
     out = {}
     for key in ("cf", "customFields"):
@@ -149,6 +165,7 @@ async def _build() -> dict:
         async def row(t: dict) -> dict:
             async with sem:
                 d = await _detail(client, t)
+                last_note = await _last_note(client, t, d)
             created_by = await _agent_name(client, d.get("createdBy")) or _contact_name(d)
             tid = str(t["id"])
             return {
@@ -159,6 +176,7 @@ async def _build() -> dict:
                 "priority": t.get("priority") or d.get("priority") or "None",
                 "created_by": created_by,
                 "created_time": t.get("createdTime") or d.get("createdTime"),
+                "last_note_time": last_note,
                 "status": t.get("status"),
                 "zoho_url": t.get("webUrl") or d.get("webUrl") or
                 f"https://help.adit.com/agent/aditadvertising/support/tickets/details/{tid}",
