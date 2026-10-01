@@ -95,12 +95,19 @@ def _text(v) -> Optional[str]:
     return None if s in ("", "{}", "[]", "null", "None") else s
 
 
+def _clean_deals(s: str) -> str:
+    """'Pittsburg Dental - PDS(1607…);Sky Dental - SKY(1607…)' -> 'Pittsburg Dental - PDS, Sky Dental - SKY'"""
+    import re
+    parts = [re.sub(r"\s*\(\d{6,}\)\s*$", "", p).strip() for p in s.split(";")]
+    return ", ".join(p for p in parts if p)
+
+
 def _deal_name(d: dict) -> Optional[str]:
     cf = _custom_fields(d)
     for k in DEAL_KEYS:
         t = _text(cf.get(k))
         if t:
-            return t
+            return _clean_deals(t)
     contact = d.get("contact") if isinstance(d.get("contact"), dict) else {}
     acc = d.get("account") if isinstance(d.get("account"), dict) else (contact.get("account") or {})
     return _text(acc.get("accountName") if isinstance(acc, dict) else None) or _text(d.get("accountName"))
