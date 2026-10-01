@@ -81,6 +81,7 @@ export interface BreachedTicket {
   created_time: string | null;
   modified_time: string | null;
   last_agent_action?: string | null;
+  last_agent_action_type?: 'reply' | 'note' | null;
   due_date: string | null;
   hours_overdue: number;
   severity: Severity;
