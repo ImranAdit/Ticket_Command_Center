@@ -76,7 +76,13 @@ export const DeptSection: React.FC<DeptSectionProps> = ({
             >
                 <div className="flex items-center gap-3">
                     <span className="text-base">{icon}</span>
-                    <span className={cn("font-bold tracking-wide text-[13px]", colorClass.split(' ')[0])}>
+                    <span
+                        role="button"
+                        tabIndex={0}
+                        title={filter ? 'Show all tickets' : undefined}
+                        onClick={(e) => { e.stopPropagation(); setFilter(null); setCollapsed(false); }}
+                        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); setFilter(null); setCollapsed(false); } }}
+                        className={cn("font-bold tracking-wide text-[13px] cursor-pointer hover:underline underline-offset-4", colorClass.split(' ')[0])}>
                         {name}
                     </span>
 
