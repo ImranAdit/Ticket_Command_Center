@@ -46,7 +46,7 @@ const ageLabel = (iso: string) => {
     return `${Math.round(h / 24)}d ago`;
 };
 
-const GRID = 'grid grid-cols-[6.5rem_12rem_1fr_6.5rem_9rem_9.5rem_8.5rem_8.5rem] gap-2';
+const GRID = 'grid grid-cols-[6.5rem_12rem_1fr_6.5rem_9rem_8.5rem_9.5rem_8.5rem] gap-2';
 
 export const UnassignedQueue: React.FC<{ search: string; onCount?: (n: number) => void }> = ({ search, onCount }) => {
     const [data, setData] = useState<QueueResponse | null>(null);
@@ -150,8 +150,8 @@ export const UnassignedQueue: React.FC<{ search: string; onCount?: (n: number) =
                                 <span>Subject</span>
                                 <span>Priority</span>
                                 <span>Created By</span>
-                                <span>Last Action</span>
                                 <span>Created (CT)</span>
+                                <span>Last Action</span>
                                 <span>Last Note (CT)</span>
                             </div>
                             {rows.map((t) => (
@@ -180,6 +180,12 @@ export const UnassignedQueue: React.FC<{ search: string; onCount?: (n: number) =
                                     <div className="text-[11px] text-text-muted truncate" title={t.created_by === 'Client' && t.created_by_contact ? `Client: ${t.created_by_contact}` : (t.created_by || '')}>
                                         {t.created_by || '—'}
                                     </div>
+                                    {t.created_time ? (
+                                        <div className="flex flex-col" title={`${fmtCT(t.created_time, true)} CT`}>
+                                            <span className="text-[11px] text-text-primary/90 whitespace-nowrap">{fmtCT(t.created_time)}</span>
+                                            <span className="text-[9px] text-text-faint uppercase font-medium">{ageLabel(t.created_time)}</span>
+                                        </div>
+                                    ) : <div className="text-[11px] text-text-faint">—</div>}
                                     {t.last_action_by ? (
                                         <div className="flex flex-col min-w-0"
                                              title={`${t.last_action_type === 'reply' ? 'Replied to the customer' : 'Added a note'}${t.last_action_time ? ` · ${fmtCT(t.last_action_time, true)} CT` : ''}`}>
@@ -196,12 +202,6 @@ export const UnassignedQueue: React.FC<{ search: string; onCount?: (n: number) =
                                             <span className="text-[9px] text-text-faint uppercase font-medium">No staff action</span>
                                         </div>
                                     )}
-                                    {t.created_time ? (
-                                        <div className="flex flex-col" title={`${fmtCT(t.created_time, true)} CT`}>
-                                            <span className="text-[11px] text-text-primary/90 whitespace-nowrap">{fmtCT(t.created_time)}</span>
-                                            <span className="text-[9px] text-text-faint uppercase font-medium">{ageLabel(t.created_time)}</span>
-                                        </div>
-                                    ) : <div className="text-[11px] text-text-faint">—</div>}
                                     {t.last_note_time ? (
                                         <div className="flex flex-col" title={`Last note: ${fmtCT(t.last_note_time, true)} CT`}>
                                             <span className="text-[11px] text-text-primary/90 whitespace-nowrap">{fmtCT(t.last_note_time)}</span>
