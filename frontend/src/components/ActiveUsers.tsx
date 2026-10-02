@@ -71,6 +71,9 @@ export const ActiveUsers: React.FC = () => {
     const shown = others.slice(0, 5);
     const extra = others.length - shown.length;
 
+    // nothing to show when nobody else is signed in
+    if (others.length === 0) return null;
+
     return (
         <div className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
             <button
